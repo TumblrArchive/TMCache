@@ -1,0 +1,277 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D0EE49411684E911009F30AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49401684E911009F30AE /* UIKit.framework */; };
+		D0EE49431684E911009F30AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49421684E911009F30AE /* Foundation.framework */; };
+		D0EE49451684E911009F30AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49441684E911009F30AE /* CoreGraphics.framework */; };
+		D0EE494D1684E911009F30AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE494C1684E911009F30AE /* main.m */; };
+		D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE49501684E911009F30AE /* TMAppDelegate.m */; };
+		D0EE49601684E990009F30AE /* TMPettyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE495F1684E990009F30AE /* TMPettyCache.m */; };
+		D0EE49641684EA62009F30AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EE49631684EA62009F30AE /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D0EE493C1684E911009F30AE /* TMCacheExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMCacheExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0EE49401684E911009F30AE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D0EE49421684E911009F30AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D0EE49441684E911009F30AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D0EE49481684E911009F30AE /* TMCacheExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TMCacheExample-Info.plist"; sourceTree = "<group>"; };
+		D0EE494C1684E911009F30AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D0EE494E1684E911009F30AE /* TMCacheExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TMCacheExample-Prefix.pch"; sourceTree = "<group>"; };
+		D0EE494F1684E911009F30AE /* TMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMAppDelegate.h; sourceTree = "<group>"; };
+		D0EE49501684E911009F30AE /* TMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMAppDelegate.m; sourceTree = "<group>"; };
+		D0EE495E1684E990009F30AE /* TMPettyCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMPettyCache.h; sourceTree = "<group>"; };
+		D0EE495F1684E990009F30AE /* TMPettyCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMPettyCache.m; sourceTree = "<group>"; };
+		D0EE49631684EA62009F30AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0EE49391684E911009F30AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE49411684E911009F30AE /* UIKit.framework in Frameworks */,
+				D0EE49431684E911009F30AE /* Foundation.framework in Frameworks */,
+				D0EE49451684E911009F30AE /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0EE49311684E911009F30AE = {
+			isa = PBXGroup;
+			children = (
+				D0EE49461684E911009F30AE /* TMCacheExample */,
+				D0EE495D1684E990009F30AE /* TMPettyCache */,
+				D0EE49471684E911009F30AE /* Supporting Files */,
+				D0EE493F1684E911009F30AE /* Frameworks */,
+				D0EE493D1684E911009F30AE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0EE493D1684E911009F30AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE493C1684E911009F30AE /* TMCacheExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0EE493F1684E911009F30AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE49401684E911009F30AE /* UIKit.framework */,
+				D0EE49421684E911009F30AE /* Foundation.framework */,
+				D0EE49441684E911009F30AE /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0EE49461684E911009F30AE /* TMCacheExample */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE494F1684E911009F30AE /* TMAppDelegate.h */,
+				D0EE49501684E911009F30AE /* TMAppDelegate.m */,
+			);
+			path = TMCacheExample;
+			sourceTree = "<group>";
+		};
+		D0EE49471684E911009F30AE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE49631684EA62009F30AE /* Default-568h@2x.png */,
+				D0EE494C1684E911009F30AE /* main.m */,
+				D0EE49481684E911009F30AE /* TMCacheExample-Info.plist */,
+				D0EE494E1684E911009F30AE /* TMCacheExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = TMCacheExample;
+			sourceTree = "<group>";
+		};
+		D0EE495D1684E990009F30AE /* TMPettyCache */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE495E1684E990009F30AE /* TMPettyCache.h */,
+				D0EE495F1684E990009F30AE /* TMPettyCache.m */,
+			);
+			name = TMPettyCache;
+			path = ../TMPettyCache;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D0EE493B1684E911009F30AE /* TMCacheExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0EE495A1684E911009F30AE /* Build configuration list for PBXNativeTarget "TMCacheExample" */;
+			buildPhases = (
+				D0EE49381684E911009F30AE /* Sources */,
+				D0EE49391684E911009F30AE /* Frameworks */,
+				D0EE493A1684E911009F30AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TMCacheExample;
+			productName = TMCacheExample;
+			productReference = D0EE493C1684E911009F30AE /* TMCacheExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0EE49331684E911009F30AE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TM;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Tumblr;
+			};
+			buildConfigurationList = D0EE49361684E911009F30AE /* Build configuration list for PBXProject "TMCacheExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D0EE49311684E911009F30AE;
+			productRefGroup = D0EE493D1684E911009F30AE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0EE493B1684E911009F30AE /* TMCacheExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0EE493A1684E911009F30AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE49641684EA62009F30AE /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0EE49381684E911009F30AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE494D1684E911009F30AE /* main.m in Sources */,
+				D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */,
+				D0EE49601684E990009F30AE /* TMPettyCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D0EE49581684E911009F30AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D0EE49591684E911009F30AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D0EE495B1684E911009F30AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMCacheExample/TMCacheExample-Prefix.pch";
+				INFOPLIST_FILE = "TMCacheExample/TMCacheExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D0EE495C1684E911009F30AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMCacheExample/TMCacheExample-Prefix.pch";
+				INFOPLIST_FILE = "TMCacheExample/TMCacheExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0EE49361684E911009F30AE /* Build configuration list for PBXProject "TMCacheExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0EE49581684E911009F30AE /* Debug */,
+				D0EE49591684E911009F30AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0EE495A1684E911009F30AE /* Build configuration list for PBXNativeTarget "TMCacheExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0EE495B1684E911009F30AE /* Debug */,
+				D0EE495C1684E911009F30AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D0EE49331684E911009F30AE /* Project object */;
+}
