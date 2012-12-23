@@ -31,6 +31,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     self.cache.delegate = nil;
 
     #if !OS_OBJECT_USE_OBJC
@@ -58,6 +60,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         self.cachePath = [dirPath stringByAppendingPathComponent:self.name];
         
         [self createCacheDirectory];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(clearMemoryCache)
+                                                     name:UIApplicationDidReceiveMemoryWarningNotification
+                                                   object:[UIApplication sharedApplication]];
     }
     return self;
 }
