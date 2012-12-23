@@ -234,21 +234,19 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (void)resetCache
+- (void)clearDiskCache
 {
     __weak __typeof(self) weakSelf = self;
-
+    
     dispatch_async(self.queue, ^{
         __typeof(weakSelf) strongSelf = weakSelf;
-
-        [strongSelf.cache removeAllObjects];
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
             if (error)
                 TMPettyCacheError(error);
-
+            
             [strongSelf createCacheDirectory];
         }
     });
@@ -259,19 +257,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     __weak __typeof(self) weakSelf = self;
 
     if (diskCacheByteLimit <= 0) {
-        dispatch_async(self.queue, ^{
-            __typeof(weakSelf) strongSelf = weakSelf;
-
-            if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
-                NSError *error = nil;
-                [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
-                if (error)
-                    TMPettyCacheError(error);
-
-                [strongSelf createCacheDirectory];
-            }
-        });
-
+        [self clearDiskCache];
         return;
     }
 
