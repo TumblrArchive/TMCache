@@ -8,15 +8,14 @@
 
 @class TMPettyCache;
 
-typedef void (^TMPettyCacheDataBlock)(TMPettyCache *, NSData *data);
-typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *, NSURL *fileURL);
-typedef void (^TMPettyCacheObjectBlock)(TMPettyCache *, id object);
+typedef void (^TMPettyCacheDataBlock)(TMPettyCache *cache, NSData *data);
+typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL);
 
 @interface TMPettyCache : NSObject <NSCacheDelegate>
 
 @property (copy, readonly) NSString *name;
 @property (assign) NSUInteger memoryCacheByteLimit;
-@property (copy) TMPettyCacheObjectBlock willEvictObjectBlock;
+@property (copy) TMPettyCacheDataBlock willEvictDataBlock;
 
 + (instancetype)sharedCache;
 

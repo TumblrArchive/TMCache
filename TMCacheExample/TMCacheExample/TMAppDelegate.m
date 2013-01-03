@@ -29,8 +29,8 @@
 
     [cache setData:[exampleString dataUsingEncoding:NSUTF8StringEncoding] forKey:exampleKey];
 
-    cache.willEvictObjectBlock = ^(TMPettyCache *cache, id object) {
-        NSLog(@"notice from %@: object at %p is being evicted from memory", cache, object);
+    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSData *data) {
+        NSLog(@"notice from %@: data at %p is being evicted from memory", cache, data);
     };
 
     [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSData *data) {

@@ -53,7 +53,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
         self.memoryCacheByteLimit = TMPettyCacheDefaultMemoryLimit;
-        self.willEvictObjectBlock = nil;
+        self.willEvictDataBlock = nil;
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *dirPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:TMPettyCacheDirectory];
@@ -85,8 +85,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)object
 {
-    if (self.willEvictObjectBlock)
-        self.willEvictObjectBlock(self, object);
+    if (self.willEvictDataBlock)
+        self.willEvictDataBlock(self, (NSData *)object);
 }
 
 #pragma mark - Private Methods
