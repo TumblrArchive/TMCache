@@ -37,6 +37,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     #if !OS_OBJECT_USE_OBJC
     dispatch_release(_queue);
+    _queue = NULL;
     #endif
 }
 
