@@ -54,6 +54,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
         self.memoryCacheByteLimit = TMPettyCacheDefaultMemoryLimit;
+        self.memoryCacheCountLimit = 0;
         self.willEvictDataBlock = nil;
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -130,6 +131,26 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     
     dispatch_async(self.queue, ^{
         weakSelf.cache.totalCostLimit = limit < 0 || limit == NSUIntegerMax ? 0 : limit;
+    });
+}
+
+- (NSUInteger)memoryCacheCountLimit
+{
+    __block NSUInteger limit = 0;
+
+    dispatch_sync(self.queue, ^{
+        limit = self.cache.countLimit;
+    });
+
+    return limit;
+}
+
+- (void)setMemoryCacheCountLimit:(NSUInteger)limit
+{
+    __weak __typeof(self) weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        weakSelf.cache.countLimit = limit < 0 || limit == NSUIntegerMax ? 0 : limit;
     });
 }
 

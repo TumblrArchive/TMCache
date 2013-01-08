@@ -15,6 +15,7 @@ typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL);
 
 @property (copy, readonly) NSString *name;
 @property (assign) NSUInteger memoryCacheByteLimit;
+@property (assign) NSUInteger memoryCacheCountLimit;
 @property (copy) TMPettyCacheDataBlock willEvictDataBlock;
 
 + (instancetype)sharedCache;
