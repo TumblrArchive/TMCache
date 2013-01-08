@@ -64,7 +64,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         [self createCacheDirectory];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(clearMemoryCache)
+                                                 selector:@selector(didReceiveMemoryWarning:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
                                                    object:[UIApplication sharedApplication]];
     }
@@ -110,6 +110,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     [[NSFileManager defaultManager] createDirectoryAtPath:self.cachePath withIntermediateDirectories:YES attributes:nil error:&error];
     if (error)
         TMPettyCacheError(error);
+}
+
+- (void)didReceiveMemoryWarning:(NSNotification *)notification
+{
+    [self clearMemoryCache];
 }
 
 #pragma mark - Accessors
