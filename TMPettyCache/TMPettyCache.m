@@ -87,8 +87,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)object
 {
+    // TK - store key/nsdata relationships and deliver fileURL here
+
     if (self.willEvictDataBlock)
-        self.willEvictDataBlock(self, (NSData *)object);
+        self.willEvictDataBlock(self, nil, (NSData *)object);
 }
 
 #pragma mark - Private Methods
@@ -171,11 +173,12 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     dispatch_async(self.queue, ^{
         __typeof(weakSelf) strongSelf = weakSelf;
 
-        NSData *data = [strongSelf.cache objectForKey:key];;
+        NSData *data = [strongSelf.cache objectForKey:key];
+        NSURL *fileURL = [strongSelf fileURLForKey:key];
         
-        if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[[strongSelf fileURLForKey:key] path]]) {
+        if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             NSError *error = nil;
-            data = [NSData dataWithContentsOfURL:[strongSelf fileURLForKey:key] options:0 error:&error];
+            data = [NSData dataWithContentsOfURL:fileURL options:0 error:&error];
             if (error)
                 TMPettyCacheError(error);
             
@@ -187,7 +190,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             }
         }
 
-        block(strongSelf, data);
+        block(strongSelf, fileURL, data);
     });
 }
 
