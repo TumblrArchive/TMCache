@@ -29,11 +29,11 @@
 
     [cache setData:[exampleString dataUsingEncoding:NSUTF8StringEncoding] forKey:exampleKey];
 
-    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSData *data) {
+    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
         NSLog(@"notice from %@: data at %p is being evicted from memory", cache, data);
     };
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
         if (data) {
             NSLog(@"this string was retrieved from %@: %@", cache.name, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
@@ -51,13 +51,13 @@
 
     [cache clearMemoryCache];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
         NSLog(@"second string retrieval (hitting disk this time): %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     }];
 
     [cache removeDataForKey:exampleKey];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
         NSLog(@"we have now removed the string from the cache so this should be nil: %@", data);
     }];
 }
