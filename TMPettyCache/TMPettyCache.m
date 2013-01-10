@@ -8,9 +8,9 @@
 
 #import "TMPettyCache.h"
 
-#define TMPettyCacheError(error) NSLog(@"%@ (%d) ERROR: %@", \
+#define TMPettyCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
-            __LINE__, [error localizedDescription]);
+            __LINE__, [error localizedDescription]); }
 
 NSString * const TMPettyCacheDirectory = @"TMPettyCacheDirectory";
 NSString * const TMPettyCacheSharedName = @"TMPettyCacheShared";
@@ -179,8 +179,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             NSError *error = nil;
             data = [NSData dataWithContentsOfURL:fileURL options:0 error:&error];
-            if (error)
-                TMPettyCacheError(error);
+            TMPettyCacheError(error);
             
             if (data) {
                 __weak __typeof(strongSelf) weakSelf = strongSelf;
@@ -235,8 +234,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         NSError *error = nil;
         [data writeToURL:[strongSelf fileURLForKey:key] options:0 error:&error];
-        if (error)
-            TMPettyCacheError(error);
+        TMPettyCacheError(error);
     });
 }
 
@@ -256,8 +254,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
-            if (error)
-                TMPettyCacheError(error);
+            TMPettyCacheError(error);
         }
     });
 }
@@ -281,8 +278,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
-            if (error)
-                TMPettyCacheError(error);
+            TMPettyCacheError(error);
             
             [strongSelf createCacheDirectory];
         }
@@ -297,8 +293,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if ([[NSFileManager defaultManager] fileExistsAtPath:self.cachePath]) {
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtPath:self.cachePath error:&error];
-            if (error)
-                TMPettyCacheError(error);
+            TMPettyCacheError(error);
 
             [self createCacheDirectory];
         }
@@ -333,8 +328,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
             NSError *error = nil;
             NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-            if (error)
-                TMPettyCacheError(error);
+            TMPettyCacheError(error);
 
             if (!attributes)
                 continue;
@@ -355,8 +349,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
                 NSError *error = nil;
                 [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
-                if (error)
-                    TMPettyCacheError(error);
+                TMPettyCacheError(error);
 
                 diskCacheSize -= [attributes fileSize];
             }
