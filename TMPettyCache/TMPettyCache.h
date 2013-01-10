@@ -25,6 +25,7 @@ typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL);
 - (void)trimDiskCacheToSize:(NSUInteger)bytes;
 - (void)clearMemoryCache;
 - (void)clearDiskCache;
+- (void)clearAllCachesSynchronously;
 
 - (void)dataForKey:(NSString *)key block:(TMPettyCacheDataBlock)block;
 - (void)fileURLForKey:(NSString *)key block:(TMPettyCacheFileURLBlock)block;

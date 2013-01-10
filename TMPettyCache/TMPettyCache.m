@@ -289,6 +289,23 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
+- (void)clearAllCachesSynchronously
+{
+    dispatch_sync(self.queue, ^{
+        [self.cache removeAllObjects];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:self.cachePath]) {
+            NSError *error = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:self.cachePath error:&error];
+            if (error)
+                TMPettyCacheError(error);
+
+            [self createCacheDirectory];
+        }
+    });
+}
+
+
 - (void)trimDiskCacheToSize:(NSUInteger)diskCacheByteLimit
 {
     __weak __typeof(self) weakSelf = self;
