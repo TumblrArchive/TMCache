@@ -95,7 +95,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     NSURL *fileURL = [self fileURLForKey:key];
 
     if (self.willEvictDataBlock)
-        self.willEvictDataBlock(self, key, data, fileURL);
+        self.willEvictDataBlock(self, key, data, [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]] ? fileURL : nil);
 }
 
 #pragma mark - Private Methods
