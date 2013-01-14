@@ -300,7 +300,6 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-
 - (void)trimDiskCacheToSize:(NSUInteger)diskCacheByteLimit
 {
     __weak __typeof(self) weakSelf = self;
