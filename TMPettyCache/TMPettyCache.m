@@ -22,6 +22,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 #else
 @property (assign, nonatomic) dispatch_queue_t queue;
 #endif
+@property (strong, nonatomic) NSMutableDictionary *dataKeys;
 @property (strong, nonatomic) NSString *cachePath;
 @property (strong, nonatomic) NSCache *cache;
 @property (copy) NSString *name;
@@ -53,6 +54,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         self.cache.delegate = self;
 
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
+        self.dataKeys = [[NSMutableDictionary alloc] init];
         self.memoryCacheByteLimit = TMPettyCacheDefaultMemoryLimit;
         self.memoryCacheCountLimit = 0;
         self.willEvictDataBlock = nil;
@@ -68,6 +70,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
                                                    object:[UIApplication sharedApplication]];
     }
+
     return self;
 }
 
@@ -87,10 +90,12 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)object
 {
-    // TK - store key/nsdata relationships and deliver fileURL here
+    NSData *data = (NSData *)object;
+    NSString *key = [self.dataKeys objectForKey:[NSValue valueWithNonretainedObject:data]];
+    NSURL *fileURL = [self fileURLForKey:key];
 
     if (self.willEvictDataBlock)
-        self.willEvictDataBlock(self, nil, (NSData *)object);
+        self.willEvictDataBlock(self, fileURL, key, data);
 }
 
 #pragma mark - Private Methods
@@ -110,8 +115,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     NSError *error = nil;
     [[NSFileManager defaultManager] createDirectoryAtPath:self.cachePath withIntermediateDirectories:YES attributes:nil error:&error];
-    if (error)
-        TMPettyCacheError(error);
+    TMPettyCacheError(error);
 }
 
 - (void)didReceiveMemoryWarning:(NSNotification *)notification
@@ -184,12 +188,13 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             if (data) {
                 __weak __typeof(strongSelf) weakSelf = strongSelf;
                 dispatch_async(strongSelf.queue, ^{
+                    [weakSelf.dataKeys setObject:key forKey:[NSValue valueWithNonretainedObject:data]];
                     [weakSelf.cache setObject:data forKey:key cost:[data length]];
                 });
             }
         }
 
-        block(strongSelf, fileURL, data);
+        block(strongSelf, fileURL, key, data);
     });
 }
 
@@ -206,9 +211,9 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSURL *fileURL = [strongSelf fileURLForKey:key];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-            block(strongSelf, fileURL);
+            block(strongSelf, fileURL, key);
         } else {
-            block(strongSelf, nil);
+            block(strongSelf, nil, key);
         }
     });
 }
@@ -230,6 +235,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!strongSelf)
             return;
 
+        [strongSelf.dataKeys setObject:key forKey:[NSValue valueWithNonretainedObject:data]];
         [strongSelf.cache setObject:data forKey:key cost:[data length]];
         
         NSError *error = nil;
@@ -248,7 +254,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     dispatch_async(self.queue, ^{
         __typeof(weakSelf) strongSelf = weakSelf;
 
-        [strongSelf.cache removeObjectForKey:key];
+        NSData *data = [strongSelf.cache objectForKey:key];
+        if (data) {
+            [strongSelf.dataKeys removeObjectForKey:[NSValue valueWithNonretainedObject:data]];
+            [strongSelf.cache removeObjectForKey:key];
+        }
 
         NSURL *fileURL = [strongSelf fileURLForKey:key];
         if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
@@ -265,6 +275,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     dispatch_async(self.queue, ^{
         [weakSelf.cache removeAllObjects];
+        [weakSelf.dataKeys removeAllObjects];
     });
 }
 
@@ -289,6 +300,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     dispatch_sync(self.queue, ^{
         [self.cache removeAllObjects];
+        [self.dataKeys removeAllObjects];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:self.cachePath]) {
             NSError *error = nil;
@@ -316,8 +328,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         NSError *error = nil;
         NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:strongSelf.cachePath error:&error];
-        if (error)
-            NSLog(@"%@", error);
+        TMPettyCacheError(error);
 
         NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
         NSUInteger diskCacheSize = 0;

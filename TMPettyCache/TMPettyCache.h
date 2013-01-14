@@ -8,8 +8,8 @@
 
 @class TMPettyCache;
 
-typedef void (^TMPettyCacheDataBlock)(TMPettyCache *cache, NSURL *fileURL, NSData *data);
-typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL);
+typedef void (^TMPettyCacheDataBlock)(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data);
+typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL, NSString *key);
 
 @interface TMPettyCache : NSObject <NSCacheDelegate>
 

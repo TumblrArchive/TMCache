@@ -27,13 +27,16 @@
 
     TMPettyCache *cache = [[TMPettyCache alloc] initWithName:@"TMExampleCache"];
 
-    [cache setData:[exampleString dataUsingEncoding:NSUTF8StringEncoding] forKey:exampleKey];
+    NSData *data = [exampleString dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"example data: %p", data);
 
-    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
-        NSLog(@"notice from %@: data at %p is being evicted from memory", cache, data);
+    [cache setData:data forKey:exampleKey];
+
+    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
+        NSLog(@"notice from %@: data at %p is being evicted from memory (key: %@)", cache, data, key);
     };
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
         if (data) {
             NSLog(@"this string was retrieved from %@: %@", cache.name, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
@@ -41,7 +44,7 @@
         }
     }];
 
-    [cache fileURLForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL) {
+    [cache fileURLForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key) {
         if (fileURL) {
             NSLog(@"the string is cached on disk at: %@", fileURL);
         } else {
@@ -51,13 +54,13 @@
 
     [cache clearMemoryCache];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
         NSLog(@"second string retrieval (hitting disk this time): %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     }];
 
     [cache removeDataForKey:exampleKey];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
         NSLog(@"we have now removed the string from the cache so this should be nil: %@", data);
     }];
 }
