@@ -206,15 +206,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     __weak __typeof(self) weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
-
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
-
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-            block(strongSelf, key, nil, fileURL);
-        } else {
-            block(strongSelf, key, nil, nil);
-        }
+        NSURL *fileURL = [weakSelf fileURLForKey:key];
+        block(weakSelf, key, nil, [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]] ? fileURL : nil);
     });
 }
 
