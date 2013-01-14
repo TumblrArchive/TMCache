@@ -32,11 +32,11 @@
 
     [cache setData:data forKey:exampleKey];
 
-    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
+    cache.willEvictDataBlock = ^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"notice from %@: data at %p is being evicted from memory (key: %@)", cache, data, key);
     };
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         if (data) {
             NSLog(@"this string was retrieved from %@: %@", cache.name, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
@@ -44,7 +44,7 @@
         }
     }];
 
-    [cache fileURLForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key) {
+    [cache fileURLForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         if (fileURL) {
             NSLog(@"the string is cached on disk at: %@", fileURL);
         } else {
@@ -54,13 +54,13 @@
 
     [cache clearMemoryCache];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"second string retrieval (hitting disk this time): %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     }];
 
     [cache removeDataForKey:exampleKey];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data) {
+    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"we have now removed the string from the cache so this should be nil: %@", data);
     }];
 }

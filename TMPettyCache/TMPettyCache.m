@@ -95,7 +95,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     NSURL *fileURL = [self fileURLForKey:key];
 
     if (self.willEvictDataBlock)
-        self.willEvictDataBlock(self, fileURL, key, data);
+        self.willEvictDataBlock(self, key, data, fileURL);
 }
 
 #pragma mark - Private Methods
@@ -167,7 +167,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 #pragma mark - Public Methods
 
-- (void)dataForKey:(NSString *)key block:(TMPettyCacheDataBlock)block
+- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block
 {
     if (!block || ![key length])
         return;
@@ -194,11 +194,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             }
         }
 
-        block(strongSelf, fileURL, key, data);
+        block(strongSelf, key, data, fileURL);
     });
 }
 
-- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheFileURLBlock)block
+- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block
 {
     if (!block || ![key length])
         return;
@@ -211,9 +211,9 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSURL *fileURL = [strongSelf fileURLForKey:key];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-            block(strongSelf, fileURL, key);
+            block(strongSelf, key, nil, fileURL);
         } else {
-            block(strongSelf, nil, key);
+            block(strongSelf, key, nil, nil);
         }
     });
 }
@@ -256,8 +256,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         NSData *data = [strongSelf.cache objectForKey:key];
         if (data) {
-            [strongSelf.dataKeys removeObjectForKey:[NSValue valueWithNonretainedObject:data]];
             [strongSelf.cache removeObjectForKey:key];
+            [strongSelf.dataKeys removeObjectForKey:[NSValue valueWithNonretainedObject:data]];
         }
 
         NSURL *fileURL = [strongSelf fileURLForKey:key];

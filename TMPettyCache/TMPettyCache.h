@@ -8,15 +8,14 @@
 
 @class TMPettyCache;
 
-typedef void (^TMPettyCacheDataBlock)(TMPettyCache *cache, NSURL *fileURL, NSString *key, NSData *data);
-typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL, NSString *key);
+typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL);
 
 @interface TMPettyCache : NSObject <NSCacheDelegate>
 
 @property (copy, readonly) NSString *name;
 @property (assign) NSUInteger memoryCacheByteLimit;
 @property (assign) NSUInteger memoryCacheCountLimit;
-@property (copy) TMPettyCacheDataBlock willEvictDataBlock;
+@property (copy) TMPettyCacheBlock willEvictDataBlock;
 
 + (instancetype)sharedCache;
 
@@ -27,8 +26,8 @@ typedef void (^TMPettyCacheFileURLBlock)(TMPettyCache *cache, NSURL *fileURL, NS
 - (void)clearDiskCache;
 - (void)clearAllCachesSynchronously;
 
-- (void)dataForKey:(NSString *)key block:(TMPettyCacheDataBlock)block;
-- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheFileURLBlock)block;
+- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block;
+- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block;
 - (void)setData:(NSData *)data forKey:(NSString *)key;
 - (void)removeDataForKey:(NSString *)key;
 
