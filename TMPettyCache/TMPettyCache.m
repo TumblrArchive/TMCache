@@ -122,7 +122,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 #pragma mark - Private Methods
 
-- (void)setData:(NSData *)data forKey:(NSString *)key
+- (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
     // should only be called on self.queue !!!
     
@@ -181,7 +181,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             if (data) {
                 __weak __typeof(strongSelf) weakSelf = strongSelf;
                 dispatch_async(strongSelf.queue, ^{
-                    [weakSelf setData:data forKey:key];
+                    [weakSelf setDataInMemoryCache:data forKey:key];
                 });
             }
         }
@@ -220,7 +220,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!strongSelf)
             return;
 
-        [strongSelf setData:data forKey:key];
+        [strongSelf setDataInMemoryCache:data forKey:key];
         
         NSURL *fileURL = [strongSelf fileURLForKey:key];
         

@@ -38,19 +38,19 @@ typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *da
 - (void)clearDiskCache;
 - (void)clearAllCachesSynchronously;
 
-/// @name Trimming
+/// @name Trim
 
 - (void)trimDiskCacheToSize:(NSUInteger)bytes;
 - (void)trimDiskCacheToDate:(NSDate *)date;
-
-/// @name Read
-
-- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block;
-- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block;
 
 /// @name Write
 
 - (void)setData:(NSData *)data forKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
 - (void)removeDataForKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
+
+/// @name Read
+
+- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block;
+- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block;
 
 @end
