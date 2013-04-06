@@ -1,11 +1,3 @@
-//
-//  TMPettyCache.h
-//  Limoncello
-//
-//  Created by Justin Ouellette on 11/27/12.
-//  Copyright (c) 2012 Tumblr. All rights reserved.
-//
-
 @class TMPettyCache;
 
 typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL);
@@ -13,22 +5,52 @@ typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *da
 @interface TMPettyCache : NSObject <NSCacheDelegate>
 
 @property (copy, readonly) NSString *name;
+@property (strong, readonly) dispatch_queue_t queue;
+
+/// @name Memory Cache
+
 @property (assign) NSUInteger memoryCacheByteLimit;
 @property (assign) NSUInteger memoryCacheCountLimit;
-@property (copy) TMPettyCacheBlock willEvictDataBlock;
+@property (copy) TMPettyCacheBlock willEvictDataFromMemoryBlock;
+
+/// @name Disk Cache
+
+@property (assign) NSUInteger diskCacheByteLimit;
+@property (assign) NSTimeInterval diskCacheMaxAge;
+@property (copy) TMPettyCacheBlock willEvictDataFromDiskBlock;
+
+/// @name Current Usage
+
+@property (assign, readonly) NSUInteger currentMemoryBytes;
+@property (assign, readonly) NSUInteger currentMemoryCount;
+@property (assign, readonly) NSUInteger currentDiskBytes;
+@property (assign, readonly) NSUInteger currentDiskCount;
+
+/// @name Genesis
 
 + (instancetype)sharedCache;
-
++ (instancetype)withName:(NSString *)name;
 - (instancetype)initWithName:(NSString *)name;
 
-- (void)trimDiskCacheToSize:(NSUInteger)bytes;
+/// @name Revelation
+
 - (void)clearMemoryCache;
 - (void)clearDiskCache;
 - (void)clearAllCachesSynchronously;
 
+/// @name Trimming
+
+- (void)trimDiskCacheToSize:(NSUInteger)bytes;
+- (void)trimDiskCacheToDate:(NSDate *)date;
+
+/// @name Read
+
 - (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block;
 - (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block;
-- (void)setData:(NSData *)data forKey:(NSString *)key;
-- (void)removeDataForKey:(NSString *)key;
+
+/// @name Write
+
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
+- (void)removeDataForKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
 
 @end
