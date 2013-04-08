@@ -143,8 +143,6 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     };
 
     /**
-     @warning
-
      When `TMPettyCache` is performing the eviction (via `removeDataForKey`, `clearMemoryCache`,
      or `clearAllCachesSynchronously`) this method will always be called on `self.queue`.
      
@@ -163,7 +161,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
-    /// @warning Should only be called internally on `self.queue`
+    /// @warning Should only be called internally on `self.queue` or `init`
     
     NSUInteger dataLength = [data length];
     
@@ -174,48 +172,9 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     self.currentMemoryCount += 1;
 }
 
-- (void)createCacheDirectory
-{
-    /// @warning Should only be called internally on `self.queue`
-    
-    if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
-        return;
-
-    NSError *error = nil;
-    [[NSFileManager defaultManager] createDirectoryAtPath:self.cachePath withIntermediateDirectories:YES attributes:nil error:&error];
-    TMPettyCacheError(error);
-    
-    self.currentDiskBytes = 0;
-    self.currentDiskCount = 0;
-}
-
-- (void)updateDiskBytesAndCount
-{
-    /// @warning Should only be called internally on `self.queue`
-    
-    NSUInteger diskBytes = 0;
-    
-    NSError *error = nil;
-    NSArray *files = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:self.cachePath error:&error];
-    TMPettyCacheError(error);
-    
-    for (NSString *fileName in files) {
-        NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
-        
-        error = nil;
-        NSDictionary *butes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-        TMPettyCacheError(error);
-        
-        diskBytes += [butes fileSize];
-    }
-    
-    self.currentDiskBytes = diskBytes;
-    self.currentDiskCount = [files count];
-}
-
 - (void)setFileModificationDate:(NSDate *)date fileURL:(NSURL *)url
 {
-    /// @warning Should only be called internally on `self.queue`
+    /// @warning Should only be called internally on `self.queue` or `init`
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:NO];
     if (!fileExists)
@@ -226,6 +185,73 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
                                      ofItemAtPath:[url path]
                                             error:&error];
     TMPettyCacheError(error);
+}
+
+- (void)createCacheDirectory
+{
+    /// @warning Should only be called internally on `self.queue` or `init`
+
+    if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
+        return;
+
+    NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:self.cachePath withIntermediateDirectories:YES attributes:nil error:&error];
+    TMPettyCacheError(error);
+
+    self.currentDiskBytes = 0;
+    self.currentDiskCount = 0;
+}
+
+- (void)updateDiskBytesAndCount
+{
+    /// @warning Should only be called internally on `self.queue` or `init`
+
+    NSUInteger diskBytes = 0;
+
+    NSError *error = nil;
+    NSArray *files = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:self.cachePath error:&error];
+    TMPettyCacheError(error);
+
+    for (NSString *fileName in files) {
+        NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
+
+        error = nil;
+        NSDictionary *butes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        TMPettyCacheError(error);
+
+        diskBytes += [butes fileSize];
+    }
+
+    self.currentDiskBytes = diskBytes;
+    self.currentDiskCount = [files count];
+}
+
+- (void)removeFileAtURL:(NSURL *)fileURL
+{
+    /// @warning Should only be called internally on `self.queue` or `init`
+
+    NSString *filePath = [fileURL path];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        if (self.willEvictDataFromDiskBlock) {
+            NSString *key = [filePath lastPathComponent];
+            NSURL *url = [NSURL fileURLWithPath:filePath isDirectory:NO];
+            self.willEvictDataFromDiskBlock(self, key, nil, url);
+        }
+        
+        NSError *error = nil;
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        TMPettyCacheError(error);
+
+        error = nil;
+        BOOL removed = [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
+        TMPettyCacheError(error);
+
+        if (removed) {
+            self.currentDiskBytes -= [attributes fileSize];
+            self.currentDiskCount -= 1;
+        }
+    }
 }
 
 #pragma mark - Public Methods
@@ -328,24 +354,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (data)
             [strongSelf.cache removeObjectForKey:key];
         
-        NSString *filePath = [fileURL path];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-            NSError *error = nil;
-            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-            TMPettyCacheError(error);
-            
-            NSUInteger fileSize = attributes ? [attributes fileSize] : 0;
-            error = nil;
-            
-            BOOL removed = [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
-            TMPettyCacheError(error);
-            
-            if (removed) {
-                strongSelf.currentDiskBytes -= fileSize;
-                strongSelf.currentDiskCount -= 1;
-            }
-        }
+        [strongSelf removeFileAtURL:fileURL];
         
         if (completionBlock)
             completionBlock(strongSelf, key, nil, fileURL);
@@ -396,19 +405,31 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (void)trimDiskCacheToDate:(NSDate *)date
-{   
-    if ([date isEqualToDate:[NSDate distantPast]]) {
-        [self clearDiskCache];
-        return;
+- (NSDictionary *)cacheFilePathsWithAttributes
+{
+    NSError *error = nil;
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
+    TMPettyCacheError(error);
+    
+    if (![contents count])
+        return nil;
+    
+    NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
+    
+    for (NSString *fileName in contents) {
+        NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
+        
+        error = nil;
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        TMPettyCacheError(error);
+        
+        if (!attributes)
+            continue;
+        
+        [filePathsWithAttributes setObject:attributes forKey:filePath];
     }
     
-#warning in progress
-    __weak __typeof(self) weakSelf = self;
-    
-    dispatch_async(self.queue, ^{
-        NSLog(@"%@", weakSelf);
-    });
+    return [[NSDictionary alloc] initWithDictionary:filePathsWithAttributes];
 }
 
 - (void)trimDiskCacheToSize:(NSUInteger)byteLimit
@@ -424,29 +445,45 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         __typeof(weakSelf) strongSelf = weakSelf;
         if (!strongSelf)
             return;
-        
-        NSError *error = nil;
-        NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:strongSelf.cachePath error:&error];
-        TMPettyCacheError(error);
 
-        NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
-#warning this needs work and accounting
-        NSUInteger diskCacheSize = 0;
-        
-        for (NSString *fileName in contents) {
-            NSString *filePath = [strongSelf.cachePath stringByAppendingPathComponent:fileName];
+        NSDictionary *filePathsWithAttributes = [strongSelf cacheFilePathsWithAttributes];
+        if (!filePathsWithAttributes)
+            return;
 
-            NSError *error = nil;
-            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-            TMPettyCacheError(error);
+        NSArray *filePathsSortedByDate = [filePathsWithAttributes keysSortedByValueUsingComparator:^(id file0, id file1) {
+            return [[file0 fileModificationDate] compare:[file1 fileModificationDate]];
+        }];
 
-            if (!attributes)
-                continue;
-            
-            [filePathsWithAttributes setObject:attributes forKey:filePath];
-            diskCacheSize += [attributes fileSize];
+        for (NSString *filePath in filePathsSortedByDate) {
+            [self removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
+
+            if (self.currentDiskBytes <= byteLimit)
+                break;
         }
+    });
+}
 
+- (void)trimDiskCacheToDate:(NSDate *)trimDate
+{
+    if (!trimDate)
+        return;
+    
+    if ([trimDate isEqualToDate:[NSDate distantPast]]) {
+        [self clearDiskCache];
+        return;
+    }
+
+    __weak __typeof(self) weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        __typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        NSDictionary *filePathsWithAttributes = [strongSelf cacheFilePathsWithAttributes];
+        if (!filePathsWithAttributes)
+            return;
+        
         NSArray *filePathsSortedByDate = [filePathsWithAttributes keysSortedByValueUsingComparator:^(id file0, id file1) {
             return [[file0 fileModificationDate] compare:[file1 fileModificationDate]];
         }];
@@ -456,22 +493,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             if (!attributes)
                 continue;
 
-            if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-                if (self.willEvictDataFromDiskBlock) {
-                    NSString *key = [filePath lastPathComponent];
-                    NSURL *url = [NSURL fileURLWithPath:filePath isDirectory:NO];
-                    self.willEvictDataFromDiskBlock(strongSelf, key, nil, url);
-                }
-                
-                NSError *error = nil;
-                [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
-                TMPettyCacheError(error);
-
-                diskCacheSize -= [attributes fileSize];
-            }
-
-            if (diskCacheSize <= byteLimit)
+            if ([[attributes fileModificationDate] compare:trimDate] != NSOrderedDescending) {
+                [self removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
+            } else {
                 break;
+            }
         }
     });
 }
