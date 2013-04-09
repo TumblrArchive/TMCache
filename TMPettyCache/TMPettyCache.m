@@ -475,9 +475,9 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         }];
 
         for (NSString *filePath in filePathsSortedByDate) {
-            [self removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
+            [strongSelf removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
 
-            if (self.currentDiskBytes <= byteLimit)
+            if (strongSelf.currentDiskBytes <= byteLimit)
                 break;
         }
     });
