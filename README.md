@@ -8,16 +8,18 @@
 
 ### Manually ####
 
-[Download the latest tag](https://github.com/tumblr/TMPettyCache/tags) and drag the `TMPettyCache` folder into your Xcode project. Install the docs by double clicking the `.docset` file.
+[Download the latest tag](https://github.com/tumblr/TMPettyCache/tags) and drag the `TMPettyCache` folder into your Xcode project.
+
+Install the docs by double clicking the `.docset` file.
 
 ### Git Submodule ###
 
-    git submodule add git@github.com:tumblr/TMPettyCache.git
+    git submodule add https://github.com/tumblr/TMPettyCache.git
     git submodule update --init
 
 ### CocoaPods ###
 
-Add [TMPettyCache](http://cocoapods.org/?q=name%3ATMPettyCache) to your `Podfile` and then run `pod install`.
+Add [TMPettyCache](http://cocoapods.org/?q=name%3ATMPettyCache) to your `Podfile` and run `pod install`.
 
 ## Example ##
 
