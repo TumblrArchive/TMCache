@@ -144,7 +144,7 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
     __weak __typeof(self) weakSelf = self;
 
     void (^evictionBlock)() = ^{
-        __typeof(self) strongSelf = weakSelf;
+        __typeof(weakSelf) strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -435,6 +435,8 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
     
     dispatch_async(self.queue, ^{
         __typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
 
         if (![[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath])
             return;
