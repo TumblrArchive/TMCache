@@ -147,7 +147,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSData *data = (NSData *)object;
         NSUInteger dataLength = [data length];
         NSValue *dataValue = [NSValue valueWithNonretainedObject:data];
+        
         NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
+        [strongSelf.dataKeys removeObjectForKey:dataValue];
+        
         NSURL *fileURL = [strongSelf fileURLForKey:key];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
 
@@ -156,8 +159,6 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         strongSelf.currentMemoryBytes -= dataLength;
         strongSelf.currentMemoryCount -= 1;
-
-        [strongSelf.dataKeys removeObjectForKey:dataValue];
     };
 
     /**

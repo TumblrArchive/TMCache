@@ -4,7 +4,7 @@
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/cl/TMPettyCache</TokenIdentifier>
-			<Abstract type="html"></Abstract>
+			<Abstract type="html">TMPettyCache is an asynchronous wrapper for NSCache with simultaneous persistence to disk.</Abstract>
 			<DeclaredIn>TMPettyCache.h</DeclaredIn>
 			
 			<NodeRef refid="1"/>
