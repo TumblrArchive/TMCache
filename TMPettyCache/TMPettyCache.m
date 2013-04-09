@@ -91,7 +91,7 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
 + (instancetype)withName:(NSString *)name
 {
-    return [[TMPettyCache alloc] initWithName:name];
+    return [[self alloc] initWithName:name];
 }
 
 + (instancetype)sharedCache
