@@ -126,11 +126,11 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     unsigned char result[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(s, strlen(s), result);
     
-    NSMutableString *digest = [NSMutableString stringWithCapacity:(CC_SHA1_DIGEST_LENGTH * 2)];
+    NSMutableString *digest = [[NSMutableString alloc] initWithCapacity:(CC_SHA1_DIGEST_LENGTH * 2)];
     for (NSUInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
         [digest appendFormat:@"%02x", result[i]];
     
-    return [NSString stringWithString:digest];
+    return [[NSString alloc] initWithString:digest];
 }
 
 #pragma mark - <NSCacheDelegate>
@@ -487,7 +487,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     if (!trimDate)
         return;
-    
+
     if ([trimDate isEqualToDate:[NSDate distantPast]]) {
         [self clearDiskCache];
         return;
@@ -503,7 +503,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSDictionary *filePathsWithAttributes = [strongSelf cacheFilePathsWithAttributes];
         if (!filePathsWithAttributes)
             return;
-        
+
         NSArray *filePathsSortedByDate = [filePathsWithAttributes keysSortedByValueUsingComparator:^(id file0, id file1) {
             return [[file0 fileModificationDate] compare:[file1 fileModificationDate]];
         }];

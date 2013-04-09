@@ -1,8 +1,14 @@
+/**
+ `TMPettyCache` is an asynchronous wrapper for `NSCache` with simultaneous persistence to disk.
+ */
+
 @class TMPettyCache;
 
 typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL);
 
 @interface TMPettyCache : NSObject <NSCacheDelegate>
+
+/// @name Core
 
 @property (copy, readonly) NSString *name;
 @property (strong, readonly) dispatch_queue_t queue;
