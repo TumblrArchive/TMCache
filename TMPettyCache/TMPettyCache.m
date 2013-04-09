@@ -8,7 +8,6 @@
 
 NSString * const TMPettyCachePrefix = @"com.tumblr.TMPettyCache";
 NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
-static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
 @interface TMPettyCache ()
 #if OS_OBJECT_USE_OBJC
@@ -28,11 +27,11 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
 @implementation TMPettyCache
 
+@synthesize diskCacheByteLimit = _diskCacheByteLimit;
+@synthesize diskCacheMaxAge = _diskCacheMaxAge;
+
 - (void)dealloc
 {
-    [self removeObserver:self forKeyPath:@"diskCacheByteLimit" context:TMPettyCacheKVOContext];
-    [self removeObserver:self forKeyPath:@"diskCacheMaxAge" context:TMPettyCacheKVOContext];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     self.cache.delegate = nil;
@@ -69,15 +68,12 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
         self.diskCacheByteLimit = 0;
         self.diskCacheMaxAge = 0.0;
         self.willEvictDataFromDiskBlock = nil;
-
+        
         self.currentMemoryBytes = 0;
         self.currentMemoryCount = 0;
 
         [self createCacheDirectory];
         [self updateDiskBytesAndCount];
-        
-        [self addObserver:self forKeyPath:@"diskCacheByteLimit" options:0 context:TMPettyCacheKVOContext];
-        [self addObserver:self forKeyPath:@"diskCacheMaxAge" options:0 context:TMPettyCacheKVOContext];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarning:)
@@ -532,64 +528,83 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
     });
 }
 
-#pragma mark - KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (context != TMPettyCacheKVOContext) {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    
-    if (object == self && [keyPath isEqualToString:@"diskCacheByteLimit"]) {
-        if (self.diskCacheByteLimit > 0)
-            [self trimDiskCacheToSize:self.diskCacheByteLimit];
-    } else if (object == self && [keyPath isEqualToString:@"diskCacheMaxAge"]) {
-        if (self.diskCacheMaxAge > 0.0)
-            [self trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-self.diskCacheMaxAge]];
-    }
-}
-
 #pragma mark - Accessors
 
 - (NSUInteger)memoryCacheByteLimit
 {
     __block NSUInteger limit = 0;
-    
+
     dispatch_sync(self.queue, ^{
         limit = self.cache.totalCostLimit;
     });
-    
+
     return limit;
 }
 
 - (void)setMemoryCacheByteLimit:(NSUInteger)limit
 {
-    __weak __typeof(self) weakSelf = self;
-    
-    dispatch_async(self.queue, ^{
-        weakSelf.cache.totalCostLimit = limit;
+    dispatch_sync(self.queue, ^{
+        self.cache.totalCostLimit = limit;
     });
 }
 
 - (NSUInteger)memoryCacheCountLimit
 {
     __block NSUInteger limit = 0;
-    
+
     dispatch_sync(self.queue, ^{
         limit = self.cache.countLimit;
     });
-    
+
     return limit;
 }
 
 - (void)setMemoryCacheCountLimit:(NSUInteger)limit
 {
-    __weak __typeof(self) weakSelf = self;
-    
-    dispatch_async(self.queue, ^{
-        weakSelf.cache.countLimit = limit;
+    dispatch_sync(self.queue, ^{
+        self.cache.countLimit = limit;
     });
 }
 
+- (NSUInteger)diskCacheByteLimit
+{
+    __block NSUInteger limit = 0;
+
+    dispatch_sync(self.queue, ^{
+        limit = _diskCacheByteLimit;
+    });
+
+    return limit;
+}
+
+- (void)setDiskCacheByteLimit:(NSUInteger)limit
+{
+    dispatch_sync(self.queue, ^{
+        _diskCacheByteLimit = limit;
+
+        if (limit > 0)
+            [self trimDiskCacheToSize:limit];
+    });
+}
+
+- (NSTimeInterval)diskCacheMaxAge
+{
+    __block NSTimeInterval maxAge = 0.0;
+
+    dispatch_sync(self.queue, ^{
+        maxAge = _diskCacheMaxAge;
+    });
+
+    return maxAge;
+}
+
+- (void)setDiskCacheMaxAge:(NSTimeInterval)maxAge
+{
+    dispatch_sync(self.queue, ^{
+        _diskCacheMaxAge = maxAge;
+
+        if (maxAge > 0.0)
+            [self trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge]];
+    });
+}
 @end
