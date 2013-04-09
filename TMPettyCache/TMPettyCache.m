@@ -118,7 +118,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (NSURL *)fileURLForKey:(NSString *)key
 {
-    if (![self.cachePath length] || ![key length])
+    if (![key length])
         return nil;
     
     NSString *path = [self.cachePath stringByAppendingPathComponent:[self SHA1:key]];
