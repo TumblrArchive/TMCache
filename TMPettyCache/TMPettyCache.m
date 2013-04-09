@@ -1,5 +1,4 @@
 #import "TMPettyCache.h"
-
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
@@ -10,6 +9,7 @@
 NSString * const TMPettyCacheDirectory = @"TMPettyCacheDirectory";
 NSString * const TMPettyCacheSharedName = @"TMPettyCacheShared";
 NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
+static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
 @interface TMPettyCache ()
 #if OS_OBJECT_USE_OBJC
@@ -31,6 +31,9 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)dealloc
 {
+    [self removeObserver:self forKeyPath:@"diskCacheByteLimit" context:TMPettyCacheKVOContext];
+    [self removeObserver:self forKeyPath:@"diskCacheMaxAge" context:TMPettyCacheKVOContext];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     self.cache.delegate = nil;
@@ -48,35 +51,36 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     if (self = [super init]) {
         self.name = name;
-        
+
         self.cache = [[NSCache alloc] init];
         self.cache.name = [[NSString alloc] initWithFormat:@"%@.%@.%p", NSStringFromClass([self class]), self.name, self];
         self.cache.delegate = self;
-        
+
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
         self.dataKeys = [[NSMutableDictionary alloc] init];
 
         self.memoryCacheByteLimit = TMPettyCacheDefaultMemoryLimit;
         self.memoryCacheCountLimit = 0;
         self.willEvictDataFromMemoryBlock = nil;
-        
-        #warning make this do something
+
         self.diskCacheByteLimit = 0;
-        #warning make this do something
         self.diskCacheMaxAge = 0.0;
-        
+
         self.willEvictDataFromDiskBlock = nil;
-        
+
         self.currentMemoryBytes = 0;
         self.currentMemoryCount = 0;
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *dirPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:TMPettyCacheDirectory];
         self.cachePath = [dirPath stringByAppendingPathComponent:self.name];
-        
+
         [self createCacheDirectory];
         [self updateDiskBytesAndCount];
-
+        
+        [self addObserver:self forKeyPath:@"diskCacheByteLimit" options:0 context:TMPettyCacheKVOContext];
+        [self addObserver:self forKeyPath:@"diskCacheMaxAge" options:0 context:TMPettyCacheKVOContext];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarning:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
@@ -381,6 +385,12 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (completionBlock)
             completionBlock(strongSelf, key, data, fileURL);
+
+        if (strongSelf.diskCacheByteLimit > 0 && strongSelf.currentDiskBytes > strongSelf.diskCacheByteLimit)
+            [strongSelf trimDiskCacheToSize:strongSelf.diskCacheByteLimit];
+        
+        if (strongSelf.diskCacheMaxAge > 0.0)
+            [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf.diskCacheMaxAge]];
     });
 }
 
@@ -476,10 +486,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         }];
 
         for (NSString *filePath in filePathsSortedByDate) {
-            [strongSelf removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
-
             if (strongSelf.currentDiskBytes <= byteLimit)
                 break;
+
+            [strongSelf removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
         }
     });
 }
@@ -521,6 +531,24 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             }
         }
     });
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context != TMPettyCacheKVOContext) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    
+    if (object == self && [keyPath isEqualToString:@"diskCacheByteLimit"]) {
+        if (self.diskCacheByteLimit > 0)
+            [self trimDiskCacheToSize:self.diskCacheByteLimit];
+    } else if (object == self && [keyPath isEqualToString:@"diskCacheMaxAge"]) {
+        if (self.diskCacheMaxAge > 0.0)
+            [self trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-self.diskCacheMaxAge]];
+    }
 }
 
 #pragma mark - Accessors
