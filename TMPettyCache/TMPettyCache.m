@@ -159,6 +159,35 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 #pragma mark - Private Queue Methods 
 
+- (NSDictionary *)cacheFilePathsWithAttributes
+{
+    /// @warning Should only be called internally on `self.queue` or `init`
+    
+    NSError *error = nil;
+    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
+    TMPettyCacheError(error);
+    
+    if (![contents count])
+        return nil;
+    
+    NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
+    
+    for (NSString *fileName in contents) {
+        NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
+        
+        error = nil;
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        TMPettyCacheError(error);
+        
+        if (!attributes)
+            continue;
+        
+        [filePathsWithAttributes setObject:attributes forKey:filePath];
+    }
+    
+    return [[NSDictionary alloc] initWithDictionary:filePathsWithAttributes];
+}
+
 - (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
     /// @warning Should only be called internally on `self.queue` or `init`
@@ -403,33 +432,6 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         [self createCacheDirectory];
     });
-}
-
-- (NSDictionary *)cacheFilePathsWithAttributes
-{
-    NSError *error = nil;
-    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
-    TMPettyCacheError(error);
-    
-    if (![contents count])
-        return nil;
-    
-    NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
-    
-    for (NSString *fileName in contents) {
-        NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
-        
-        error = nil;
-        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-        TMPettyCacheError(error);
-        
-        if (!attributes)
-            continue;
-        
-        [filePathsWithAttributes setObject:attributes forKey:filePath];
-    }
-    
-    return [[NSDictionary alloc] initWithDictionary:filePathsWithAttributes];
 }
 
 - (void)trimDiskCacheToSize:(NSUInteger)byteLimit

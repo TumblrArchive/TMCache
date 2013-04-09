@@ -4,9 +4,9 @@ Pod::Spec.new do |s|
   s.source_files  = 'TMPettyCache/*.{h,m}'
   s.homepage      = 'http://www.tumblr.com/'
   s.summary       = 'Hybrid in-memory/on-disk cache for iOS and OS X.'
-  s.authors       = { 'Justin Ouellette' => 'justin@tumblr.com' }
+  s.authors       = { 'Justin Ouellette' => 'jstn@tumblr.com' }
   s.source        = { :git => 'https://github.com/tumblr/tumblr-ios-cache', :tag => "#{s.version}" }
-  s.license       = { :type => 'MIT', :file => 'LICENSE.txt' }
+  s.license       = { :type => 'Apache 2.0', :file => 'LICENSE.txt' }
   s.requires_arc  = true
   s.frameworks    = 'Foundation'
   s.ios.weak_frameworks   = 'UIKit'
