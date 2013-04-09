@@ -6,8 +6,7 @@
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
             __LINE__, [error localizedDescription]); }
 
-NSString * const TMPettyCacheDirectory = @"TMPettyCacheDirectory";
-NSString * const TMPettyCacheSharedName = @"TMPettyCacheShared";
+NSString * const TMPettyCacheDirectory = @"com.tumblr.TMPettyCache";
 NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
@@ -97,11 +96,11 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
 + (instancetype)sharedCache
 {
-    static TMPettyCache *cache = nil;
+    static id cache = nil;
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        cache = [[self alloc] initWithName:TMPettyCacheSharedName];
+        cache = [[self alloc] initWithName:NSStringFromClass(self)];
     });
 
     return cache;
