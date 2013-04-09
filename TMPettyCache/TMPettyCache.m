@@ -437,12 +437,11 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
         if (!strongSelf)
             return;
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath])
-            return;
-        
-        NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
-        TMPettyCacheError(error);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
+            NSError *error = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
+            TMPettyCacheError(error);
+        }
         
         [strongSelf createCacheDirectory];
     });
