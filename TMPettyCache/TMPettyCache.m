@@ -59,21 +59,30 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
         self.dataKeys = [[NSMutableDictionary alloc] init];
+        self.willEvictDataFromMemoryBlock = nil;
+        self.willEvictDataFromDiskBlock = nil;
 
         self.memoryCacheByteLimit = TMPettyCacheDefaultMemoryLimit;
         self.memoryCacheCountLimit = 0;
-        self.willEvictDataFromMemoryBlock = nil;
-
-        self.diskCacheByteLimit = 0;
-        self.diskCacheMaxAge = 0.0;
-        self.willEvictDataFromDiskBlock = nil;
-        
         self.currentMemoryBytes = 0;
         self.currentMemoryCount = 0;
+        self.currentDiskBytes = 0;
+        self.currentDiskCount = 0;
 
-        [self createCacheDirectory];
-        [self updateDiskBytesAndCount];
-        
+        __weak TMPettyCache *weakSelf = self;
+
+        dispatch_async(self.queue, ^{
+            TMPettyCache *strongSelf = weakSelf;
+            if (!strongSelf)
+                return;
+
+            strongSelf->_diskCacheByteLimit = 0;
+            strongSelf->_diskCacheMaxAge = 0;
+            
+            [strongSelf createCacheDirectory];
+            [strongSelf updateDiskBytesAndCount];
+        });
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarning:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
@@ -134,10 +143,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)object
 {
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     void (^evictionBlock)() = ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -177,7 +186,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (NSDictionary *)cacheFilePathsWithAttributes
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
     
     NSError *error = nil;
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
@@ -206,7 +215,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
     
     NSUInteger dataLength = [data length];
     
@@ -219,7 +228,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setFileModificationDate:(NSDate *)date fileURL:(NSURL *)url
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:NO];
     if (!fileExists)
@@ -234,7 +243,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)createCacheDirectory
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
 
     if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
         return;
@@ -249,7 +258,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)updateDiskBytesAndCount
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
 
     NSUInteger diskBytes = 0;
 
@@ -273,7 +282,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)removeFileAtURL:(NSURL *)fileURL
 {
-    // should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue`
 
     NSString *filePath = [fileURL path];
 
@@ -308,10 +317,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     if (!block || ![key length])
         return;
 
-    __weak __typeof(self) weakSelf = self;
-    
+    __weak TMPettyCache *weakSelf = self;
+
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -338,11 +347,15 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     if (!block || ![key length])
         return;
 
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        NSURL *fileURL = [weakSelf fileURLForKey:key];
-        block(weakSelf, key, nil, [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]] ? fileURL : nil);
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSURL *fileURL = [strongSelf fileURLForKey:key];
+        block(strongSelf, key, nil, [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]] ? fileURL : nil);
     });
 }
 
@@ -356,10 +369,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         return;
     }
 
-    __weak __typeof(self) weakSelf = self;
-    
+    __weak TMPettyCache *weakSelf = self;
+
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -379,10 +392,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf, key, data, fileURL);
 
-        if (strongSelf.diskCacheByteLimit > 0 && strongSelf.currentDiskBytes > strongSelf.diskCacheByteLimit)
-            [strongSelf trimDiskCacheToSize:strongSelf.diskCacheByteLimit];
+        if (strongSelf->_diskCacheByteLimit > 0 && strongSelf.currentDiskBytes > strongSelf->_diskCacheByteLimit)
+            [strongSelf trimDiskCacheToSize:strongSelf->_diskCacheByteLimit];
         
-        if (strongSelf.diskCacheMaxAge > 0.0)
+        if (strongSelf->_diskCacheMaxAge > 0.0)
             [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf.diskCacheMaxAge]];
     });
 }
@@ -392,10 +405,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     if (![key length])
         return;
 
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -414,20 +427,24 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)clearMemoryCache
 {
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        [weakSelf.cache removeAllObjects];
-        [weakSelf.dataKeys removeAllObjects];
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        [strongSelf.cache removeAllObjects];
+        [strongSelf.dataKeys removeAllObjects];
     });
 }
 
 - (void)clearDiskCache
 {
-    __weak __typeof(self) weakSelf = self;
-    
+    __weak TMPettyCache *weakSelf = self;
+
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -464,10 +481,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         return;
     }
     
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -498,10 +515,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         return;
     }
 
-    __weak __typeof(self) weakSelf = self;
+    __weak TMPettyCache *weakSelf = self;
 
     dispatch_async(self.queue, ^{
-        __typeof(weakSelf) strongSelf = weakSelf;
+        TMPettyCache *strongSelf = weakSelf;
         if (!strongSelf)
             return;
 
@@ -542,8 +559,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setMemoryCacheByteLimit:(NSUInteger)limit
 {
-    dispatch_sync(self.queue, ^{
-        self.cache.totalCostLimit = limit;
+    __weak TMPettyCache *weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        weakSelf.cache.totalCostLimit = limit;
     });
 }
 
@@ -560,8 +579,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setMemoryCacheCountLimit:(NSUInteger)limit
 {
-    dispatch_sync(self.queue, ^{
-        self.cache.countLimit = limit;
+    __weak TMPettyCache *weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        weakSelf.cache.countLimit = limit;
     });
 }
 
@@ -578,11 +599,17 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDiskCacheByteLimit:(NSUInteger)limit
 {
-    dispatch_sync(self.queue, ^{
-        _diskCacheByteLimit = limit;
+    __weak TMPettyCache *weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        strongSelf->_diskCacheByteLimit = limit;
 
         if (limit > 0)
-            [self trimDiskCacheToSize:limit];
+            [strongSelf trimDiskCacheToSize:limit];
     });
 }
 
@@ -599,11 +626,17 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDiskCacheMaxAge:(NSTimeInterval)maxAge
 {
-    dispatch_sync(self.queue, ^{
-        _diskCacheMaxAge = maxAge;
+    __weak TMPettyCache *weakSelf = self;
+
+    dispatch_async(self.queue, ^{
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        strongSelf->_diskCacheMaxAge = maxAge;
 
         if (maxAge > 0.0)
-            [self trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge]];
+            [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge]];
     });
 }
 @end
