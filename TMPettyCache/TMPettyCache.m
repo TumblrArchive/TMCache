@@ -6,7 +6,7 @@
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
             __LINE__, [error localizedDescription]); }
 
-NSString * const TMPettyCacheDirectory = @"com.tumblr.TMPettyCache";
+NSString * const TMPettyCachePrefix = @"com.tumblr.TMPettyCache";
 NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
@@ -51,8 +51,12 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
     if (self = [super init]) {
         self.name = name;
 
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *dirPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:TMPettyCachePrefix];
+        self.cachePath = [dirPath stringByAppendingPathComponent:self.name];
+
         self.cache = [[NSCache alloc] init];
-        self.cache.name = [[NSString alloc] initWithFormat:@"%@.%@.%p", NSStringFromClass([self class]), self.name, self];
+        self.cache.name = [[NSString alloc] initWithFormat:@"%@.%p", TMPettyCachePrefix, self];
         self.cache.delegate = self;
 
         self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
@@ -64,15 +68,10 @@ static void * TMPettyCacheKVOContext = &TMPettyCacheKVOContext;
 
         self.diskCacheByteLimit = 0;
         self.diskCacheMaxAge = 0.0;
-
         self.willEvictDataFromDiskBlock = nil;
 
         self.currentMemoryBytes = 0;
         self.currentMemoryCount = 0;
-
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *dirPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:TMPettyCacheDirectory];
-        self.cachePath = [dirPath stringByAppendingPathComponent:self.name];
 
         [self createCacheDirectory];
         [self updateDiskBytesAndCount];
