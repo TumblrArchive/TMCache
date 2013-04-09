@@ -1,6 +1,5 @@
 #import "TMPettyCache.h"
 #import <CommonCrypto/CommonDigest.h>
-#import <CommonCrypto/CommonHMAC.h>
 
 #define TMPettyCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
