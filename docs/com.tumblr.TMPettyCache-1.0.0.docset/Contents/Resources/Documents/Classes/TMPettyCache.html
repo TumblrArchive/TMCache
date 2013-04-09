@@ -1,0 +1,883 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>TMPettyCache Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">TMPettyCache </a></h1>
+				<a id="developerHome" href="../index.html">Tumblr</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">TMPettyCache Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/currentDiskBytes">&nbsp;&nbsp;&nbsp;&nbsp;currentDiskBytes</option>
+	
+	<option value="//api/name/currentDiskCount">&nbsp;&nbsp;&nbsp;&nbsp;currentDiskCount</option>
+	
+	<option value="//api/name/currentMemoryBytes">&nbsp;&nbsp;&nbsp;&nbsp;currentMemoryBytes</option>
+	
+	<option value="//api/name/currentMemoryCount">&nbsp;&nbsp;&nbsp;&nbsp;currentMemoryCount</option>
+	
+	<option value="//api/name/diskCacheByteLimit">&nbsp;&nbsp;&nbsp;&nbsp;diskCacheByteLimit</option>
+	
+	<option value="//api/name/diskCacheMaxAge">&nbsp;&nbsp;&nbsp;&nbsp;diskCacheMaxAge</option>
+	
+	<option value="//api/name/memoryCacheByteLimit">&nbsp;&nbsp;&nbsp;&nbsp;memoryCacheByteLimit</option>
+	
+	<option value="//api/name/memoryCacheCountLimit">&nbsp;&nbsp;&nbsp;&nbsp;memoryCacheCountLimit</option>
+	
+	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
+	
+	<option value="//api/name/queue">&nbsp;&nbsp;&nbsp;&nbsp;queue</option>
+	
+	<option value="//api/name/willEvictDataFromDiskBlock">&nbsp;&nbsp;&nbsp;&nbsp;willEvictDataFromDiskBlock</option>
+	
+	<option value="//api/name/willEvictDataFromMemoryBlock">&nbsp;&nbsp;&nbsp;&nbsp;willEvictDataFromMemoryBlock</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/sharedCache">&nbsp;&nbsp;&nbsp;&nbsp;+ sharedCache</option>
+	
+	<option value="//api/name/withName:">&nbsp;&nbsp;&nbsp;&nbsp;+ withName:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/clearAllCachesSynchronously">&nbsp;&nbsp;&nbsp;&nbsp;- clearAllCachesSynchronously</option>
+	
+	<option value="//api/name/clearDiskCache">&nbsp;&nbsp;&nbsp;&nbsp;- clearDiskCache</option>
+	
+	<option value="//api/name/clearMemoryCache">&nbsp;&nbsp;&nbsp;&nbsp;- clearMemoryCache</option>
+	
+	<option value="//api/name/dataForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- dataForKey:block:</option>
+	
+	<option value="//api/name/fileURLForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- fileURLForKey:block:</option>
+	
+	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
+	
+	<option value="//api/name/removeDataForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- removeDataForKey:block:</option>
+	
+	<option value="//api/name/setData:forKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- setData:forKey:block:</option>
+	
+	<option value="//api/name/trimDiskCacheToDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimDiskCacheToDate:</option>
+	
+	<option value="//api/name/trimDiskCacheToSize:">&nbsp;&nbsp;&nbsp;&nbsp;- trimDiskCacheToSize:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Memory Cache">Memory Cache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Disk Cache">Disk Cache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Current Usage">Current Usage</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Genesis">Genesis</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Revelation">Revelation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Trim">Trim</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Write">Write</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Read">Read</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentDiskBytes">currentDiskBytes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentDiskCount">currentDiskCount</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentMemoryBytes">currentMemoryBytes</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/currentMemoryCount">currentMemoryCount</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/diskCacheByteLimit">diskCacheByteLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/diskCacheMaxAge">diskCacheMaxAge</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/memoryCacheByteLimit">memoryCacheByteLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/memoryCacheCountLimit">memoryCacheCountLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/queue">queue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willEvictDataFromDiskBlock">willEvictDataFromDiskBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willEvictDataFromMemoryBlock">willEvictDataFromMemoryBlock</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCache">sharedCache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/withName:">withName:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearAllCachesSynchronously">clearAllCachesSynchronously</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearDiskCache">clearDiskCache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearMemoryCache">clearMemoryCache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dataForKey:block:">dataForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileURLForKey:block:">fileURLForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeDataForKey:block:">removeDataForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setData:forKey:block:">setData:forKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimDiskCacheToDate:">trimDiskCacheToDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimDiskCacheToSize:">trimDiskCacheToSize:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="TMPettyCache Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">TMPettyCache Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSCacheDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">TMPettyCache.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/queue">&nbsp;&nbsp;queue</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Memory Cache" name="task_Memory Cache"></a>
+						<h3 class="subsubtitle task-title">Memory Cache</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/memoryCacheByteLimit">&nbsp;&nbsp;memoryCacheByteLimit</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/memoryCacheCountLimit">&nbsp;&nbsp;memoryCacheCountLimit</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willEvictDataFromMemoryBlock">&nbsp;&nbsp;willEvictDataFromMemoryBlock</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Disk Cache" name="task_Disk Cache"></a>
+						<h3 class="subsubtitle task-title">Disk Cache</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/diskCacheByteLimit">&nbsp;&nbsp;diskCacheByteLimit</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/diskCacheMaxAge">&nbsp;&nbsp;diskCacheMaxAge</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willEvictDataFromDiskBlock">&nbsp;&nbsp;willEvictDataFromDiskBlock</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Current Usage" name="task_Current Usage"></a>
+						<h3 class="subsubtitle task-title">Current Usage</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentMemoryBytes">&nbsp;&nbsp;currentMemoryBytes</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentMemoryCount">&nbsp;&nbsp;currentMemoryCount</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentDiskBytes">&nbsp;&nbsp;currentDiskBytes</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/currentDiskCount">&nbsp;&nbsp;currentDiskCount</a></code>
+		
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Genesis" name="task_Genesis"></a>
+						<h3 class="subsubtitle task-title">Genesis</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sharedCache">+&nbsp;sharedCache</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/withName:">+&nbsp;withName:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithName:">&ndash;&nbsp;initWithName:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Revelation" name="task_Revelation"></a>
+						<h3 class="subsubtitle task-title">Revelation</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearMemoryCache">&ndash;&nbsp;clearMemoryCache</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearDiskCache">&ndash;&nbsp;clearDiskCache</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearAllCachesSynchronously">&ndash;&nbsp;clearAllCachesSynchronously</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Trim" name="task_Trim"></a>
+						<h3 class="subsubtitle task-title">Trim</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimDiskCacheToSize:">&ndash;&nbsp;trimDiskCacheToSize:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimDiskCacheToDate:">&ndash;&nbsp;trimDiskCacheToDate:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Write" name="task_Write"></a>
+						<h3 class="subsubtitle task-title">Write</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setData:forKey:block:">&ndash;&nbsp;setData:forKey:block:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeDataForKey:block:">&ndash;&nbsp;removeDataForKey:block:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Read" name="task_Read"></a>
+						<h3 class="subsubtitle task-title">Read</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dataForKey:block:">&ndash;&nbsp;dataForKey:block:</a></code>
+		
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fileURLForKey:block:">&ndash;&nbsp;fileURLForKey:block:</a></code>
+		
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/currentDiskBytes" title="currentDiskBytes"></a>
+	<h3 class="subsubtitle method-title">currentDiskBytes</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign, readonly) NSUInteger currentDiskBytes</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/currentDiskCount" title="currentDiskCount"></a>
+	<h3 class="subsubtitle method-title">currentDiskCount</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign, readonly) NSUInteger currentDiskCount</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/currentMemoryBytes" title="currentMemoryBytes"></a>
+	<h3 class="subsubtitle method-title">currentMemoryBytes</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign, readonly) NSUInteger currentMemoryBytes</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/currentMemoryCount" title="currentMemoryCount"></a>
+	<h3 class="subsubtitle method-title">currentMemoryCount</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign, readonly) NSUInteger currentMemoryCount</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/diskCacheByteLimit" title="diskCacheByteLimit"></a>
+	<h3 class="subsubtitle method-title">diskCacheByteLimit</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSUInteger diskCacheByteLimit</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/diskCacheMaxAge" title="diskCacheMaxAge"></a>
+	<h3 class="subsubtitle method-title">diskCacheMaxAge</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSTimeInterval diskCacheMaxAge</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/memoryCacheByteLimit" title="memoryCacheByteLimit"></a>
+	<h3 class="subsubtitle method-title">memoryCacheByteLimit</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSUInteger memoryCacheByteLimit</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/memoryCacheCountLimit" title="memoryCacheCountLimit"></a>
+	<h3 class="subsubtitle method-title">memoryCacheCountLimit</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSUInteger memoryCacheCountLimit</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="subsubtitle method-title">name</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (copy, readonly) NSString *name</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/queue" title="queue"></a>
+	<h3 class="subsubtitle method-title">queue</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (strong, readonly) dispatch_queue_t queue</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willEvictDataFromDiskBlock" title="willEvictDataFromDiskBlock"></a>
+	<h3 class="subsubtitle method-title">willEvictDataFromDiskBlock</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMPettyCacheBlock willEvictDataFromDiskBlock</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willEvictDataFromMemoryBlock" title="willEvictDataFromMemoryBlock"></a>
+	<h3 class="subsubtitle method-title">willEvictDataFromMemoryBlock</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMPettyCacheBlock willEvictDataFromMemoryBlock</code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/sharedCache" title="sharedCache"></a>
+	<h3 class="subsubtitle method-title">sharedCache</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)sharedCache</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/withName:" title="withName:"></a>
+	<h3 class="subsubtitle method-title">withName:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)withName:(NSString *)<em>name</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/clearAllCachesSynchronously" title="clearAllCachesSynchronously"></a>
+	<h3 class="subsubtitle method-title">clearAllCachesSynchronously</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)clearAllCachesSynchronously</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/clearDiskCache" title="clearDiskCache"></a>
+	<h3 class="subsubtitle method-title">clearDiskCache</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)clearDiskCache</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/clearMemoryCache" title="clearMemoryCache"></a>
+	<h3 class="subsubtitle method-title">clearMemoryCache</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)clearMemoryCache</code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dataForKey:block:" title="dataForKey:block:"></a>
+	<h3 class="subsubtitle method-title">dataForKey:block:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)dataForKey:(NSString *)<em>key</em> block:(TMPettyCacheBlock)<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fileURLForKey:block:" title="fileURLForKey:block:"></a>
+	<h3 class="subsubtitle method-title">fileURLForKey:block:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)fileURLForKey:(NSString *)<em>key</em> block:(TMPettyCacheBlock)<em>block</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithName:" title="initWithName:"></a>
+	<h3 class="subsubtitle method-title">initWithName:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithName:(NSString *)<em>name</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeDataForKey:block:" title="removeDataForKey:block:"></a>
+	<h3 class="subsubtitle method-title">removeDataForKey:block:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)removeDataForKey:(NSString *)<em>key</em> block:(TMPettyCacheBlock)<em>completionBlock</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setData:forKey:block:" title="setData:forKey:block:"></a>
+	<h3 class="subsubtitle method-title">setData:forKey:block:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)setData:(NSData *)<em>data</em> forKey:(NSString *)<em>key</em> block:(TMPettyCacheBlock)<em>completionBlock</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimDiskCacheToDate:" title="trimDiskCacheToDate:"></a>
+	<h3 class="subsubtitle method-title">trimDiskCacheToDate:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)trimDiskCacheToDate:(NSDate *)<em>date</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimDiskCacheToSize:" title="trimDiskCacheToSize:"></a>
+	<h3 class="subsubtitle method-title">trimDiskCacheToSize:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)trimDiskCacheToSize:(NSUInteger)<em>bytes</em></code></div>
+
+    
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-08)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

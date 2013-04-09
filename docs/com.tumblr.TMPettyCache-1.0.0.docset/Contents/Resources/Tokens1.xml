@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TMPettyCache.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TMPettyCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy, readonly) NSString *name</Declaration>
+			
+			
+			<Anchor>//api/name/name</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/name</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy, readonly) NSString *name</Declaration>
+			
+			
+			<Anchor>//api/name/name</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setQueue:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, readonly) dispatch_queue_t queue</Declaration>
+			
+			
+			<Anchor>//api/name/queue</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/queue</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (strong, readonly) dispatch_queue_t queue</Declaration>
+			
+			
+			<Anchor>//api/name/queue</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setMemoryCacheByteLimit:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger memoryCacheByteLimit</Declaration>
+			
+			
+			<Anchor>//api/name/memoryCacheByteLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/memoryCacheByteLimit</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger memoryCacheByteLimit</Declaration>
+			
+			
+			<Anchor>//api/name/memoryCacheByteLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setMemoryCacheCountLimit:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger memoryCacheCountLimit</Declaration>
+			
+			
+			<Anchor>//api/name/memoryCacheCountLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/memoryCacheCountLimit</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger memoryCacheCountLimit</Declaration>
+			
+			
+			<Anchor>//api/name/memoryCacheCountLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setWillEvictDataFromMemoryBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMPettyCacheBlock willEvictDataFromMemoryBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willEvictDataFromMemoryBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/willEvictDataFromMemoryBlock</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMPettyCacheBlock willEvictDataFromMemoryBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willEvictDataFromMemoryBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setDiskCacheByteLimit:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger diskCacheByteLimit</Declaration>
+			
+			
+			<Anchor>//api/name/diskCacheByteLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/diskCacheByteLimit</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSUInteger diskCacheByteLimit</Declaration>
+			
+			
+			<Anchor>//api/name/diskCacheByteLimit</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setDiskCacheMaxAge:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSTimeInterval diskCacheMaxAge</Declaration>
+			
+			
+			<Anchor>//api/name/diskCacheMaxAge</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/diskCacheMaxAge</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) NSTimeInterval diskCacheMaxAge</Declaration>
+			
+			
+			<Anchor>//api/name/diskCacheMaxAge</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setWillEvictDataFromDiskBlock:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMPettyCacheBlock willEvictDataFromDiskBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willEvictDataFromDiskBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/willEvictDataFromDiskBlock</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMPettyCacheBlock willEvictDataFromDiskBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willEvictDataFromDiskBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setCurrentMemoryBytes:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentMemoryBytes</Declaration>
+			
+			
+			<Anchor>//api/name/currentMemoryBytes</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/currentMemoryBytes</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentMemoryBytes</Declaration>
+			
+			
+			<Anchor>//api/name/currentMemoryBytes</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setCurrentMemoryCount:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentMemoryCount</Declaration>
+			
+			
+			<Anchor>//api/name/currentMemoryCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/currentMemoryCount</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentMemoryCount</Declaration>
+			
+			
+			<Anchor>//api/name/currentMemoryCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setCurrentDiskBytes:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentDiskBytes</Declaration>
+			
+			
+			<Anchor>//api/name/currentDiskBytes</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/currentDiskBytes</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentDiskBytes</Declaration>
+			
+			
+			<Anchor>//api/name/currentDiskBytes</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setCurrentDiskCount:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentDiskCount</Declaration>
+			
+			
+			<Anchor>//api/name/currentDiskCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMPettyCache/currentDiskCount</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign, readonly) NSUInteger currentDiskCount</Declaration>
+			
+			
+			<Anchor>//api/name/currentDiskCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TMPettyCache/sharedCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)sharedCache</Declaration>
+			
+			
+			<Anchor>//api/name/sharedCache</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TMPettyCache/withName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>+ (instancetype)withName:(NSString *)name</Declaration>
+			
+			
+			<Anchor>//api/name/withName:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/initWithName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (instancetype)initWithName:(NSString *)name</Declaration>
+			
+			
+			<Anchor>//api/name/initWithName:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/clearMemoryCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)clearMemoryCache</Declaration>
+			
+			
+			<Anchor>//api/name/clearMemoryCache</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/clearDiskCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)clearDiskCache</Declaration>
+			
+			
+			<Anchor>//api/name/clearDiskCache</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/clearAllCachesSynchronously</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)clearAllCachesSynchronously</Declaration>
+			
+			
+			<Anchor>//api/name/clearAllCachesSynchronously</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/trimDiskCacheToSize:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimDiskCacheToSize:(NSUInteger)bytes</Declaration>
+			
+			
+			<Anchor>//api/name/trimDiskCacheToSize:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/trimDiskCacheToDate:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimDiskCacheToDate:(NSDate *)date</Declaration>
+			
+			
+			<Anchor>//api/name/trimDiskCacheToDate:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/setData:forKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock</Declaration>
+			
+			
+			<Anchor>//api/name/setData:forKey:block:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/removeDataForKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)removeDataForKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock</Declaration>
+			
+			
+			<Anchor>//api/name/removeDataForKey:block:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/dataForKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block</Declaration>
+			
+			
+			<Anchor>//api/name/dataForKey:block:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMPettyCache/fileURLForKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMPettyCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block</Declaration>
+			
+			
+			<Anchor>//api/name/fileURLForKey:block:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>
