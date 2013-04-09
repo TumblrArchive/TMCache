@@ -25,20 +25,16 @@ Add [TMPettyCache](http://cocoapods.org/?q=name%3ATMPettyCache) to your `Podfile
 
 Also see the [example](example/) included in the project.
 
-    [[TMPettyCache sharedCache] setData:[@"value" dataUsingEncoding:NSUTF8StringEncoding]
-                                 forKey:@"key"
-                                  block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL)
-    {
-        NSLog(@"data %p written to file at %@", data, fileURL);
-    }];
-
-    [[TMPettyCache sharedCache] dataForKey:@"key"
-                                     block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL)
-    {
-        NSLog(@"should be value: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    }];
-
-    [[TMPettyCache sharedCache] clearAllCachesSynchronously];
+    NSURL *imageURL = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/6/62/Sts114_033.jpg"];
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:imageURL]
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               [[TMPettyCache sharedCache] setData:data
+                                                            forKey:[imageURL absoluteString]
+                                                             block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+                                                                 NSLog(@"%@ wrote %d bytes to %@", cache, [data length], fileURL);
+                                                             }];
+                           }];
 
 ## Requirements ##
 

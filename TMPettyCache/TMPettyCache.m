@@ -1,5 +1,8 @@
 #import "TMPettyCache.h"
 
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
+
 #define TMPettyCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
             __LINE__, [error localizedDescription]); }
@@ -111,8 +114,23 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     if (![self.cachePath length] || ![key length])
         return nil;
+    
+    NSString *path = [self.cachePath stringByAppendingPathComponent:[self SHA1:key]];
 
-    return [NSURL fileURLWithPath:[self.cachePath stringByAppendingPathComponent:key]];
+    return [NSURL fileURLWithPath:path];
+}
+
+- (NSString *)SHA1:(NSString *)string
+{
+    const char *s = [string UTF8String];
+    unsigned char result[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(s, strlen(s), result);
+    
+    NSMutableString *digest = [NSMutableString stringWithCapacity:(CC_SHA1_DIGEST_LENGTH * 2)];
+    for (NSUInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [digest appendFormat:@"%02x", result[i]];
+    
+    return [NSString stringWithString:digest];
 }
 
 #pragma mark - <NSCacheDelegate>
@@ -161,7 +179,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (NSDictionary *)cacheFilePathsWithAttributes
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
     
     NSError *error = nil;
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
@@ -190,7 +208,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
     
     NSUInteger dataLength = [data length];
     
@@ -203,7 +221,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setFileModificationDate:(NSDate *)date fileURL:(NSURL *)url
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:NO];
     if (!fileExists)
@@ -218,7 +236,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)createCacheDirectory
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
 
     if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
         return;
@@ -233,7 +251,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)updateDiskBytesAndCount
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
 
     NSUInteger diskBytes = 0;
 
@@ -257,7 +275,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)removeFileAtURL:(NSURL *)fileURL
 {
-    /// @warning Should only be called internally on `self.queue` or `init`
+    // should only be called internally on `self.queue` or `init`
 
     NSString *filePath = [fileURL path];
 
@@ -496,7 +514,7 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
                 continue;
 
             if ([[attributes fileModificationDate] compare:trimDate] != NSOrderedDescending) {
-                [self removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
+                [strongSelf removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
             } else {
                 break;
             }
