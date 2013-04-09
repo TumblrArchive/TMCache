@@ -54,4 +54,4 @@ Also see the [example](example/) included in the project.
 
 ## Copyright ##
 
-2013 Tumblr, Inc.
+&copy;2013 Tumblr, Inc.
