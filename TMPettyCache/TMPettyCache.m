@@ -189,15 +189,15 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     // should only be called internally on `self.queue`
     
     NSError *error = nil;
-    NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
     TMPettyCacheError(error);
     
-    if (![contents count])
+    if (![files count])
         return nil;
     
-    NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[contents count]];
+    NSMutableDictionary *filePathsWithAttributes = [[NSMutableDictionary alloc] initWithCapacity:[files count]];
     
-    for (NSString *fileName in contents) {
+    for (NSString *fileName in files) {
         NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
         
         error = nil;
@@ -263,17 +263,20 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     NSUInteger diskBytes = 0;
 
     NSError *error = nil;
-    NSArray *files = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:self.cachePath error:&error];
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
     TMPettyCacheError(error);
 
     for (NSString *fileName in files) {
         NSString *filePath = [self.cachePath stringByAppendingPathComponent:fileName];
 
         error = nil;
-        NSDictionary *butes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
         TMPettyCacheError(error);
+        
+        if (!attributes)
+            continue;
 
-        diskBytes += [butes fileSize];
+        diskBytes += [attributes fileSize];
     }
 
     self.currentDiskBytes = diskBytes;
