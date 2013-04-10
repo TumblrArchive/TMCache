@@ -46,10 +46,15 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 - (void)clearAllCachesSynchronously;
 - (void)clearAllCaches:(TMCacheBlock)completionBlock;
 
-/// @name Trim Disk Cache
+/// @name Trim Disk Cache (Asynchronously)
 
 - (void)trimDiskCacheToSize:(NSUInteger)bytes block:(TMCacheBlock)completionBlock;
 - (void)trimDiskCacheToDate:(NSDate *)date block:(TMCacheBlock)completionBlock;
+
+/// @name Trim Disk Cache (Synchronously)
+
+- (void)trimDiskCacheToSize:(NSUInteger)bytes;
+- (void)trimDiskCacheToDate:(NSDate *)date;
 
 /// @name Read & Write (Asynchronously)
 

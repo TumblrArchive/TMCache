@@ -410,7 +410,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-#pragma mark - Trimming
+#pragma mark - Asynchronous Trimming
 
 - (void)trimDiskCacheToSize:(NSUInteger)byteLimit block:(TMCacheBlock)completionBlock
 {
@@ -486,6 +486,40 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
     });
+}
+
+#pragma mark - Synchronous Trimming
+
+- (void)trimDiskCacheToSize:(NSUInteger)bytes
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+
+    [self trimDiskCacheToSize:bytes block:^(TMCache *cache) {
+        dispatch_group_leave(group);
+    }];
+
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
+}
+
+- (void)trimDiskCacheToDate:(NSDate *)date
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+
+    [self trimDiskCacheToDate:date block:^(TMCache *cache) {
+        dispatch_group_leave(group);
+    }];
+
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
 }
 
 #pragma mark - Asynchronous Read & Write
