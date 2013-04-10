@@ -1,12 +1,12 @@
 /**
- `TMPettyCache` is an asynchronous wrapper for `NSCache` with simultaneous persistence to disk.
+ `TMCache` is an asynchronous wrapper for `NSCache` with simultaneous persistence to disk.
  */
 
-@class TMPettyCache;
+@class TMCache;
 
-typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL);
+typedef void (^TMCacheBlock)(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL);
 
-@interface TMPettyCache : NSObject <NSCacheDelegate>
+@interface TMCache : NSObject <NSCacheDelegate>
 
 /// @name Core
 
@@ -17,13 +17,13 @@ typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *da
 
 @property (assign) NSUInteger memoryCacheByteLimit;
 @property (assign) NSUInteger memoryCacheCountLimit;
-@property (copy) TMPettyCacheBlock willEvictDataFromMemoryBlock;
+@property (copy) TMCacheBlock willEvictDataFromMemoryBlock;
 
 /// @name Disk Cache
 
 @property (assign) NSUInteger diskCacheByteLimit;
 @property (assign) NSTimeInterval diskCacheMaxAge;
-@property (copy) TMPettyCacheBlock willEvictDataFromDiskBlock;
+@property (copy) TMCacheBlock willEvictDataFromDiskBlock;
 
 /// @name Current Usage
 
@@ -51,12 +51,12 @@ typedef void (^TMPettyCacheBlock)(TMPettyCache *cache, NSString *key, NSData *da
 
 /// @name Write
 
-- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
-- (void)removeDataForKey:(NSString *)key block:(TMPettyCacheBlock)completionBlock;
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheBlock)completionBlock;
+- (void)removeDataForKey:(NSString *)key block:(TMCacheBlock)completionBlock;
 
 /// @name Read
 
-- (void)dataForKey:(NSString *)key block:(TMPettyCacheBlock)block;
-- (void)fileURLForKey:(NSString *)key block:(TMPettyCacheBlock)block;
+- (void)dataForKey:(NSString *)key block:(TMCacheBlock)block;
+- (void)fileURLForKey:(NSString *)key block:(TMCacheBlock)block;
 
 @end

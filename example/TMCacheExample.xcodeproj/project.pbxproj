@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0E353881714E938001499E0 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E353871714E938001499E0 /* TMCache.m */; };
 		D0EE49411684E911009F30AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49401684E911009F30AE /* UIKit.framework */; };
 		D0EE49431684E911009F30AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49421684E911009F30AE /* Foundation.framework */; };
 		D0EE49451684E911009F30AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE49441684E911009F30AE /* CoreGraphics.framework */; };
 		D0EE494D1684E911009F30AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE494C1684E911009F30AE /* main.m */; };
 		D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE49501684E911009F30AE /* TMAppDelegate.m */; };
-		D0EE49601684E990009F30AE /* TMPettyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE495F1684E990009F30AE /* TMPettyCache.m */; };
 		D0EE49641684EA62009F30AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EE49631684EA62009F30AE /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0E353861714E938001499E0 /* TMCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCache.h; sourceTree = "<group>"; };
+		D0E353871714E938001499E0 /* TMCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMCache.m; sourceTree = "<group>"; };
 		D0EE493C1684E911009F30AE /* TMCacheExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMCacheExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EE49401684E911009F30AE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0EE49421684E911009F30AE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -26,8 +28,6 @@
 		D0EE494E1684E911009F30AE /* TMCacheExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TMCacheExample-Prefix.pch"; sourceTree = "<group>"; };
 		D0EE494F1684E911009F30AE /* TMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMAppDelegate.h; sourceTree = "<group>"; };
 		D0EE49501684E911009F30AE /* TMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMAppDelegate.m; sourceTree = "<group>"; };
-		D0EE495E1684E990009F30AE /* TMPettyCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMPettyCache.h; sourceTree = "<group>"; };
-		D0EE495F1684E990009F30AE /* TMPettyCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMPettyCache.m; sourceTree = "<group>"; };
 		D0EE49631684EA62009F30AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,11 +45,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0E353851714E938001499E0 /* TMCache */ = {
+			isa = PBXGroup;
+			children = (
+				D0E353861714E938001499E0 /* TMCache.h */,
+				D0E353871714E938001499E0 /* TMCache.m */,
+			);
+			name = TMCache;
+			path = ../TMCache;
+			sourceTree = "<group>";
+		};
 		D0EE49311684E911009F30AE = {
 			isa = PBXGroup;
 			children = (
 				D0EE49461684E911009F30AE /* TMCacheExample */,
-				D0EE495D1684E990009F30AE /* TMPettyCache */,
+				D0E353851714E938001499E0 /* TMCache */,
 				D0EE49471684E911009F30AE /* Supporting Files */,
 				D0EE493F1684E911009F30AE /* Frameworks */,
 				D0EE493D1684E911009F30AE /* Products */,
@@ -93,16 +103,6 @@
 			);
 			name = "Supporting Files";
 			path = TMCacheExample;
-			sourceTree = "<group>";
-		};
-		D0EE495D1684E990009F30AE /* TMPettyCache */ = {
-			isa = PBXGroup;
-			children = (
-				D0EE495E1684E990009F30AE /* TMPettyCache.h */,
-				D0EE495F1684E990009F30AE /* TMPettyCache.m */,
-			);
-			name = TMPettyCache;
-			path = ../TMPettyCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,7 +170,7 @@
 			files = (
 				D0EE494D1684E911009F30AE /* main.m in Sources */,
 				D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */,
-				D0EE49601684E990009F30AE /* TMPettyCache.m in Sources */,
+				D0E353881714E938001499E0 /* TMCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 #import "TMAppDelegate.h"
-#import "TMPettyCache.h"
+#import "TMCache.h"
 
 @implementation TMAppDelegate
 
@@ -21,22 +21,22 @@
     NSString *exampleKey = @"TMExampleKey";
     NSString *exampleString = @"Tell me, O Muse, of the man of many devices, who wandered full many ways after he sacked the sacred citadel of Troy.";
 
-    TMPettyCache *cache = [TMPettyCache sharedCache]; //[[TMPettyCache alloc] initWithName:@"TMExampleCache"];
+    TMCache *cache = [TMCache sharedCache]; //[[TMCache alloc] initWithName:@"TMExampleCache"];
     
     [cache clearAllCachesSynchronously];
 
     NSData *data = [exampleString dataUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"example data stored at pointer %p", data);
 
-    [cache setData:data forKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache setData:data forKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"data stored in memory cache");
     }];
 
-    cache.willEvictDataFromMemoryBlock = ^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    cache.willEvictDataFromMemoryBlock = ^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"%@ -- data at %p is being evicted from memory (key: %@)", cache, data, key);
     };
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache dataForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         if (data) {
             NSLog(@"this data was retrieved from %@: \"%@\"", cache.name, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
@@ -44,7 +44,7 @@
         }
     }];
 
-    [cache fileURLForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache fileURLForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         if (fileURL) {
             NSLog(@"the data is cached on disk at: %@", fileURL);
         } else {
@@ -54,15 +54,15 @@
 
     [cache clearMemoryCache];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache dataForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"second data retrieval (hitting disk this time) \"%@\"", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     }];
 
-    [cache removeDataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache removeDataForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"data with key %@ removed from cache", key);
     }];
 
-    [cache dataForKey:exampleKey block:^(TMPettyCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+    [cache dataForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"the data has been removed from the cache so this should be null: %@", data);
     }];
 }

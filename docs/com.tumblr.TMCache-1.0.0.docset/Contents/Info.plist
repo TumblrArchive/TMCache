@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tumblr.TMPettyCache</string>
+	<string>com.tumblr.TMCache</string>
 	<key>CFBundleName</key>
-	<string>TMPettyCache</string>
+	<string>TMCache</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
@@ -16,11 +16,11 @@
 	
 	
 	<key>DocSetFallbackURL</key>
-	<string>http://tumblr.github.com/TMPettyCache/</string>
+	<string>http://tumblr.github.com/TMCache/</string>
 	<key>DocSetFeedName</key>
-	<string>TMPettyCache</string>
+	<string>TMCache</string>
 	<key>DocSetFeedURL</key>
-	<string>http://tumblr.github.com/TMPettyCache/docs/publish/com.tumblr.TMPettyCache.atom</string>
+	<string>http://tumblr.github.com/TMCache/docs/publish/com.tumblr.TMCache.atom</string>
 	<key>DocSetMinimumXcodeVersion</key>
 	<string>4.3</string>
 	

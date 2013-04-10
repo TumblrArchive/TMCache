@@ -2,7 +2,7 @@
 <DocSetNodes version="1.0">
     <TOC>
         <Node type="folder">
-            <Name>TMPettyCache</Name>
+            <Name>TMCache</Name>
             <Path>index.html</Path>
 			<Subnodes>
                 
@@ -24,8 +24,8 @@
 	<Library>
 		
 		<Node id="1">
-			<Name>TMPettyCache</Name>
-			<Path>Classes/TMPettyCache.html</Path>
+			<Name>TMCache</Name>
+			<Path>Classes/TMCache.html</Path>
 		</Node>
 		
 		
