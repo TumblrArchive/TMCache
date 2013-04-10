@@ -423,11 +423,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             return;
 
         NSData *data = [strongSelf.cache objectForKey:key];
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        
         if (data)
             [strongSelf.cache removeObjectForKey:key];
         
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
         [strongSelf removeFileAtURL:fileURL];
         
         if (completionBlock)
