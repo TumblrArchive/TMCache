@@ -28,6 +28,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 @synthesize diskCacheByteLimit = _diskCacheByteLimit;
 @synthesize diskCacheMaxAge = _diskCacheMaxAge;
+@synthesize willEvictDataFromMemoryBlock = _willEvictDataFromMemoryBlock;
+@synthesize willEvictDataFromDiskBlock = _willEvictDataFromDiskBlock;
 
 - (void)dealloc
 {
@@ -160,8 +162,8 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSURL *fileURL = [strongSelf fileURLForKey:key];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
 
-        if (strongSelf.willEvictDataFromMemoryBlock)
-            strongSelf.willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
+        if (strongSelf->_willEvictDataFromMemoryBlock)
+            strongSelf->_willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
 
         strongSelf.currentMemoryBytes -= dataLength;
         strongSelf.currentMemoryCount -= 1;
@@ -290,10 +292,10 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     NSString *filePath = [fileURL path];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        if (self.willEvictDataFromDiskBlock) {
+        if (_willEvictDataFromDiskBlock) {
             NSString *key = [filePath lastPathComponent];
             NSURL *url = [NSURL fileURLWithPath:filePath isDirectory:NO];
-            self.willEvictDataFromDiskBlock(self, key, nil, url);
+            _willEvictDataFromDiskBlock(self, key, nil, url);
         }
         
         NSError *error = nil;
@@ -642,4 +644,53 @@ NSUInteger const TMPettyCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge]];
     });
 }
+
+- (TMPettyCacheBlock)willEvictDataFromMemoryBlock
+{
+    __block TMPettyCacheBlock block = nil;
+    
+    dispatch_sync(self.queue, ^{
+        block = _willEvictDataFromMemoryBlock;
+    });
+    
+    return block;
+}
+
+- (void)setWillEvictDataFromMemoryBlock:(TMPettyCacheBlock)block
+{
+    __weak TMPettyCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        strongSelf->_willEvictDataFromMemoryBlock = [block copy];
+    });
+}
+
+- (TMPettyCacheBlock)willEvictDataFromDiskBlock
+{
+    __block TMPettyCacheBlock block = nil;
+    
+    dispatch_sync(self.queue, ^{
+        block = _willEvictDataFromMemoryBlock;
+    });
+    
+    return block;
+}
+
+- (void)setWillEvictDataFromDiskBlock:(TMPettyCacheBlock)block
+{
+    __weak TMPettyCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMPettyCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        strongSelf->_willEvictDataFromDiskBlock = [block copy];
+    });
+}
+
 @end
