@@ -596,6 +596,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }];
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
 
     return dataForKey;
 }
@@ -614,6 +618,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
+    
     return fileURLForKey;
 }
 
@@ -627,6 +635,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }];
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
 }
 
 - (void)setData:(NSData *)data forKey:(NSString *)key
@@ -639,6 +651,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }];
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(group);
+    #endif
 }
 
 #pragma mark - Accessors
