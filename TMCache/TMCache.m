@@ -111,6 +111,49 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     return cache;
 }
 
+#pragma mark - <NSCacheDelegate>
+
+- (void)cache:(NSCache *)cache willEvictObject:(id)object
+{
+    __weak TMCache *weakSelf = self;
+    
+    void (^evictionBlock)() = ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSData *data = (NSData *)object;
+        NSUInteger dataLength = [data length];
+        NSValue *dataValue = [NSValue valueWithNonretainedObject:data];
+        
+        NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
+        [strongSelf.dataKeys removeObjectForKey:dataValue];
+        
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
+        
+        if (strongSelf->_willEvictDataFromMemoryBlock)
+            strongSelf->_willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
+        
+        strongSelf.currentMemoryBytes -= dataLength;
+        strongSelf.currentMemoryCount -= 1;
+    };
+    
+    /**
+     When `TMCache` is performing the eviction (via `removeDataForKey`, `clearMemoryCache`,
+     or `clearAllCachesSynchronously`) this method will always be called on `self.queue`.
+     
+     When the system does evictions (e.g. when the app goes to background) this method will be
+     called on the main thread and should be sync'd with `self.queue` for seriality.
+     */
+    
+    if ([NSThread isMainThread]) {
+        dispatch_sync(self.queue, evictionBlock);
+    } else {
+        evictionBlock();
+    }
+}
+
 #pragma mark - Private Methods
 
 - (void)didReceiveMemoryWarning:(NSNotification *)notification
@@ -141,54 +184,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     return [[NSString alloc] initWithString:digest];
 }
 
-#pragma mark - <NSCacheDelegate>
-
-- (void)cache:(NSCache *)cache willEvictObject:(id)object
-{
-    __weak TMCache *weakSelf = self;
-
-    void (^evictionBlock)() = ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-
-        NSData *data = (NSData *)object;
-        NSUInteger dataLength = [data length];
-        NSValue *dataValue = [NSValue valueWithNonretainedObject:data];
-        
-        NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
-        [strongSelf.dataKeys removeObjectForKey:dataValue];
-        
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
-
-        if (strongSelf->_willEvictDataFromMemoryBlock)
-            strongSelf->_willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
-
-        strongSelf.currentMemoryBytes -= dataLength;
-        strongSelf.currentMemoryCount -= 1;
-    };
-
-    /**
-     When `TMCache` is performing the eviction (via `removeDataForKey`, `clearMemoryCache`,
-     or `clearAllCachesSynchronously`) this method will always be called on `self.queue`.
-     
-     When the system does evictions (e.g. when the app goes to background) this method will be
-     called on the main thread and should be sync'd with `self.queue` for seriality.
-     */
-
-    if ([NSThread isMainThread]) {
-        dispatch_sync(self.queue, evictionBlock);
-    } else {
-        evictionBlock();
-    }
-}
-
 #pragma mark - Private Queue Methods 
 
 - (NSDictionary *)cacheFilePathsWithAttributes
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
     
     NSError *error = nil;
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.cachePath error:&error];
@@ -217,7 +217,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setDataInMemoryCache:(NSData *)data forKey:(NSString *)key
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
     
     NSUInteger dataLength = [data length];
     
@@ -230,7 +230,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)setFileModificationDate:(NSDate *)date fileURL:(NSURL *)url
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:NO];
     if (!fileExists)
@@ -245,7 +245,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)createCacheDirectory
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
 
     if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
         return;
@@ -260,7 +260,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)updateDiskBytesAndCount
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
 
     NSUInteger diskBytes = 0;
 
@@ -287,7 +287,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)removeFileAtURL:(NSURL *)fileURL
 {
-    // should only be called internally on `self.queue`
+    // should only be called privately on `self.queue`
 
     NSString *filePath = [fileURL path];
 
@@ -313,126 +313,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }
 }
 
-#pragma mark - Public Methods
-
-- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
-{
-    NSDate *now = [[NSDate alloc] init];
-
-    if (!completionBlock || ![key length])
-        return;
-
-    __weak TMCache *weakSelf = self;
-
-    dispatch_async(self.queue, ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-
-        NSData *data = [strongSelf.cache objectForKey:key];
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        
-        if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
-            [strongSelf setFileModificationDate:now fileURL:fileURL];
-
-            NSError *error = nil;
-            data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:&error];
-            TMCacheError(error);
-            
-            if (data)
-                [strongSelf setDataInMemoryCache:data forKey:key];
-        }
-
-        completionBlock(strongSelf, key, data, fileURL);
-    });
-}
-
-- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
-{
-    if (!completionBlock || ![key length])
-        return;
-
-    __weak TMCache *weakSelf = self;
-
-    dispatch_async(self.queue, ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
-        completionBlock(strongSelf, key, nil, fileExists ? fileURL : nil);
-    });
-}
-
-- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
-{
-    if (![key length])
-        return;
-    
-    if (!data) {
-        [self removeDataForKey:key block:nil];
-        return;
-    }
-
-    __weak TMCache *weakSelf = self;
-
-    dispatch_async(self.queue, ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-
-        [strongSelf setDataInMemoryCache:data forKey:key];
-        
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        
-        NSError *error = nil;
-        BOOL written = [data writeToURL:fileURL options:0 error:&error];
-        TMCacheError(error);
-        
-        if (written) {
-            strongSelf.currentDiskBytes += [data length];
-            strongSelf.currentDiskCount += 1;
-        }
-        
-        if (completionBlock)
-            completionBlock(strongSelf, key, data, fileURL);
-
-        if (strongSelf->_diskCacheByteLimit > 0) {
-            if (strongSelf.currentDiskBytes > strongSelf->_diskCacheByteLimit)
-                [strongSelf trimDiskCacheToSize:strongSelf->_diskCacheByteLimit block:nil];
-        }
-        
-        if (strongSelf->_diskCacheMaxAge > 0.0) {
-            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf->_diskCacheMaxAge];
-            [strongSelf trimDiskCacheToDate:date block:nil];
-        }
-    });
-}
-
-- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
-{
-    if (![key length])
-        return;
-
-    __weak TMCache *weakSelf = self;
-
-    dispatch_async(self.queue, ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-
-        NSData *data = [strongSelf.cache objectForKey:key];
-        if (data)
-            [strongSelf.cache removeObjectForKey:key];
-        
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
-        [strongSelf removeFileAtURL:fileURL];
-        
-        if (completionBlock)
-            completionBlock(strongSelf, key, nil, fileURL);
-    });
-}
+#pragma mark - Clearing
 
 - (void)clearMemoryCache
 {
@@ -508,6 +389,8 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
+#pragma mark - Trimming
+
 - (void)trimDiskCacheToSize:(NSUInteger)byteLimit block:(TMCacheBlock)completionBlock
 {
     if (byteLimit <= 0) {
@@ -581,6 +464,127 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (completionBlock)
             completionBlock(strongSelf);
+    });
+}
+
+#pragma mark - Asynchronous Read & Write
+
+- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
+{
+    NSDate *now = [[NSDate alloc] init];
+    
+    if (!completionBlock || ![key length])
+        return;
+    
+    __weak TMCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSData *data = [strongSelf.cache objectForKey:key];
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        
+        if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+            [strongSelf setFileModificationDate:now fileURL:fileURL];
+            
+            NSError *error = nil;
+            data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:&error];
+            TMCacheError(error);
+            
+            if (data)
+                [strongSelf setDataInMemoryCache:data forKey:key];
+        }
+        
+        completionBlock(strongSelf, key, data, fileURL);
+    });
+}
+
+- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
+{
+    if (!completionBlock || ![key length])
+        return;
+    
+    __weak TMCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
+        completionBlock(strongSelf, key, nil, fileExists ? fileURL : nil);
+    });
+}
+
+- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
+{
+    if (![key length])
+        return;
+    
+    __weak TMCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSData *data = [strongSelf.cache objectForKey:key];
+        if (data)
+            [strongSelf.cache removeObjectForKey:key];
+        
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        [strongSelf removeFileAtURL:fileURL];
+        
+        if (completionBlock)
+            completionBlock(strongSelf, key, nil, fileURL);
+    });
+}
+
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
+{
+    if (![key length])
+        return;
+    
+    if (!data) {
+        [self removeDataForKey:key block:nil];
+        return;
+    }
+    
+    __weak TMCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        [strongSelf setDataInMemoryCache:data forKey:key];
+        
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        
+        NSError *error = nil;
+        BOOL written = [data writeToURL:fileURL options:0 error:&error];
+        TMCacheError(error);
+        
+        if (written) {
+            strongSelf.currentDiskBytes += [data length];
+            strongSelf.currentDiskCount += 1;
+        }
+        
+        if (completionBlock)
+            completionBlock(strongSelf, key, data, fileURL);
+        
+        if (strongSelf->_diskCacheByteLimit > 0) {
+            if (strongSelf.currentDiskBytes > strongSelf->_diskCacheByteLimit)
+                [strongSelf trimDiskCacheToSize:strongSelf->_diskCacheByteLimit block:nil];
+        }
+        
+        if (strongSelf->_diskCacheMaxAge > 0.0) {
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf->_diskCacheMaxAge];
+            [strongSelf trimDiskCacheToDate:date block:nil];
+        }
     });
 }
 
