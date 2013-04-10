@@ -53,9 +53,16 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 
 /// @name Read & Write (Asynchronously)
 
-- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)block;
-- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)block;
+- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
+- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
 - (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
 - (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
+
+/// @name Read & Write (Synchronously)
+
+- (NSData *)dataForKey:(NSString *)key;
+- (NSURL *)fileURLForKey:(NSString *)key;
+- (void)removeDataForKey:(NSString *)key;
+- (void)setData:(NSData *)data forKey:(NSString *)key;
 
 @end

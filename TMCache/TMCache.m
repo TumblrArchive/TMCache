@@ -118,7 +118,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     [self clearMemoryCache];
 }
 
-- (NSURL *)fileURLForKey:(NSString *)key
+- (NSURL *)hashedFileURLForKey:(NSString *)key
 {
     if (![key length])
         return nil;
@@ -159,7 +159,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
         [strongSelf.dataKeys removeObjectForKey:dataValue];
         
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
 
         if (strongSelf->_willEvictDataFromMemoryBlock)
@@ -315,11 +315,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 #pragma mark - Public Methods
 
-- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)block
+- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
 {
     NSDate *now = [[NSDate alloc] init];
 
-    if (!block || ![key length])
+    if (!completionBlock || ![key length])
         return;
 
     __weak TMCache *weakSelf = self;
@@ -330,7 +330,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             return;
 
         NSData *data = [strongSelf.cache objectForKey:key];
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
         
         if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             [strongSelf setFileModificationDate:now fileURL:fileURL];
@@ -343,13 +343,13 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
                 [strongSelf setDataInMemoryCache:data forKey:key];
         }
 
-        block(strongSelf, key, data, fileURL);
+        completionBlock(strongSelf, key, data, fileURL);
     });
 }
 
-- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)block
+- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
 {
-    if (!block || ![key length])
+    if (!completionBlock || ![key length])
         return;
 
     __weak TMCache *weakSelf = self;
@@ -359,8 +359,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!strongSelf)
             return;
         
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
-        block(strongSelf, key, nil, [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]] ? fileURL : nil);
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
+        completionBlock(strongSelf, key, nil, fileExists ? fileURL : nil);
     });
 }
 
@@ -383,7 +384,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         [strongSelf setDataInMemoryCache:data forKey:key];
         
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
         
         NSError *error = nil;
         BOOL written = [data writeToURL:fileURL options:0 error:&error];
@@ -422,7 +423,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             return;
 
         NSData *data = [strongSelf.cache objectForKey:key];
-        NSURL *fileURL = [strongSelf fileURLForKey:key];
+        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
         
         if (data)
             [strongSelf.cache removeObjectForKey:key];
@@ -578,6 +579,66 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
     });
+}
+
+#pragma mark - Synchronous Read & Write
+
+- (NSData *)dataForKey:(NSString *)key
+{
+    __block NSData *dataForKey = nil;
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    
+    [self dataForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+        dataForKey = data;
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+    return dataForKey;
+}
+
+- (NSURL *)fileURLForKey:(NSString *)key
+{
+    __block NSURL *fileURLForKey = nil;
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    
+    [self fileURLForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+        fileURLForKey = fileURL;
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    return fileURLForKey;
+}
+
+- (void)removeDataForKey:(NSString *)key
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    
+    [self removeDataForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+}
+
+- (void)setData:(NSData *)data forKey:(NSString *)key
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    
+    [self setData:data forKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
 }
 
 #pragma mark - Accessors
