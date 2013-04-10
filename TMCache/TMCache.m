@@ -63,12 +63,15 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         self.willEvictDataFromMemoryBlock = nil;
         self.willEvictDataFromDiskBlock = nil;
 
-        self.memoryCacheByteLimit = TMCacheDefaultMemoryLimit;
-        self.memoryCacheCountLimit = 0;
         self.currentMemoryBytes = 0;
         self.currentMemoryCount = 0;
         self.currentDiskBytes = 0;
         self.currentDiskCount = 0;
+
+        self.memoryCacheByteLimit = TMCacheDefaultMemoryLimit;
+        self.memoryCacheCountLimit = 0;
+        self.diskCacheByteLimit = 0;
+        self.diskCacheMaxAge = 0;
 
         __weak TMCache *weakSelf = self;
 
@@ -76,9 +79,6 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             TMCache *strongSelf = weakSelf;
             if (!strongSelf)
                 return;
-
-            strongSelf->_diskCacheByteLimit = 0;
-            strongSelf->_diskCacheMaxAge = 0;
             
             [strongSelf createCacheDirectory];
             [strongSelf updateDiskBytesAndCount];
@@ -269,7 +269,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     // should only be called privately on `self.queue`
 
-    if (![self.cachePath length] || [[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.cachePath isDirectory:nil])
         return;
 
     NSError *error = nil;
