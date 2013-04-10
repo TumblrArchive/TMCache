@@ -315,7 +315,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 #pragma mark - Public Methods
 
-- (void)dataForKey:(NSString *)key block:(TMCacheBlock)block
+- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)block
 {
     NSDate *now = [[NSDate alloc] init];
 
@@ -347,7 +347,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (void)fileURLForKey:(NSString *)key block:(TMCacheBlock)block
+- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)block
 {
     if (!block || ![key length])
         return;
@@ -364,7 +364,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheBlock)completionBlock
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
 {
     if (![key length])
         return;
@@ -397,15 +397,19 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf, key, data, fileURL);
 
-        if (strongSelf->_diskCacheByteLimit > 0 && strongSelf.currentDiskBytes > strongSelf->_diskCacheByteLimit)
-            [strongSelf trimDiskCacheToSize:strongSelf->_diskCacheByteLimit];
+        if (strongSelf->_diskCacheByteLimit > 0) {
+            if (strongSelf.currentDiskBytes > strongSelf->_diskCacheByteLimit)
+                [strongSelf trimDiskCacheToSize:strongSelf->_diskCacheByteLimit block:nil];
+        }
         
-        if (strongSelf->_diskCacheMaxAge > 0.0)
-            [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf.diskCacheMaxAge]];
+        if (strongSelf->_diskCacheMaxAge > 0.0) {
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:-strongSelf->_diskCacheMaxAge];
+            [strongSelf trimDiskCacheToDate:date block:nil];
+        }
     });
 }
 
-- (void)removeDataForKey:(NSString *)key block:(TMCacheBlock)completionBlock
+- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
 {
     if (![key length])
         return;
@@ -468,14 +472,14 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
     
-    [self clearAllCaches:^{
+    [self clearAllCaches:^(TMCache *cache) {
         dispatch_group_leave(group);
     }];
     
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
 }
 
-- (void)clearAllCaches:(void (^)(void))completionBlock
+- (void)clearAllCaches:(TMCacheBlock)completionBlock
 {
     __weak TMCache *weakSelf = self;
     
@@ -496,11 +500,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         [strongSelf createCacheDirectory];
         
         if (completionBlock)
-            completionBlock();
+            completionBlock(strongSelf);
     });
 }
 
-- (void)trimDiskCacheToSize:(NSUInteger)byteLimit
+- (void)trimDiskCacheToSize:(NSUInteger)byteLimit block:(TMCacheBlock)completionBlock
 {
     if (byteLimit <= 0) {
         [self clearDiskCache];
@@ -528,10 +532,13 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
             [strongSelf removeFileAtURL:[NSURL fileURLWithPath:filePath isDirectory:NO]];
         }
+        
+        if (completionBlock)
+            completionBlock(strongSelf);
     });
 }
 
-- (void)trimDiskCacheToDate:(NSDate *)trimDate
+- (void)trimDiskCacheToDate:(NSDate *)trimDate block:(TMCacheBlock)completionBlock
 {
     if (!trimDate)
         return;
@@ -567,6 +574,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
                 break;
             }
         }
+        
+        if (completionBlock)
+            completionBlock(strongSelf);
     });
 }
 
@@ -635,7 +645,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         strongSelf->_diskCacheByteLimit = limit;
 
         if (limit > 0)
-            [strongSelf trimDiskCacheToSize:limit];
+            [strongSelf trimDiskCacheToSize:limit block:nil];
     });
 }
 
@@ -661,14 +671,16 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         strongSelf->_diskCacheMaxAge = maxAge;
 
-        if (maxAge > 0.0)
-            [strongSelf trimDiskCacheToDate:[[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge]];
+        if (maxAge > 0.0) {
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:-maxAge];
+            [strongSelf trimDiskCacheToDate:date block:nil];
+        }
     });
 }
 
-- (TMCacheBlock)willEvictDataFromMemoryBlock
+- (TMCacheDataBlock)willEvictDataFromMemoryBlock
 {
-    __block TMCacheBlock block = nil;
+    __block TMCacheDataBlock block = nil;
     
     dispatch_sync(self.queue, ^{
         block = _willEvictDataFromMemoryBlock;
@@ -677,7 +689,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     return block;
 }
 
-- (void)setWillEvictDataFromMemoryBlock:(TMCacheBlock)block
+- (void)setWillEvictDataFromMemoryBlock:(TMCacheDataBlock)block
 {
     __weak TMCache *weakSelf = self;
     
@@ -690,9 +702,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (TMCacheBlock)willEvictDataFromDiskBlock
+- (TMCacheDataBlock)willEvictDataFromDiskBlock
 {
-    __block TMCacheBlock block = nil;
+    __block TMCacheDataBlock block = nil;
     
     dispatch_sync(self.queue, ^{
         block = _willEvictDataFromMemoryBlock;
@@ -701,7 +713,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     return block;
 }
 
-- (void)setWillEvictDataFromDiskBlock:(TMCacheBlock)block
+- (void)setWillEvictDataFromDiskBlock:(TMCacheDataBlock)block
 {
     __weak TMCache *weakSelf = self;
     

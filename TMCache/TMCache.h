@@ -4,7 +4,8 @@
 
 @class TMCache;
 
-typedef void (^TMCacheBlock)(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL);
+typedef void (^TMCacheBlock)(TMCache *cache);
+typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL);
 
 @interface TMCache : NSObject <NSCacheDelegate>
 
@@ -17,13 +18,13 @@ typedef void (^TMCacheBlock)(TMCache *cache, NSString *key, NSData *data, NSURL 
 
 @property (assign) NSUInteger memoryCacheByteLimit;
 @property (assign) NSUInteger memoryCacheCountLimit;
-@property (copy) TMCacheBlock willEvictDataFromMemoryBlock;
+@property (copy) TMCacheDataBlock willEvictDataFromMemoryBlock;
 
 /// @name Disk Cache
 
 @property (assign) NSUInteger diskCacheByteLimit;
 @property (assign) NSTimeInterval diskCacheMaxAge;
-@property (copy) TMCacheBlock willEvictDataFromDiskBlock;
+@property (copy) TMCacheDataBlock willEvictDataFromDiskBlock;
 
 /// @name Current Usage
 
@@ -43,21 +44,21 @@ typedef void (^TMCacheBlock)(TMCache *cache, NSString *key, NSData *data, NSURL 
 - (void)clearMemoryCache;
 - (void)clearDiskCache;
 - (void)clearAllCachesSynchronously;
-- (void)clearAllCaches:(void (^)(void))completionBlock;
+- (void)clearAllCaches:(TMCacheBlock)completionBlock;
 
-/// @name Trim
+/// @name Trim Disk
 
-- (void)trimDiskCacheToSize:(NSUInteger)bytes;
-- (void)trimDiskCacheToDate:(NSDate *)date;
+- (void)trimDiskCacheToSize:(NSUInteger)bytes block:(TMCacheBlock)completionBlock;
+- (void)trimDiskCacheToDate:(NSDate *)date block:(TMCacheBlock)completionBlock;
 
 /// @name Write
 
-- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheBlock)completionBlock;
-- (void)removeDataForKey:(NSString *)key block:(TMCacheBlock)completionBlock;
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
+- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
 
 /// @name Read
 
-- (void)dataForKey:(NSString *)key block:(TMCacheBlock)block;
-- (void)fileURLForKey:(NSString *)key block:(TMCacheBlock)block;
+- (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)block;
+- (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)block;
 
 @end
