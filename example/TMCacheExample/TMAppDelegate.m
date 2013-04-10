@@ -21,7 +21,7 @@
     NSString *exampleKey = @"TMExampleKey";
     NSString *exampleString = @"Tell me, O Muse, of the man of many devices, who wandered full many ways after he sacked the sacred citadel of Troy.";
 
-    TMCache *cache = [TMCache sharedCache]; //[[TMCache alloc] initWithName:@"TMExampleCache"];
+    TMCache *cache = [TMCache sharedCache];
     
     [cache clearAllCaches];
 
