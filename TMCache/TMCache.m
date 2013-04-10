@@ -371,17 +371,16 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)clearAllCachesSynchronously
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     [self clearAllCaches:^(TMCache *cache) {
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
     
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 }
 
@@ -492,33 +491,31 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)trimDiskCacheToSize:(NSUInteger)bytes
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
-
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
     [self trimDiskCacheToSize:bytes block:^(TMCache *cache) {
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
 
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 }
 
 - (void)trimDiskCacheToDate:(NSDate *)date
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [self trimDiskCacheToDate:date block:^(TMCache *cache) {
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
 
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 }
 
@@ -649,18 +646,17 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __block NSData *dataForKey = nil;
     
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     [self dataForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         dataForKey = data;
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
     
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 
     return dataForKey;
@@ -670,52 +666,49 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __block NSURL *fileURLForKey = nil;
     
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
-    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
     [self fileURLForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         fileURLForKey = fileURL;
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
-    
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
-    
+
     return fileURLForKey;
 }
 
 - (void)removeDataForKey:(NSString *)key
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     [self removeDataForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
     
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 }
 
 - (void)setData:(NSData *)data forKey:(NSString *)key
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     [self setData:data forKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
-        dispatch_group_leave(group);
+        dispatch_semaphore_signal(semaphore);
     }];
     
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
     #if !OS_OBJECT_USE_OBJC
-    dispatch_release(group);
+    dispatch_release(semaphore);
     #endif
 }
 
