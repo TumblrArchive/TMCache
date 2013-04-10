@@ -465,17 +465,38 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)clearAllCachesSynchronously
 {
-    dispatch_sync(self.queue, ^{
-        [self.cache removeAllObjects];
-        [self.dataKeys removeAllObjects];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    
+    [self clearAllCaches:^{
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+}
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:self.cachePath]) {
+- (void)clearAllCaches:(void (^)(void))completionBlock
+{
+    __weak TMCache *weakSelf = self;
+    
+    dispatch_async(self.queue, ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        [strongSelf.cache removeAllObjects];
+        [strongSelf.dataKeys removeAllObjects];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
             NSError *error = nil;
-            [[NSFileManager defaultManager] removeItemAtPath:self.cachePath error:&error];
+            [[NSFileManager defaultManager] removeItemAtPath:strongSelf.cachePath error:&error];
             TMCacheError(error);
         }
         
-        [self createCacheDirectory];
+        [strongSelf createCacheDirectory];
+        
+        if (completionBlock)
+            completionBlock();
     });
 }
 
