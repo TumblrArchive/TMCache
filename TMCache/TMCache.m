@@ -1,5 +1,4 @@
 #import "TMCache.h"
-#import <CommonCrypto/CommonDigest.h>
 
 #define TMCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
             [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
@@ -129,7 +128,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
         [strongSelf.dataKeys removeObjectForKey:dataValue];
         
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
         
         if (strongSelf->_willEvictDataFromMemoryBlock)
@@ -161,27 +160,50 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     [self clearMemoryCache];
 }
 
-- (NSURL *)hashedFileURLForKey:(NSString *)key
++ (NSString *)escapedString:(NSString *)string
+{
+    if (![string length])
+        return @"";
+
+    CFStringRef static const charsToEscape = CFSTR(".:/");
+    CFStringRef escapedString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                        (__bridge CFStringRef)string,
+                                                                        NULL,
+                                                                        charsToEscape,
+                                                                        kCFStringEncodingUTF8);
+    return (__bridge_transfer NSString *)escapedString;
+}
+
++ (NSString *)unescapedString:(NSString *)string
+{
+    if (![string length])
+        return @"";
+
+    CFStringRef unescapedString = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+                                                                                          (__bridge CFStringRef)string,
+                                                                                          CFSTR(""),
+                                                                                          kCFStringEncodingUTF8);
+
+    return (__bridge_transfer NSString *)unescapedString;
+}
+
+- (NSURL *)escapedFileURLForKey:(NSString *)key
 {
     if (![key length])
         return nil;
     
-    NSString *path = [self.cachePath stringByAppendingPathComponent:[self SHA1:key]];
+    NSString *path = [self.cachePath stringByAppendingPathComponent:[[self class] escapedString:key]];
 
     return [NSURL fileURLWithPath:path];
 }
 
-- (NSString *)SHA1:(NSString *)string
+- (NSString *)keyForEscapedFileURL:(NSURL *)url
 {
-    const char *s = [string UTF8String];
-    unsigned char result[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(s, strlen(s), result);
-    
-    NSMutableString *digest = [[NSMutableString alloc] initWithCapacity:(CC_SHA1_DIGEST_LENGTH * 2)];
-    for (NSUInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-        [digest appendFormat:@"%02x", result[i]];
-    
-    return [[NSString alloc] initWithString:digest];
+    NSString *fileName = [url lastPathComponent];
+    if (!fileName)
+        return nil;
+
+    return [[self class] unescapedString:fileName];
 }
 
 #pragma mark - Private Queue Methods 
@@ -293,9 +315,8 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         if (_willEvictDataFromDiskBlock) {
-            NSString *key = [filePath lastPathComponent];
-            NSURL *url = [NSURL fileURLWithPath:filePath isDirectory:NO];
-            _willEvictDataFromDiskBlock(self, key, nil, url);
+            NSString *key = [self keyForEscapedFileURL:fileURL];
+            _willEvictDataFromDiskBlock(self, key, nil, fileURL);
         }
         
         NSError *error = nil;
@@ -484,11 +505,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             return;
         
         NSData *data = [strongSelf.cache objectForKey:key];
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
         
         if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             [strongSelf setFileModificationDate:now fileURL:fileURL];
-            
+
             NSError *error = nil;
             data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:&error];
             TMCacheError(error);
@@ -513,7 +534,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!strongSelf)
             return;
         
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
         completionBlock(strongSelf, key, nil, fileExists ? fileURL : nil);
     });
@@ -535,7 +556,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (data)
             [strongSelf.cache removeObjectForKey:key];
         
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
         [strongSelf removeFileAtURL:fileURL];
         
         if (completionBlock)
@@ -562,7 +583,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         [strongSelf setDataInMemoryCache:data forKey:key];
         
-        NSURL *fileURL = [strongSelf hashedFileURLForKey:key];
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
         
         NSError *error = nil;
         BOOL written = [data writeToURL:fileURL options:0 error:&error];

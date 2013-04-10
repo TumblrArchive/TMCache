@@ -12,7 +12,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self example];
     });
-
+    
     return YES;
 }
 
@@ -34,6 +34,10 @@
 
     cache.willEvictDataFromMemoryBlock = ^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         NSLog(@"%@ -- data at %p is being evicted from memory (key: %@)", cache, data, key);
+    };
+    
+    cache.willEvictDataFromDiskBlock = ^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+        NSLog(@"%@ -- data is being evicted from disk (key: %@)", cache, key);
     };
 
     [cache dataForKey:exampleKey block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
