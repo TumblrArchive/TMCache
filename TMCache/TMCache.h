@@ -33,17 +33,20 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 + (instancetype)sharedCache;
 + (instancetype)withName:(NSString *)name;
 - (instancetype)initWithName:(NSString *)name;
+
+/// @name Utility
+
 - (NSString *)name;
 - (dispatch_queue_t)queue;
 
-/// @name Revelation
+/// @name Clear Caches
 
 - (void)clearMemoryCache;
 - (void)clearDiskCache;
 - (void)clearAllCachesSynchronously;
 - (void)clearAllCaches:(TMCacheBlock)completionBlock;
 
-/// @name Trim Disk
+/// @name Trim Disk Cache
 
 - (void)trimDiskCacheToSize:(NSUInteger)bytes block:(TMCacheBlock)completionBlock;
 - (void)trimDiskCacheToDate:(NSDate *)date block:(TMCacheBlock)completionBlock;
