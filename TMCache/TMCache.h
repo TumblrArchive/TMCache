@@ -51,14 +51,11 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 - (void)trimDiskCacheToSize:(NSUInteger)bytes block:(TMCacheBlock)completionBlock;
 - (void)trimDiskCacheToDate:(NSDate *)date block:(TMCacheBlock)completionBlock;
 
-/// @name Write
-
-- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
-- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
-
-/// @name Read
+/// @name Read & Write (Asynchronously)
 
 - (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)block;
 - (void)fileURLForKey:(NSString *)key block:(TMCacheDataBlock)block;
+- (void)removeDataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
+- (void)setData:(NSData *)data forKey:(NSString *)key block:(TMCacheDataBlock)completionBlock;
 
 @end
