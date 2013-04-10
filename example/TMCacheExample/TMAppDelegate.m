@@ -23,7 +23,7 @@
 
     TMCache *cache = [TMCache sharedCache]; //[[TMCache alloc] initWithName:@"TMExampleCache"];
     
-    [cache clearMemoryAndDiskCache];
+    [cache clearAllCaches];
 
     NSData *data = [exampleString dataUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"example data stored at pointer %p", data);

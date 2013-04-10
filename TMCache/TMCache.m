@@ -375,7 +375,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-- (void)clearMemoryAndDiskCache:(TMCacheBlock)completionBlock
+- (void)clearAllCaches:(TMCacheBlock)completionBlock
 {
     __weak TMCache *weakSelf = self;
     
@@ -432,11 +432,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     #endif
 }
 
-- (void)clearMemoryAndDiskCache
+- (void)clearAllCaches
 {
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-    [self clearMemoryAndDiskCache:^(TMCache *cache) {
+    [self clearAllCaches:^(TMCache *cache) {
         dispatch_semaphore_signal(semaphore);
     }];
 
