@@ -395,11 +395,18 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 - (void)clearDiskCache:(TMCacheBlock)completionBlock
 {
     __weak TMCache *weakSelf = self;
-
+    
+    UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+    }];
+    
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            [[UIApplication sharedApplication] endBackgroundTask:taskID];
             return;
+        }
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:strongSelf.cachePath]) {
             NSError *error = nil;
@@ -411,6 +418,8 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
         if (completionBlock)
             completionBlock(strongSelf);
+        
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
 }
 
@@ -418,16 +427,17 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __weak TMCache *weakSelf = self;
     
-//    __block UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
-//    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-//        [[UIApplication sharedApplication] endBackgroundTask:taskID];
-//        taskID = UIBackgroundTaskInvalid;
-//    }];
+    UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+    }];
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            [[UIApplication sharedApplication] endBackgroundTask:taskID];
             return;
+        }
         
         [strongSelf.cache removeAllObjects];
         [strongSelf.dataKeys removeAllObjects];
@@ -443,12 +453,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
         
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if (taskID != UIBackgroundTaskInvalid) {
-//                [[UIApplication sharedApplication] endBackgroundTask:taskID];
-//                taskID = UIBackgroundTaskInvalid;
-//            }
-//        });
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
 }
 
@@ -462,11 +467,18 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }
     
     __weak TMCache *weakSelf = self;
-
+    
+    UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+    }];
+    
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            [[UIApplication sharedApplication] endBackgroundTask:taskID];
             return;
+        }
 
         NSDictionary *filePathsWithAttributes = [strongSelf cacheFilePathsWithAttributes];
         if (!filePathsWithAttributes)
@@ -485,6 +497,8 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (completionBlock)
             completionBlock(strongSelf);
+        
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
 }
 
@@ -499,11 +513,18 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }
 
     __weak TMCache *weakSelf = self;
-
+    
+    UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+    }];
+    
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            [[UIApplication sharedApplication] endBackgroundTask:taskID];
             return;
+        }
 
         NSDictionary *filePathsWithAttributes = [strongSelf cacheFilePathsWithAttributes];
         if (!filePathsWithAttributes)
@@ -527,6 +548,8 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (completionBlock)
             completionBlock(strongSelf);
+        
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
 }
 
