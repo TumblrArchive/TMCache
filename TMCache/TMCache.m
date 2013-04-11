@@ -190,7 +190,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     if (![key length])
         return nil;
     
-    NSString *path = [self.cachePath stringByAppendingPathComponent:[[self class] escapedString:key]];
+    NSString *path = [self.cachePath stringByAppendingPathComponent:[TMCache escapedString:key]];
 
     return [NSURL fileURLWithPath:path];
 }
@@ -201,7 +201,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     if (!fileName)
         return nil;
 
-    return [[self class] unescapedString:fileName];
+    return [TMCache unescapedString:fileName];
 }
 
 #pragma mark - Private Queue Methods 
