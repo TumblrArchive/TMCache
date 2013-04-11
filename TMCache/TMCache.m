@@ -100,7 +100,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        cache = [[self alloc] initWithName:NSStringFromClass([self class])];
+        cache = [[self alloc] initWithName:NSStringFromClass(self)];
     });
 
     return cache;
