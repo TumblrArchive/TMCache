@@ -1,6 +1,10 @@
 #import "TMAppDelegate.h"
 #import "TMCache.h"
 
+@interface TMAppDelegate ()
+@property (strong) TMCache *cache;
+@end
+
 @implementation TMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -8,6 +12,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     [self.window makeKeyAndVisible];
+    
+    self.cache = [[TMCache alloc] initWithName:@"TMExampleCache"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self example];
@@ -21,7 +27,7 @@
     NSString *exampleKey = @"TMExampleKey";
     NSString *exampleString = @"Tell me, O Muse, of the man of many devices, who wandered full many ways after he sacked the sacred citadel of Troy.";
 
-    TMCache *cache = [TMCache sharedCache];
+    TMCache *cache = self.cache;
     
     [cache clearAllCaches];
 

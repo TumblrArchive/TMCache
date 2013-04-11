@@ -80,8 +80,21 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             if (!strongSelf)
                 return;
             
-            [strongSelf createCacheDirectory];
-            [strongSelf updateDiskBytesAndCount];
+            /**
+             All instances of `TMCache` in the app serialize their queues against the
+             sharedCache's queue. This allows multiple caches to exist with the same
+             name and not interfere with each other's disk access.
+             */
+            
+            if (strongSelf != [TMCache sharedCache])
+                dispatch_set_target_queue(strongSelf.queue, [[TMCache sharedCache] queue]);
+            
+            __weak TMCache *weakSelf = strongSelf;
+            
+            dispatch_async(strongSelf.queue, ^{
+                [weakSelf createCacheDirectory];
+                [weakSelf updateDiskBytesAndCount];
+            });
         });
 
         [[NSNotificationCenter defaultCenter] addObserver:self
