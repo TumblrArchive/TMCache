@@ -40,7 +40,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     if (self = [super init]) {
         self.name = name;
-        self.queue = [TMCache sharedQueue];
+        self.queue = [self sharedQueue];
         self.dataKeys = [[NSMutableDictionary alloc] init];
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -106,62 +106,45 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     return cache;
 }
 
-+ (dispatch_queue_t)sharedQueue
+#pragma mark - Private Methods
+
+- (dispatch_queue_t)sharedQueue
 {
-    static dispatch_queue_t queue = nil;
+    // Only one queue can exist per `name` to avoid disk access conflicts.
+
+    __block dispatch_queue_t queue = nil;
+    static NSMutableDictionary *sharedQueues = nil;
+    static dispatch_queue_t creationQueue = nil;
     static dispatch_once_t predicate;
     
     dispatch_once(&predicate, ^{
-        queue = dispatch_queue_create([TMCachePrefix UTF8String], DISPATCH_QUEUE_SERIAL);
+        creationQueue = dispatch_queue_create([TMCachePrefix UTF8String], DISPATCH_QUEUE_SERIAL);
+        sharedQueues = [[NSMutableDictionary alloc] init];
+    });
+    
+    dispatch_sync(creationQueue, ^{
+        #if OS_OBJECT_USE_OBJC
+        queue = [sharedQueues objectForKey:self.name];
+        #else
+        NSValue *queueValue = [sharedQueues objectForKey:self.name];
+        if (queueValue)
+            queue = [queueValue pointerValue];
+        #endif
+        
+        if (!queue) {
+            NSString *queueName = [[NSString alloc] initWithFormat:@"%@.%@.%p", TMCachePrefix, self.name, self];
+            queue = dispatch_queue_create([queueName UTF8String], DISPATCH_QUEUE_SERIAL);
+            
+            #if OS_OBJECT_USE_OBJC
+            [sharedQueues setObject:queue forKey:self.name];
+            #else
+            [sharedQueues setObject:[NSValue valueWithPointer:queue] forKey:self.name];
+            #endif
+        }
     });
     
     return queue;
 }
-
-#pragma mark - <NSCacheDelegate>
-
-- (void)cache:(NSCache *)cache willEvictObject:(id)object
-{
-    __weak TMCache *weakSelf = self;
-    
-    void (^evictionBlock)() = ^{
-        TMCache *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        
-        NSData *data = (NSData *)object;
-        NSUInteger dataLength = [data length];
-        NSValue *dataValue = [NSValue valueWithNonretainedObject:data];
-        
-        NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
-        [strongSelf.dataKeys removeObjectForKey:dataValue];
-        
-        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
-        
-        if (strongSelf->_willEvictDataFromMemoryBlock)
-            strongSelf->_willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
-        
-        strongSelf.currentMemoryBytes -= dataLength;
-        strongSelf.currentMemoryCount -= 1;
-    };
-    
-    /**
-     When `TMCache` is performing the eviction (via `removeDataForKey`, `clearMemoryCache`,
-     or `clearAllCachesSynchronously`) this method will always be called on `self.queue`.
-     
-     When the system does evictions (e.g. when the app goes to background) this method will be
-     called on the main thread and should be sync'd with `self.queue` for seriality.
-     */
-    
-    if ([NSThread isMainThread]) {
-        dispatch_sync(self.queue, evictionBlock);
-    } else {
-        evictionBlock();
-    }
-}
-
-#pragma mark - Private Methods
 
 - (void)didReceiveMemoryWarning:(NSNotification *)notification
 {
@@ -339,6 +322,49 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             self.currentDiskBytes -= [attributes fileSize];
             self.currentDiskCount -= 1;
         }
+    }
+}
+
+#pragma mark - <NSCacheDelegate>
+
+- (void)cache:(NSCache *)cache willEvictObject:(id)object
+{
+    __weak TMCache *weakSelf = self;
+    
+    void (^evictionBlock)() = ^{
+        TMCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        
+        NSData *data = (NSData *)object;
+        NSUInteger dataLength = [data length];
+        NSValue *dataValue = [NSValue valueWithNonretainedObject:data];
+        
+        NSString *key = [strongSelf.dataKeys objectForKey:dataValue];
+        [strongSelf.dataKeys removeObjectForKey:dataValue];
+        
+        NSURL *fileURL = [strongSelf escapedFileURLForKey:key];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]];
+        
+        if (strongSelf->_willEvictDataFromMemoryBlock)
+            strongSelf->_willEvictDataFromMemoryBlock(self, key, data, fileExists ? fileURL : nil);
+        
+        strongSelf.currentMemoryBytes -= dataLength;
+        strongSelf.currentMemoryCount -= 1;
+    };
+    
+    /**
+     When `TMCache` is performing the eviction (via `removeDataForKey`, `clearMemoryCache`,
+     or `clearAllCachesSynchronously`) this method will always be called on `self.queue`.
+     
+     When the system does evictions (e.g. when the app goes to background) this method will be
+     called on the main thread and should be sync'd with `self.queue` for seriality.
+     */
+    
+    if ([NSThread isMainThread]) {
+        dispatch_sync(self.queue, evictionBlock);
+    } else {
+        evictionBlock();
     }
 }
 

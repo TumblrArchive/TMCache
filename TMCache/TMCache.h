@@ -35,11 +35,9 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 
 /// @name Genesis
 
-+ (instancetype)withName:(NSString *)name;
 - (instancetype)initWithName:(NSString *)name;
-
++ (instancetype)withName:(NSString *)name;
 + (instancetype)sharedCache;
-+ (dispatch_queue_t)sharedQueue;
 
 /// @name Clear Caches (Asynchronously)
 
