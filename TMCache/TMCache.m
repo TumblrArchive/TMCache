@@ -408,9 +408,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)clearDiskCache:(TMCacheBlock)completionBlock
 {
-    __weak TMCache *weakSelf = self;
-    
     TMCacheStartBackgroundTask();
+    
+    __weak TMCache *weakSelf = self;
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
@@ -436,9 +436,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 - (void)clearAllCaches:(TMCacheBlock)completionBlock
 {
-    __weak TMCache *weakSelf = self;
-    
     TMCacheStartBackgroundTask();
+    
+    __weak TMCache *weakSelf = self;
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
@@ -474,9 +474,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         return;
     }
     
-    __weak TMCache *weakSelf = self;
-    
     TMCacheStartBackgroundTask();
+    
+    __weak TMCache *weakSelf = self;
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
@@ -516,10 +516,10 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         [self clearDiskCache];
         return;
     }
-
-    __weak TMCache *weakSelf = self;
     
     TMCacheStartBackgroundTask();
+
+    __weak TMCache *weakSelf = self;
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
