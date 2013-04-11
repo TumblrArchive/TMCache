@@ -5,6 +5,7 @@
             __LINE__, [error localizedDescription]); }
 
 NSString * const TMCachePrefix = @"com.tumblr.TMCache";
+NSString * const TMCacheSharedName = @"TMCacheShared";
 NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 @interface TMCache ()
@@ -100,7 +101,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        cache = [[self alloc] initWithName:NSStringFromClass(self)];
+        cache = [[self alloc] initWithName:TMCacheSharedName];
     });
 
     return cache;
@@ -111,6 +112,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 - (dispatch_queue_t)sharedQueue
 {
     // Only one queue can exist per `name` to avoid disk access conflicts.
+    // By default, all queues are serialized against the sharedCache's queue.
 
     __block dispatch_queue_t queue = nil;
     static NSMutableDictionary *sharedQueues = nil;
@@ -134,6 +136,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (!queue) {
             NSString *queueName = [[NSString alloc] initWithFormat:@"%@.%@.%p", TMCachePrefix, self.name, self];
             queue = dispatch_queue_create([queueName UTF8String], DISPATCH_QUEUE_SERIAL);
+
+            if (![self.name isEqualToString:TMCacheSharedName])
+                dispatch_set_target_queue(queue, [[TMCache sharedCache] queue]);
             
             #if OS_OBJECT_USE_OBJC
             [sharedQueues setObject:queue forKey:self.name];

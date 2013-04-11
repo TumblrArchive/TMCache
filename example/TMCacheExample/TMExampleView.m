@@ -11,15 +11,25 @@
 
     [[TMCache sharedCache] dataForKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
         if (data) {
+            NSLog(@"cache hit, %@", fileURL);
             self.image = [[UIImage alloc] initWithData:data];
             return;
         }
+        
+        NSLog(@"cache miss, requesting %@", url);
 
         [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                            queue:[NSOperationQueue mainQueue]
                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                                   [[TMCache sharedCache] setData:data forKey:key block:nil];
+                                   if (!data)
+                                       return;
+
                                    self.image = [[UIImage alloc] initWithData:data];
+
+                                   [[TMCache sharedCache] setData:data forKey:key block:^(TMCache *cache, NSString *key, NSData *data, NSURL *fileURL) {
+                                       if (fileURL)
+                                           NSLog(@"success, data written to %@", fileURL);
+                                   }];
                                }];
     }];
 }
