@@ -418,6 +418,12 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __weak TMCache *weakSelf = self;
     
+//    __block UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+//    taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+//        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+//        taskID = UIBackgroundTaskInvalid;
+//    }];
+    
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
         if (!strongSelf)
@@ -436,54 +442,14 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (completionBlock)
             completionBlock(strongSelf);
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (taskID != UIBackgroundTaskInvalid) {
+//                [[UIApplication sharedApplication] endBackgroundTask:taskID];
+//                taskID = UIBackgroundTaskInvalid;
+//            }
+//        });
     });
-}
-
-#pragma mark - Clearing (Synchronous)
-
-- (void)clearMemoryCache
-{
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-    [self clearMemoryCache:^(TMCache *cache) {
-        dispatch_semaphore_signal(semaphore);
-    }];
-
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(semaphore);
-    #endif
-}
-
-- (void)clearDiskCache
-{
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-    [self clearDiskCache:^(TMCache *cache) {
-        dispatch_semaphore_signal(semaphore);
-    }];
-
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(semaphore);
-    #endif
-}
-
-- (void)clearAllCaches
-{
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-    [self clearAllCaches:^(TMCache *cache) {
-        dispatch_semaphore_signal(semaphore);
-    }];
-
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(semaphore);
-    #endif
 }
 
 #pragma mark - Trimming (Asynchronous) 
@@ -564,38 +530,6 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     });
 }
 
-#pragma mark - Trimming (Synchronous)
-
-- (void)trimDiskCacheToSize:(NSUInteger)bytes
-{
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    
-    [self trimDiskCacheToSize:bytes block:^(TMCache *cache) {
-        dispatch_semaphore_signal(semaphore);
-    }];
-
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(semaphore);
-    #endif
-}
-
-- (void)trimDiskCacheToDate:(NSDate *)date
-{
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
-    [self trimDiskCacheToDate:date block:^(TMCache *cache) {
-        dispatch_semaphore_signal(semaphore);
-    }];
-
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(semaphore);
-    #endif
-}
-
 #pragma mark - Read & Write (Asynchronous)
 
 - (void)dataForKey:(NSString *)key block:(TMCacheDataBlock)completionBlock
@@ -617,7 +551,7 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         
         if (!data && [[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
             [strongSelf setFileModificationDate:now fileURL:fileURL];
-
+            
             NSError *error = nil;
             data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:&error];
             TMCacheError(error);
@@ -715,6 +649,85 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             [strongSelf trimDiskCacheToDate:date block:nil];
         }
     });
+}
+
+#pragma mark - Clearing (Synchronous)
+
+- (void)clearMemoryCache
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [self clearMemoryCache:^(TMCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)clearDiskCache
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [self clearDiskCache:^(TMCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)clearAllCaches
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [self clearAllCaches:^(TMCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+#pragma mark - Trimming (Synchronous)
+
+- (void)trimDiskCacheToSize:(NSUInteger)bytes
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [self trimDiskCacheToSize:bytes block:^(TMCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)trimDiskCacheToDate:(NSDate *)date
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self trimDiskCacheToDate:date block:^(TMCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
 }
 
 #pragma mark - Read & Write (Synchronous)
