@@ -76,10 +76,12 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             [strongSelf updateDiskBytesAndCount];
         });
 
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarning:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
                                                    object:[UIApplication sharedApplication]];
+        #endif
     }
 
     return self;
@@ -396,15 +398,19 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __weak TMCache *weakSelf = self;
     
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
     UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
     taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     }];
+    #endif
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
         if (!strongSelf) {
+            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
+            #endif
             return;
         }
 
@@ -419,7 +425,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
         
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        #endif
     });
 }
 
@@ -427,15 +435,19 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 {
     __weak TMCache *weakSelf = self;
     
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
     UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
     taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     }];
+    #endif
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
         if (!strongSelf) {
+            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
+            #endif
             return;
         }
         
@@ -453,11 +465,13 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
         
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        #endif
     });
 }
 
-#pragma mark - Trimming (Asynchronous) 
+#pragma mark - Trimming (Asynchronous)
 
 - (void)trimDiskCacheToSize:(NSUInteger)byteLimit block:(TMCacheBlock)completionBlock
 {
@@ -468,15 +482,19 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     
     __weak TMCache *weakSelf = self;
     
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
     UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
     taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     }];
+    #endif
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
         if (!strongSelf) {
+            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
+            #endif
             return;
         }
 
@@ -498,7 +516,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
         
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        #endif
     });
 }
 
@@ -514,15 +534,19 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     __weak TMCache *weakSelf = self;
     
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
     UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
     taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     }];
+    #endif
     
     dispatch_async(self.queue, ^{
         TMCache *strongSelf = weakSelf;
         if (!strongSelf) {
+            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
+            #endif
             return;
         }
 
@@ -549,7 +573,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
         if (completionBlock)
             completionBlock(strongSelf);
         
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        #endif
     });
 }
 
