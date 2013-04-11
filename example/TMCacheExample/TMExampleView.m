@@ -18,8 +18,8 @@
         [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                            queue:[NSOperationQueue mainQueue]
                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                                   self.image = [[UIImage alloc] initWithData:data];
                                    [[TMCache sharedCache] setData:data forKey:key block:nil];
+                                   self.image = [[UIImage alloc] initWithData:data];
                                }];
     }];
 }
