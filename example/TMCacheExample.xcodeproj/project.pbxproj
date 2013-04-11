@@ -14,6 +14,7 @@
 		D0EE494D1684E911009F30AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE494C1684E911009F30AE /* main.m */; };
 		D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE49501684E911009F30AE /* TMAppDelegate.m */; };
 		D0EE49641684EA62009F30AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EE49631684EA62009F30AE /* Default-568h@2x.png */; };
+		D0FAD20C171649F600E405A9 /* TMExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FAD20B171649F600E405A9 /* TMExampleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		D0EE494F1684E911009F30AE /* TMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMAppDelegate.h; sourceTree = "<group>"; };
 		D0EE49501684E911009F30AE /* TMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMAppDelegate.m; sourceTree = "<group>"; };
 		D0EE49631684EA62009F30AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D0FAD20A171649F600E405A9 /* TMExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMExampleView.h; sourceTree = "<group>"; };
+		D0FAD20B171649F600E405A9 /* TMExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMExampleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 			children = (
 				D0EE494F1684E911009F30AE /* TMAppDelegate.h */,
 				D0EE49501684E911009F30AE /* TMAppDelegate.m */,
+				D0FAD20A171649F600E405A9 /* TMExampleView.h */,
+				D0FAD20B171649F600E405A9 /* TMExampleView.m */,
 			);
 			path = TMCacheExample;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				D0EE494D1684E911009F30AE /* main.m in Sources */,
 				D0EE49511684E911009F30AE /* TMAppDelegate.m in Sources */,
 				D0E353881714E938001499E0 /* TMCache.m in Sources */,
+				D0FAD20C171649F600E405A9 /* TMExampleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
