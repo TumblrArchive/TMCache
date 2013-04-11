@@ -8,12 +8,8 @@ NSString * const TMCachePrefix = @"com.tumblr.TMCache";
 NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
 @interface TMCache ()
-#if OS_OBJECT_USE_OBJC
-@property (strong) dispatch_queue_t queue;
-#else
-@property (assign) dispatch_queue_t queue;
-#endif
 @property (copy) NSString *name;
+@property (assign) dispatch_queue_t queue;
 @property (strong) NSMutableDictionary *dataKeys;
 @property (strong) NSCache *cache;
 @property (strong) NSString *cachePath;
@@ -35,11 +31,6 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     self.cache.delegate = nil;
-
-    #if !OS_OBJECT_USE_OBJC
-    dispatch_release(_queue);
-    _queue = NULL;
-    #endif
 }
 
 - (instancetype)initWithName:(NSString *)name
@@ -49,17 +40,17 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
 
     if (self = [super init]) {
         self.name = name;
+        self.queue = [TMCache sharedQueue];
+        self.dataKeys = [[NSMutableDictionary alloc] init];
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *dirPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:TMCachePrefix];
         self.cachePath = [dirPath stringByAppendingPathComponent:self.name];
 
         self.cache = [[NSCache alloc] init];
-        self.cache.name = [[NSString alloc] initWithFormat:@"%@.%p", TMCachePrefix, self];
+        self.cache.name = [self description];
         self.cache.delegate = self;
 
-        self.queue = dispatch_queue_create([self.cache.name UTF8String], DISPATCH_QUEUE_SERIAL);
-        self.dataKeys = [[NSMutableDictionary alloc] init];
         self.willEvictDataFromMemoryBlock = nil;
         self.willEvictDataFromDiskBlock = nil;
 
@@ -79,22 +70,9 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
             TMCache *strongSelf = weakSelf;
             if (!strongSelf)
                 return;
-            
-            /**
-             All instances of `TMCache` in the app serialize their queues against the
-             sharedCache's queue. This allows multiple caches to exist with the same
-             name and not interfere with each other's disk access.
-             */
-            
-            if (strongSelf != [TMCache sharedCache])
-                dispatch_set_target_queue(strongSelf.queue, [[TMCache sharedCache] queue]);
-            
-            __weak TMCache *weakSelf = strongSelf;
-            
-            dispatch_async(strongSelf.queue, ^{
-                [weakSelf createCacheDirectory];
-                [weakSelf updateDiskBytesAndCount];
-            });
+
+            [strongSelf createCacheDirectory];
+            [strongSelf updateDiskBytesAndCount];
         });
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -104,6 +82,11 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     }
 
     return self;
+}
+
+- (NSString *)description
+{
+    return [[NSString alloc] initWithFormat:@"%@.%@.%p", NSStringFromClass([self class]), self.name, self];
 }
 
 + (instancetype)withName:(NSString *)name
@@ -117,10 +100,22 @@ NSUInteger const TMCacheDefaultMemoryLimit = 0xA00000; // 10 MB
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        cache = [[self alloc] initWithName:NSStringFromClass(self)];
+        cache = [[self alloc] initWithName:NSStringFromClass([self class])];
     });
 
     return cache;
+}
+
++ (dispatch_queue_t)sharedQueue
+{
+    static dispatch_queue_t queue = nil;
+    static dispatch_once_t predicate;
+    
+    dispatch_once(&predicate, ^{
+        queue = dispatch_queue_create([TMCachePrefix UTF8String], DISPATCH_QUEUE_SERIAL);
+    });
+    
+    return queue;
 }
 
 #pragma mark - <NSCacheDelegate>

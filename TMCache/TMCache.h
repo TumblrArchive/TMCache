@@ -9,6 +9,11 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 
 @interface TMCache : NSObject <NSCacheDelegate>
 
+/// @name Vitals
+
+@property (copy, readonly) NSString *name;
+@property (assign, readonly) dispatch_queue_t queue;
+
 /// @name Memory Cache
 
 @property (assign) NSUInteger memoryCacheByteLimit;
@@ -30,14 +35,11 @@ typedef void (^TMCacheDataBlock)(TMCache *cache, NSString *key, NSData *data, NS
 
 /// @name Genesis
 
-+ (instancetype)sharedCache;
 + (instancetype)withName:(NSString *)name;
 - (instancetype)initWithName:(NSString *)name;
 
-/// @name Utility
-
-- (NSString *)name;
-- (dispatch_queue_t)queue;
++ (instancetype)sharedCache;
++ (dispatch_queue_t)sharedQueue;
 
 /// @name Clear Caches (Asynchronously)
 
