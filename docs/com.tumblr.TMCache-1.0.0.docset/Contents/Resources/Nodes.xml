@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocSetNodes version="1.0">
+    <TOC>
+        <Node type="folder">
+            <Name>TMCache</Name>
+            <Path>index.html</Path>
+			<Subnodes>
+                
+				
+				<Node type="folder">
+					<Name>Classes</Name>
+					<Path>index.html</Path>
+					<Subnodes>
+						<NodeRef refid="1"/>
+						<NodeRef refid="2"/>
+						<NodeRef refid="3"/>
+						
+					</Subnodes>
+				</Node>
+				
+				
+				
+			</Subnodes>
+        </Node>
+    </TOC>
+	<Library>
+		
+		<Node id="1">
+			<Name>TMCache</Name>
+			<Path>Classes/TMCache.html</Path>
+		</Node>
+		<Node id="2">
+			<Name>TMDiskCache</Name>
+			<Path>Classes/TMDiskCache.html</Path>
+		</Node>
+		<Node id="3">
+			<Name>TMMemoryCache</Name>
+			<Path>Classes/TMMemoryCache.html</Path>
+		</Node>
+		
+		
+		
+	</Library>
+</DocSetNodes>

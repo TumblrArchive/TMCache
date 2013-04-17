@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TMCache.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TMCache</TokenIdentifier>
+			<Abstract type="html">TMCache combines the advantages of TMMemoryCache and TMDiskCache.</Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+	</File>
+</Tokens>

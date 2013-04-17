@@ -1,0 +1,1806 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>TMDiskCache Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">TMCache </a></h1>
+				<a id="developerHome" href="../index.html">Tumblr</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">TMDiskCache Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/ageLimit">&nbsp;&nbsp;&nbsp;&nbsp;ageLimit</option>
+	
+	<option value="//api/name/byteCount">&nbsp;&nbsp;&nbsp;&nbsp;byteCount</option>
+	
+	<option value="//api/name/byteLimit">&nbsp;&nbsp;&nbsp;&nbsp;byteLimit</option>
+	
+	<option value="//api/name/didAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didAddObjectBlock</option>
+	
+	<option value="//api/name/didRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveObjectBlock</option>
+	
+	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
+	
+	<option value="//api/name/willAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willAddObjectBlock</option>
+	
+	<option value="//api/name/willRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willRemoveObjectBlock</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/sharedQueue">&nbsp;&nbsp;&nbsp;&nbsp;+ sharedQueue</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/fileURLForKey:">&nbsp;&nbsp;&nbsp;&nbsp;- fileURLForKey:</option>
+	
+	<option value="//api/name/fileURLForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- fileURLForKey:block:</option>
+	
+	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
+	
+	<option value="//api/name/objectForKey:">&nbsp;&nbsp;&nbsp;&nbsp;- objectForKey:</option>
+	
+	<option value="//api/name/objectForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- objectForKey:block:</option>
+	
+	<option value="//api/name/removeAllObjects">&nbsp;&nbsp;&nbsp;&nbsp;- removeAllObjects</option>
+	
+	<option value="//api/name/removeAllObjects:">&nbsp;&nbsp;&nbsp;&nbsp;- removeAllObjects:</option>
+	
+	<option value="//api/name/removeObjectForKey:">&nbsp;&nbsp;&nbsp;&nbsp;- removeObjectForKey:</option>
+	
+	<option value="//api/name/removeObjectForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- removeObjectForKey:block:</option>
+	
+	<option value="//api/name/setObject:forKey:">&nbsp;&nbsp;&nbsp;&nbsp;- setObject:forKey:</option>
+	
+	<option value="//api/name/setObject:forKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- setObject:forKey:block:</option>
+	
+	<option value="//api/name/sharedCache">&nbsp;&nbsp;&nbsp;&nbsp;- sharedCache</option>
+	
+	<option value="//api/name/trimToDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:</option>
+	
+	<option value="//api/name/trimToDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:block:</option>
+	
+	<option value="//api/name/trimToSize:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToSize:</option>
+	
+	<option value="//api/name/trimToSize:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToSize:block:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Core">Core</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Asynchronous Methods">Asynchronous Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Synchronous Methods">Synchronous Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/ageLimit">ageLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/byteCount">byteCount</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/byteLimit">byteLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAddObjectBlock">didAddObjectBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willAddObjectBlock">willAddObjectBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willRemoveObjectBlock">willRemoveObjectBlock</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedQueue">sharedQueue</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileURLForKey:">fileURLForKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileURLForKey:block:">fileURLForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectForKey:">objectForKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectForKey:block:">objectForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllObjects">removeAllObjects</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllObjects:">removeAllObjects:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeObjectForKey:">removeObjectForKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeObjectForKey:block:">removeObjectForKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:">setObject:forKey:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:block:">setObject:forKey:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCache">sharedCache</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:">trimToDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:block:">trimToDate:block:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToSize:">trimToSize:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToSize:block:">trimToSize:block:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="TMDiskCache Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">TMDiskCache Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">TMDiskCache.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><code>TMDiskCache</code> is a thread safe key/value store backed by the file system. It accepts any object conforming
+to the <code>NSCoding</code> protocol, which includes the basic Foundation data types and collection classes and also
+many UIKit classes, notably <code>UIImage</code>. All work is performed on a serial queue shared by all instances in
+the app, and archiving is handled by <code>NSKeyedArchiver</code>. This is a particular advantage for <code>UIImage</code> because
+it skips <code>UIImagePNGRepresentation()</code> and retains information like scale and orientation and even subclass.</p>
+
+<p>The designated initializer for <code>TMDiskCache</code> is <a href="#//api/name/initWithName:">initWithName:</a>. The <a href="#//api/name/name">name</a> string is used to create a directory
+under Library/Caches that scopes disk access for any instance sharing this name. Multiple instances with the
+same name are allowed because all disk access is serialized on the <a href="#//api/name/sharedQueue">sharedQueue</a>. The <a href="#//api/name/name">name</a> also appears in
+stack traces and return value for <code>description:</code>.</p>
+
+<p>Unless otherwise noted, all properties and methods are safe to access from any thread at any time. All blocks
+will cause the queue to wait, making it safe to access and manipulate the actual cache files on disk for the
+duration of the block. In addition, the <a href="#//api/name/sharedQueue">sharedQueue</a> can be set to target an existing serial I/O queue, should
+your app have already have one.</p>
+
+<p>Because this cache is bound by disk I/O it can be much slower than <code>TMMemoryCache</code>, although values stored in
+<code>TMDiskCache</code> persist after application relaunch. Using <code>TMCache</code> is recommended over using <code>TMDiskCache</code>
+by itself, as it adds a fast layer of additional memory caching while still writing to disk.</p>
+
+<p>All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an optional
+<a href="#//api/name/ageLimit">ageLimit</a> will trigger a GCD timer to periodically to trim the cache to that age.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Core" name="task_Core"></a>
+						<h3 class="subsubtitle task-title">Core</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+		<span class="tooltip"><p>The name of this cache, used to create a directory under Library/Caches and also appearing in stack traces.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/byteCount">&nbsp;&nbsp;byteCount</a></code>
+		<span class="tooltip"><p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/byteLimit">&nbsp;&nbsp;byteLimit</a></code>
+		<span class="tooltip"><p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/ageLimit">&nbsp;&nbsp;ageLimit</a></code>
+		<span class="tooltip"><p>The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
+greater than <code>0.0</code> will start a recurring GCD timer with the same period that calls <a href="#//api/name/trimToDate:">trimToDate:</a>.
+Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</code>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willAddObjectBlock">&nbsp;&nbsp;willAddObjectBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just before an object is added to the cache. The queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willRemoveObjectBlock">&nbsp;&nbsp;willRemoveObjectBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just before an object is removed from the cache. The queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didAddObjectBlock">&nbsp;&nbsp;didAddObjectBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just after an object is added to the cache. The queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didRemoveObjectBlock">&nbsp;&nbsp;didRemoveObjectBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Initialization" name="task_Initialization"></a>
+						<h3 class="subsubtitle task-title">Initialization</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sharedCache">&ndash;&nbsp;sharedCache</a></code>
+		<span class="tooltip"><p>A shared cache.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sharedQueue">+&nbsp;sharedQueue</a></code>
+		<span class="tooltip"><p>A shared serial queue, used by all instances this class. Use <code>dispatch_set_target_queue</code> to integrate
+this queue with an exisiting serial I/O queue.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithName:">&ndash;&nbsp;initWithName:</a></code>
+		<span class="tooltip"><p>The designated initializer. Multiple instances with the same name are allowed and can safely access
+the same data on disk thanks to the magic of seriality.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Asynchronous Methods" name="task_Asynchronous Methods"></a>
+						<h3 class="subsubtitle task-title">Asynchronous Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectForKey:block:">&ndash;&nbsp;objectForKey:block:</a></code>
+		<span class="tooltip"><p>Retrieves the object for the specified key. This method returns immediately and executes the passed
+block as soon as the object is available on the serial <a href="#//api/name/sharedQueue">sharedQueue</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fileURLForKey:block:">&ndash;&nbsp;fileURLForKey:block:</a></code>
+		<span class="tooltip"><p>Retrieves the fileURL for the specified key without actually reading the data from disk. This method
+returns immediately and executes the passed block as soon as the object is available on the serial
+<a href="#//api/name/sharedQueue">sharedQueue</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setObject:forKey:block:">&ndash;&nbsp;setObject:forKey:block:</a></code>
+		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method returns immediately and executes the
+passed block as soon as the object has been stored.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeObjectForKey:block:">&ndash;&nbsp;removeObjectForKey:block:</a></code>
+		<span class="tooltip"><p>Removes the object for the specified key. This method returns immediately and executes the passed block
+as soon as the object has been removed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToSize:block:">&ndash;&nbsp;trimToSize:block:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+specified byteCount. This method returns immediately and executes the passed block as soon as the cache
+has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This method
+returns immediately and executes the passed block as soon as the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllObjects:">&ndash;&nbsp;removeAllObjects:</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks.  This method returns
+immediately and executes the passed block as soon as the cache has been cleared.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Synchronous Methods" name="task_Synchronous Methods"></a>
+						<h3 class="subsubtitle task-title">Synchronous Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/objectForKey:">&ndash;&nbsp;objectForKey:</a></code>
+		<span class="tooltip"><p>Retrieves the object for the specified key. This method blocks the calling the thread until the
+object is available.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/fileURLForKey:">&ndash;&nbsp;fileURLForKey:</a></code>
+		<span class="tooltip"><p>Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+url is available. Do not use this URL anywhere but on the <a href="#//api/name/sharedQueue">sharedQueue</a>. This method probably
+shouldn&rsquo;t even exist, just use the asynchronous one.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setObject:forKey:">&ndash;&nbsp;setObject:forKey:</a></code>
+		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling the thread until
+the object has been stored.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeObjectForKey:">&ndash;&nbsp;removeObjectForKey:</a></code>
+		<span class="tooltip"><p>Removes the object for the specified key. This method blocks the calling the thread until the object
+has been removed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToSize:">&ndash;&nbsp;trimToSize:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
+method blocks the calling the thread until the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllObjects">&ndash;&nbsp;removeAllObjects</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks. This method blocks
+the calling the thread until the cache has been cleared.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/ageLimit" title="ageLimit"></a>
+	<h3 class="subsubtitle method-title">ageLimit</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
+greater than <code>0.0</code> will start a recurring GCD timer with the same period that calls <a href="#//api/name/trimToDate:">trimToDate:</a>.
+Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSTimeInterval ageLimit</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/byteCount" title="byteCount"></a>
+	<h3 class="subsubtitle method-title">byteCount</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSUInteger byteCount</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/byteLimit" title="byteLimit"></a>
+	<h3 class="subsubtitle method-title">byteLimit</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign) NSUInteger byteLimit</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didAddObjectBlock" title="didAddObjectBlock"></a>
+	<h3 class="subsubtitle method-title">didAddObjectBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just after an object is added to the cache. The queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheObjectBlock didAddObjectBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didRemoveObjectBlock" title="didRemoveObjectBlock"></a>
+	<h3 class="subsubtitle method-title">didRemoveObjectBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="subsubtitle method-title">name</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The name of this cache, used to create a directory under Library/Caches and also appearing in stack traces.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *name</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willAddObjectBlock" title="willAddObjectBlock"></a>
+	<h3 class="subsubtitle method-title">willAddObjectBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just before an object is added to the cache. The queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheObjectBlock willAddObjectBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willRemoveObjectBlock" title="willRemoveObjectBlock"></a>
+	<h3 class="subsubtitle method-title">willRemoveObjectBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just before an object is removed from the cache. The queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheObjectBlock willRemoveObjectBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/sharedQueue" title="sharedQueue"></a>
+	<h3 class="subsubtitle method-title">sharedQueue</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A shared serial queue, used by all instances this class. Use <code>dispatch_set_target_queue</code> to integrate
+this queue with an exisiting serial I/O queue.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (dispatch_queue_t)sharedQueue</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The shared singleton queue instance.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/fileURLForKey:" title="fileURLForKey:"></a>
+	<h3 class="subsubtitle method-title">fileURLForKey:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+url is available. Do not use this URL anywhere but on the <a href="#//api/name/sharedQueue">sharedQueue</a>. This method probably
+shouldn&rsquo;t even exist, just use the asynchronous one.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSURL *)fileURLForKey:(NSString *)<em>key</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the object.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The file URL for the specified key.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/fileURLForKey:block:">&ndash; fileURLForKey:block:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/fileURLForKey:block:" title="fileURLForKey:block:"></a>
+	<h3 class="subsubtitle method-title">fileURLForKey:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the fileURL for the specified key without actually reading the data from disk. This method
+returns immediately and executes the passed block as soon as the object is available on the serial
+<a href="#//api/name/sharedQueue">sharedQueue</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)fileURLForKey:(NSString *)<em>key</em> block:(TMDiskCacheObjectBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the requested object.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially when the file URL is available.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> Access is protected for the duration of the block, but to maintain safe disk access do not
+access this fileURL after the block has ended. Do all work on the <a href="#//api/name/sharedQueue">sharedQueue</a>.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithName:" title="initWithName:"></a>
+	<h3 class="subsubtitle method-title">initWithName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The designated initializer. Multiple instances with the same name are allowed and can safely access
+the same data on disk thanks to the magic of seriality.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithName:(NSString *)<em>name</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the cache.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new cache with the specified name.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/name">@property name</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectForKey:" title="objectForKey:"></a>
+	<h3 class="subsubtitle method-title">objectForKey:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the object for the specified key. This method blocks the calling the thread until the
+object is available.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id&lt;NSCoding&gt;)objectForKey:(NSString *)<em>key</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the object.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The object for the specified key.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/objectForKey:block:">&ndash; objectForKey:block:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/objectForKey:block:" title="objectForKey:block:"></a>
+	<h3 class="subsubtitle method-title">objectForKey:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Retrieves the object for the specified key. This method returns immediately and executes the passed
+block as soon as the object is available on the serial <a href="#//api/name/sharedQueue">sharedQueue</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)objectForKey:(NSString *)<em>key</em> block:(TMDiskCacheObjectBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the requested object.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially when the object is available.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> The fileURL is only valid for the duration of this block, do not use it after the block ends.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeAllObjects" title="removeAllObjects"></a>
+	<h3 class="subsubtitle method-title">removeAllObjects</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes all objects from the cache without calling the associated event blocks. This method blocks
+the calling the thread until the cache has been cleared.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeAllObjects</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeAllObjects:" title="removeAllObjects:"></a>
+	<h3 class="subsubtitle method-title">removeAllObjects:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes all objects from the cache without calling the associated event blocks.  This method returns
+immediately and executes the passed block as soon as the cache has been cleared.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeAllObjects:(TMDiskCacheBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the cache has been cleared, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeObjectForKey:" title="removeObjectForKey:"></a>
+	<h3 class="subsubtitle method-title">removeObjectForKey:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes the object for the specified key. This method blocks the calling the thread until the object
+has been removed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the object to be removed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeObjectForKey:block:" title="removeObjectForKey:block:"></a>
+	<h3 class="subsubtitle method-title">removeObjectForKey:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes the object for the specified key. This method returns immediately and executes the passed block
+as soon as the object has been removed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em> block:(TMDiskCacheObjectBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>The key associated with the object to be removed.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the object has been removed, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setObject:forKey:" title="setObject:forKey:"></a>
+	<h3 class="subsubtitle method-title">setObject:forKey:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stores an object in the cache for the specified key. This method blocks the calling the thread until
+the object has been stored.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>An object to store in the cache.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>A key to associate with the object. This string will be copied.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/setObject:forKey:block:">&ndash; setObject:forKey:block:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setObject:forKey:block:" title="setObject:forKey:block:"></a>
+	<h3 class="subsubtitle method-title">setObject:forKey:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stores an object in the cache for the specified key. This method returns immediately and executes the
+passed block as soon as the object has been stored.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> block:(TMDiskCacheObjectBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>object</em></dt>
+			<dd><p>An object to store in the cache.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>A key to associate with the object. This string will be copied.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the object has been stored, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sharedCache" title="sharedCache"></a>
+	<h3 class="subsubtitle method-title">sharedCache</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A shared cache.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)sharedCache</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The shared singleton cache instance.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToDate:" title="trimToDate:"></a>
+	<h3 class="subsubtitle method-title">trimToDate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This
+method blocks the calling the thread until the cache has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToDate:(NSDate *)<em>date</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>date</em></dt>
+			<dd><p>Objects that haven&rsquo;t been accessed since this date are removed from the cache.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToDate:block:" title="trimToDate:block:"></a>
+	<h3 class="subsubtitle method-title">trimToDate:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This method
+returns immediately and executes the passed block as soon as the cache has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToDate:(NSDate *)<em>date</em> block:(TMDiskCacheBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>date</em></dt>
+			<dd><p>Objects that haven&rsquo;t been accessed since this date are removed from the cache.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the cache has been trimmed, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToSize:" title="trimToSize:"></a>
+	<h3 class="subsubtitle method-title">trimToSize:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToSize:(NSUInteger)<em>byteCount</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>byteCount</em></dt>
+			<dd><p>The cache will be trimmed equal to or smaller than this size.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToSize:block:" title="trimToSize:block:"></a>
+	<h3 class="subsubtitle method-title">trimToSize:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+specified byteCount. This method returns immediately and executes the passed block as soon as the cache
+has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToSize:(NSUInteger)<em>byteCount</em> block:(TMDiskCacheBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>byteCount</em></dt>
+			<dd><p>The cache will be trimmed equal to or smaller than this size.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the cache has been trimmed, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-17)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

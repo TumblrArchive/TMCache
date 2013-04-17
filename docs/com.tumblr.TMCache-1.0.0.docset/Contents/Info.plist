@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.tumblr.TMCache</string>
+	<key>CFBundleName</key>
+	<string>TMCache</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.0</string>
+	
+	
+	
+	<key>DocSetFallbackURL</key>
+	<string>http://tumblr.github.com/TMCache/</string>
+	<key>DocSetFeedName</key>
+	<string>TMCache</string>
+	<key>DocSetFeedURL</key>
+	<string>http://tumblr.github.com/TMCache/docs/publish/com.tumblr.TMCache.atom</string>
+	<key>DocSetMinimumXcodeVersion</key>
+	<string>4.3</string>
+	
+	<key>DashDocSetFamily</key>
+	<string>appledoc</string>
+	<key>DocSetPublisherIdentifier</key>
+	<string>com.tumblr.documentation</string>
+	<key>DocSetPublisherName</key>
+	<string>Tumblr</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2013 Tumblr. All rights reserved.</string>
+</dict>
+</plist>
