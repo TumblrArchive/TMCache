@@ -13,7 +13,7 @@
  Unless otherwise noted, all properties and methods are safe to access from any thread at any time. All blocks
  will cause the queue to wait, making it safe to access and manipulate the actual cache files on disk for the
  duration of the block. In addition, the <sharedQueue> can be set to target an existing serial I/O queue, should
- your app have already have one.
+ your app already have one.
  
  Because this cache is bound by disk I/O it can be much slower than `TMMemoryCache`, although values stored in
  `TMDiskCache` persist after application relaunch. Using `TMCache` is recommended over using `TMDiskCache`
