@@ -87,7 +87,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 + (instancetype)sharedCache;
 
 /**
- A shared serial queue, used by all instances this class. Use `dispatch_set_target_queue` to integrate
+ A shared serial queue, used by all instances of this class. Use `dispatch_set_target_queue` to integrate
  this queue with an exisiting serial I/O queue.
  
  @result The shared singleton queue instance.

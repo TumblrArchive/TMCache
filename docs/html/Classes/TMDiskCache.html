@@ -345,7 +345,7 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sharedQueue">+&nbsp;sharedQueue</a></code>
-		<span class="tooltip"><p>A shared serial queue, used by all instances this class. Use <code>dispatch_set_target_queue</code> to integrate
+		<span class="tooltip"><p>A shared serial queue, used by all instances of this class. Use <code>dispatch_set_target_queue</code> to integrate
 this queue with an exisiting serial I/O queue.</p></span>
 	</span>
 	
@@ -402,7 +402,7 @@ as soon as the object has been removed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToSize:block:">&ndash;&nbsp;trimToSize:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
+		<span class="tooltip"><p>Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
 specified byteCount. This method returns immediately and executes the passed block as soon as the cache
 has been trimmed.</p></span>
 	</span>
@@ -808,7 +808,7 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A shared serial queue, used by all instances this class. Use <code>dispatch_set_target_queue</code> to integrate
+		<p>A shared serial queue, used by all instances of this class. Use <code>dispatch_set_target_queue</code> to integrate
 this queue with an exisiting serial I/O queue.</p>
 	</div>		
 	
@@ -1646,7 +1646,7 @@ specified byteCount. This method blocks the calling the thread until the cache h
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
+		<p>Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
 specified byteCount. This method returns immediately and executes the passed block as soon as the cache
 has been trimmed.</p>
 	</div>		
