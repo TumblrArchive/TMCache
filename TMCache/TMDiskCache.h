@@ -151,7 +151,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (void)removeObjectForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block;
 
 /**
- Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
+ Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
  specified byteCount. This method returns immediately and executes the passed block as soon as the cache
  has been trimmed.
  
