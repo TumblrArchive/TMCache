@@ -2,7 +2,7 @@
 
 ## Fast parallel object cache for iOS and OS X. ##
 
-([TMCache](TMCache/TMCache.h)) is a key/value store designed for persisting temporary objects that are expensive to reproduce, such as downloaded data or results of slow processing. It is comprised of two self-similar stores, one in memory ([TMMemoryCache](TMCache/TMMemoryCache.h)) and one on disk ([TMDiskCache](TMCache/TMDiskCache.h)), all backed by GCD and safe to access from multiple threads simultaneously. On iOS, `TMMemoryCache` will clear itself when the app receives a memory warning or goes into the background. Objects stored in `TMDiskCache` remain until you trim the cache yourself, either manually or by setting a byte or age limit.
+[TMCache](TMCache/TMCache.h) is a key/value store designed for persisting temporary objects that are expensive to reproduce, such as downloaded data or results of slow processing. It is comprised of two self-similar stores, one in memory ([TMMemoryCache](TMCache/TMMemoryCache.h)) and one on disk ([TMDiskCache](TMCache/TMDiskCache.h)), all backed by GCD and safe to access from multiple threads simultaneously. On iOS, `TMMemoryCache` will clear itself when the app receives a memory warning or goes into the background. Objects stored in `TMDiskCache` remain until you trim the cache yourself, either manually or by setting a byte or age limit.
 
 `TMCache` and `TMDiskCache` accept any object conforming to [NSCoding](https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html). Put things in like this:
 
@@ -31,7 +31,7 @@ Collections work too. Thanks to the magic of `NSKeyedArchiver`, objects repeated
 
 [Download the latest tag](https://github.com/tumblr/TMCache/tags) and drag the `TMCache` folder into your Xcode project.
 
-Install the docs by double clicking the `.docset` file.
+Install the docs by double clicking the `.docset` file under `docs/`.
 
 ### Git Submodule ###
 
@@ -41,21 +41,6 @@ Install the docs by double clicking the `.docset` file.
 ### CocoaPods ###
 
 Add [TMCache](http://cocoapods.org/?q=name%3ATMCache) to your `Podfile` and run `pod install`.
-
-## Example ##
-
-    NSURL *imageURL = [NSURL URLWithString:@"http://upload.wikimedia.org/wikipedia/commons/6/62/Sts114_033.jpg"];
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:imageURL]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               [[TMCache sharedCache] setObject:[[UIImage alloc] initWithData:data]
-                                                         forKey:[imageURL absoluteString]
-                                                          block:^(TMCache *cache, NSString *key, id object) {
-                                                                    NSURL *fileURL = [[cache diskCache] fileURLForKey:key];
-                                                                    NSLog(@"success, data written to %@", [fileURL path]);
-                                                                    NSLog(@"total disk use: %d bytes", [[cache diskCache] byteCount]);
-                                                                }];
-                           }];
 
 ## Requirements ##
 
