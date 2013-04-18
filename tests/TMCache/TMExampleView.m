@@ -10,7 +10,7 @@
     [[TMCache sharedCache] objectForKey:[url absoluteString]
                                   block:^(TMCache *cache, NSString *key, id object) {
                                       if (object) {
-                                          [self setImageForView:(UIImage *)object];
+                                          [self setImageOnMainThread:(UIImage *)object];
                                           return;
                                       }
                                     
@@ -21,13 +21,13 @@
                                       NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
                                       
                                       UIImage *image = [[UIImage alloc] initWithData:data scale:[[UIScreen mainScreen] scale]];
-                                      [self setImageForView:image];
+                                      [self setImageOnMainThread:image];
 
                                       [[TMCache sharedCache] setObject:image forKey:[url absoluteString]];
     }];
 }
 
-- (void)setImageForView:(UIImage *)image
+- (void)setImageOnMainThread:(UIImage *)image
 {
     if (!image)
         return;
