@@ -44,7 +44,8 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (readonly) NSUInteger byteCount;
 
 /**
- The total number of bytes used on disk, as reported by `NSURLTotalFileAllocatedSizeKey`.
+ The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
+ size exceeds the limit a trim call is queued. Defaults to `0.0`, meaning no practical limit.
  */
 @property (assign) NSUInteger byteLimit;
 
@@ -71,7 +72,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (copy) TMDiskCacheObjectBlock didAddObjectBlock;
 
 /**
- A block to be executed just after an object is removed from the cache. TThe queue waits during execution.
+ A block to be executed just after an object is removed from the cache. The queue waits during execution.
  */
 @property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock;
 

@@ -61,7 +61,8 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setByteLimit:</TokenIdentifier>
-			<Abstract type="html">The total number of bytes used on disk, as reported by NSURLTotalFileAllocatedSizeKey.</Abstract>
+			<Abstract type="html">The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
+size exceeds the limit a trim call is queued. Defaults to 0.0, meaning no practical limit.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSUInteger byteLimit</Declaration>
@@ -72,7 +73,8 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/byteLimit</TokenIdentifier>
-			<Abstract type="html">The total number of bytes used on disk, as reported by NSURLTotalFileAllocatedSizeKey.</Abstract>
+			<Abstract type="html">The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
+size exceeds the limit a trim call is queued. Defaults to 0.0, meaning no practical limit.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSUInteger byteLimit</Declaration>
@@ -175,7 +177,7 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setDidRemoveObjectBlock:</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</Abstract>
+			<Abstract type="html">A block to be executed just after an object is removed from the cache. The queue waits during execution.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock</Declaration>
@@ -186,7 +188,7 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/didRemoveObjectBlock</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</Abstract>
+			<Abstract type="html">A block to be executed just after an object is removed from the cache. The queue waits during execution.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock</Declaration>

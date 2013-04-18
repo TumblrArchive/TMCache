@@ -285,7 +285,8 @@ by itself, as it adds a fast layer of additional memory caching while still writ
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/byteLimit">&nbsp;&nbsp;byteLimit</a></code>
-		<span class="tooltip"><p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p></span>
+		<span class="tooltip"><p>The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
+size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, meaning no practical limit.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -322,7 +323,7 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/didRemoveObjectBlock">&nbsp;&nbsp;didRemoveObjectBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</p></span>
+		<span class="tooltip"><p>A block to be executed just after an object is removed from the cache. The queue waits during execution.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -582,7 +583,8 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The total number of bytes used on disk, as reported by <code>NSURLTotalFileAllocatedSizeKey</code>.</p>
+		<p>The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
+size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, meaning no practical limit.</p>
 	</div>		
 	
     
@@ -654,7 +656,7 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A block to be executed just after an object is removed from the cache. TThe queue waits during execution.</p>
+		<p>A block to be executed just after an object is removed from the cache. The queue waits during execution.</p>
 	</div>		
 	
     
