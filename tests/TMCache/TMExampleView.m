@@ -7,6 +7,17 @@
 {
     _imageURL = url;
     
+    [[TMCache sharedCache] objectForKey:@"image"
+                                  block:^(TMCache *cache, NSString *key, id object) {
+                                      UIImage *image = (UIImage *)object;
+                                      NSLog(@"image scale: %f", image.scale);
+                                      NSLog(@"disk cache usage: %d bytes", cache.diskCache.byteCount);
+                                      
+                                      NSArray *images = @[ image, image, image ];
+                                      [[TMCache sharedCache] setObject:images forKey:@"images"];
+                                      NSLog(@"three for the price of one: %d", [[[TMCache sharedCache] diskCache] byteCount]);
+                                  }];
+    
     [[TMCache sharedCache] objectForKey:[url absoluteString]
                                   block:^(TMCache *cache, NSString *key, id object) {
                                       if (object) {
@@ -25,6 +36,8 @@
 
                                       [[TMCache sharedCache] setObject:image forKey:[url absoluteString]];
     }];
+    
+    
 }
 
 - (void)setImageOnMainThread:(UIImage *)image
