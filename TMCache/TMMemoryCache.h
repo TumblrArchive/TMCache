@@ -1,10 +1,9 @@
 /**
  `TMMemoryCache` is a fast, thread safe key/value store similar to `NSCache`. On iOS it will clear itself
- automatically to reduce memory usage when the app receives a warning or moves into the background.
+ automatically to reduce memory usage when the app receives a memory warning or goes into the background.
 
  Access is natively asynchronous. Every method accepts a callback block that runs on a concurrent
- <queue>, with cache writes protected by GCD barriers. Synchronous variations are provided, but take
- care not to call them within the asynchronous callback blocks so as not the deadlock the queue.
+ <queue>, with cache writes protected by GCD barriers. Synchronous variations are provided.
  
  All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an
  optional <ageLimit> will trigger a GCD timer to periodically to trim the cache to that age.
@@ -78,7 +77,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 
 /**
  Retrieves the object for the specified key. This method returns immediately and executes the passed
- block as soon as the object is available, potentially in parallel with other blocks on the <queue>.
+ block after the object is available, potentially in parallel with other blocks on the <queue>.
  
  @param key The key associated with the requested object.
  @param block A block to be executed concurrently when the object is available.
