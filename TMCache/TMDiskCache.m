@@ -290,7 +290,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     __weak TMDiskCache *weakSelf = self;
     
     dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_ageLimit * NSEC_PER_SEC));
-    dispatch_after(time, _queue, ^(void){
+    dispatch_after(time, _queue, ^(void) {
         TMDiskCache *strongSelf = weakSelf;
         [strongSelf trimToAgeLimitRecursively];
     });

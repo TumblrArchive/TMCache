@@ -24,18 +24,17 @@
                                       [self setImageOnMainThread:image];
 
                                       [[TMCache sharedCache] setObject:image forKey:[url absoluteString]];
-    }];
-    
-    
+    }];   
 }
 
 - (void)setImageOnMainThread:(UIImage *)image
 {
     if (!image)
         return;
+    
+    NSLog(@"setting view image %@", NSStringFromCGSize(image.size));
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"setting view image %@", NSStringFromCGSize(image.size));
         self.image = image;
     });
 }
