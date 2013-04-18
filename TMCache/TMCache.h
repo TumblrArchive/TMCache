@@ -1,7 +1,3 @@
-/**
- `TMCache` combines the advantages of <TMMemoryCache> and <TMDiskCache>.
- */
-
 #import "TMDiskCache.h"
 #import "TMMemoryCache.h"
 

@@ -2,6 +2,14 @@
 
 ## Fast parallel object cache for iOS and OS X. ##
 
+([TMCache](TMCache/TMCache.h)) is an asynchronous key/value store comprised of two self-similar stores, one in memory ([TMMemoryCache](TMCache/TMMemoryCache.h)) and one on disk ([TMDiskCache](TMCache/TMDiskCache.h)). It's designed for temporarily persisting objects that are expensive to reproduce, e.g. downloaded data or the products of long computation.
+
+
+
+
+
+
+
 __TMCache__ is a queue-based key/value store with auto removal, similar to `NSCache` with the addition of persistence to disk. It's great for transient data that's expensive to reproduce, like downloaded images or the products of long computation.
 
 __TMCache__ is comprised of three classes that can be used separately or together: a memory cache ([TMMemoryCache](TMCache/TMMemoryCache.h)), a disk cache ([TMDiskCache](TMCache/TMDiskCache.h)), and a parallel cache ([TMCache](TMCache/TMCache.h)) that coordinates the efforts of the two. It's backed by ARC and GCD, 100% asynchronous, lockless, and safe to access from any thread or queue at any time. Synchronous variations of all methods are provided for your convenience. See the docs for more information.
