@@ -82,7 +82,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 /**
  A shared cache.
  
- @return The shared singleton cache instance.
+ @result The shared singleton cache instance.
  */
 + (instancetype)sharedCache;
 
@@ -90,7 +90,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  A shared serial queue, used by all instances this class. Use `dispatch_set_target_queue` to integrate
  this queue with an exisiting serial I/O queue.
  
- @return The shared singleton queue instance.
+ @result The shared singleton queue instance.
  */
 + (dispatch_queue_t)sharedQueue;
 
@@ -100,7 +100,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  
  @see name
  @param name The name of the cache.
- @return A new cache with the specified name.
+ @result A new cache with the specified name.
  */
 - (instancetype)initWithName:(NSString *)name;
 
@@ -151,7 +151,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (void)removeObjectForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block;
 
 /**
- Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+ Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
  specified byteCount. This method returns immediately and executes the passed block as soon as the cache
  has been trimmed.
  
@@ -186,7 +186,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  
  @see objectForKey:block:
  @param key The key associated with the object.
- @return The object for the specified key.
+ @result The object for the specified key.
  */
 - (id <NSCoding>)objectForKey:(NSString *)key;
 
@@ -197,7 +197,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  
  @see fileURLForKey:block:
  @param key The key associated with the object.
- @return The file URL for the specified key.
+ @result The file URL for the specified key.
  */
 - (NSURL *)fileURLForKey:(NSString *)key;
 

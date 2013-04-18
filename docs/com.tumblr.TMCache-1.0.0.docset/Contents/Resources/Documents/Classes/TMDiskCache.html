@@ -402,7 +402,7 @@ as soon as the object has been removed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToSize:block:">&ndash;&nbsp;trimToSize:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
 specified byteCount. This method returns immediately and executes the passed block as soon as the cache
 has been trimmed.</p></span>
 	</span>
@@ -1646,7 +1646,7 @@ specified byteCount. This method blocks the calling the thread until the cache h
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+		<p>Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
 specified byteCount. This method returns immediately and executes the passed block as soon as the cache
 has been trimmed.</p>
 	</div>		

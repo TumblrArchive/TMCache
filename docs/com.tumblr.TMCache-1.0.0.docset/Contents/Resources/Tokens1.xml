@@ -328,7 +328,7 @@ as soon as the object has been removed.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:block:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+			<Abstract type="html">Removes objects from the cache, ordered by access size, until the cache is equal to or smaller than the
 specified byteCount. This method returns immediately and executes the passed block as soon as the cache
 has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			

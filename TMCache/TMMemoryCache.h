@@ -68,7 +68,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 /**
  A shared cache.
  
- @return The shared singleton cache instance.
+ @result The shared singleton cache instance.
  */
 + (instancetype)sharedCache;
 
@@ -131,7 +131,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  
  @see objectForKey:block:
  @param key The key associated with the object.
- @return The object for the specified key.
+ @result The object for the specified key.
  */
 - (id)objectForKey:(NSString *)key;
 
