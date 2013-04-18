@@ -32,7 +32,7 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
         NSString *queueName = [[NSString alloc] initWithFormat:@"%@.%p", TMCachePrefix, self];
         _queue = dispatch_queue_create([queueName UTF8String], DISPATCH_QUEUE_CONCURRENT);
 
-        _diskCache = [[TMDiskCache alloc] initWithName:TMCacheSharedName];
+        _diskCache = [[TMDiskCache alloc] initWithName:_name];
         _memoryCache = [[TMMemoryCache alloc] init];
     }
     return self;
