@@ -39,6 +39,13 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (readonly) NSString *name;
 
 /**
+ The URL of the directory used by this cache, usually under `Library/Caches/com.tumblr.TMDiskCache` on iOS.
+ 
+ @warning Do not interact with anything under this path except on the <sharedQueue>.
+ */
+@property (readonly) NSURL *cacheURL;
+
+/**
  The total number of bytes used on disk, as reported by `NSURLTotalFileAllocatedSizeKey`.
  */
 @property (readonly) NSUInteger byteCount;
