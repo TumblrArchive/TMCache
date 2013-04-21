@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Tokens version="1.0">
-	<File path="Classes/TMDiskCache.html">
+	<File path="Classes/TMCache.html">
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/cl/TMDiskCache</TokenIdentifier>
-			<Abstract type="html">TMDiskCache is a thread safe key/value store backed by the file system. It accepts any object conforming
-to the NSCoding protocol, which includes the basic Foundation data types and collection classes and also
-many UIKit classes, notably UIImage. All work is performed on a serial queue shared by all instances in
-the app, and archiving is handled by NSKeyedArchiver. This is a particular advantage for UIImage because
-it skips UIImagePNGRepresentation() and retains information like scale and orientation and even subclass.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>
+			<TokenIdentifier>//apple_ref/occ/cl/TMCache</TokenIdentifier>
+			<Abstract type="html">TMCache is a thread safe key/value store designed for persisting temporary objects that are expensive to
+reproduce, such as downloaded data or the results of slow processing. It is comprised of two self-similar
+stores, one in memory (TMMemoryCache and one on disk (TMDiskCache.</Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>
 			
 			<NodeRef refid="1"/>
 		</Token>
 		
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setName:</TokenIdentifier>
-			<Abstract type="html">The name of this cache, used to create a directory under Library/Caches and also appearing in stack traces.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
 			<Declaration>@property (readonly) NSString *name</Declaration>
 			
@@ -27,9 +25,9 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/name</TokenIdentifier>
-			<Abstract type="html">The name of this cache, used to create a directory under Library/Caches and also appearing in stack traces.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instp/TMCache/name</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
 			<Declaration>@property (readonly) NSString *name</Declaration>
 			
@@ -38,478 +36,196 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setByteCount:</TokenIdentifier>
-			<Abstract type="html">The total number of bytes used on disk, as reported by NSURLTotalFileAllocatedSizeKey.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setQueue:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (readonly) NSUInteger byteCount</Declaration>
+			<Declaration>@property (readonly) dispatch_queue_t queue</Declaration>
 			
 			
-			<Anchor>//api/name/byteCount</Anchor>
+			<Anchor>//api/name/queue</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/byteCount</TokenIdentifier>
-			<Abstract type="html">The total number of bytes used on disk, as reported by NSURLTotalFileAllocatedSizeKey.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instp/TMCache/queue</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (readonly) NSUInteger byteCount</Declaration>
+			<Declaration>@property (readonly) dispatch_queue_t queue</Declaration>
 			
 			
-			<Anchor>//api/name/byteCount</Anchor>
+			<Anchor>//api/name/queue</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setByteLimit:</TokenIdentifier>
-			<Abstract type="html">The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
-size exceeds the limit a trim call is queued. Defaults to 0.0, meaning no practical limit.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setDiskCache:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (assign) NSUInteger byteLimit</Declaration>
+			<Declaration>@property (readonly) TMDiskCache *diskCache</Declaration>
 			
 			
-			<Anchor>//api/name/byteLimit</Anchor>
+			<Anchor>//api/name/diskCache</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/byteLimit</TokenIdentifier>
-			<Abstract type="html">The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
-size exceeds the limit a trim call is queued. Defaults to 0.0, meaning no practical limit.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instp/TMCache/diskCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (assign) NSUInteger byteLimit</Declaration>
+			<Declaration>@property (readonly) TMDiskCache *diskCache</Declaration>
 			
 			
-			<Anchor>//api/name/byteLimit</Anchor>
+			<Anchor>//api/name/diskCache</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setAgeLimit:</TokenIdentifier>
-			<Abstract type="html">The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
-greater than 0.0 will start a recurring GCD timer with the same period that calls trimToDate:.
-Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setMemoryCache:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (assign) NSTimeInterval ageLimit</Declaration>
+			<Declaration>@property (readonly) TMMemoryCache *memoryCache</Declaration>
 			
 			
-			<Anchor>//api/name/ageLimit</Anchor>
+			<Anchor>//api/name/memoryCache</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/ageLimit</TokenIdentifier>
-			<Abstract type="html">The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
-greater than 0.0 will start a recurring GCD timer with the same period that calls trimToDate:.
-Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instp/TMCache/memoryCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (assign) NSTimeInterval ageLimit</Declaration>
+			<Declaration>@property (readonly) TMMemoryCache *memoryCache</Declaration>
 			
 			
-			<Anchor>//api/name/ageLimit</Anchor>
+			<Anchor>//api/name/memoryCache</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setWillAddObjectBlock:</TokenIdentifier>
-			<Abstract type="html">A block to be executed just before an object is added to the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/clm/TMCache/sharedCache</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock willAddObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/willAddObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/willAddObjectBlock</TokenIdentifier>
-			<Abstract type="html">A block to be executed just before an object is added to the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock willAddObjectBlock</Declaration>
+			<Declaration>+ (instancetype)sharedCache</Declaration>
 			
 			
-			<Anchor>//api/name/willAddObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setWillRemoveObjectBlock:</TokenIdentifier>
-			<Abstract type="html">A block to be executed just before an object is removed from the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock willRemoveObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/willRemoveObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/willRemoveObjectBlock</TokenIdentifier>
-			<Abstract type="html">A block to be executed just before an object is removed from the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock willRemoveObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/willRemoveObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setDidAddObjectBlock:</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is added to the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock didAddObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/didAddObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/didAddObjectBlock</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is added to the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock didAddObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/didAddObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setDidRemoveObjectBlock:</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is removed from the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/didRemoveObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/didRemoveObjectBlock</TokenIdentifier>
-			<Abstract type="html">A block to be executed just after an object is removed from the cache. The queue waits during execution.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>@property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock</Declaration>
-			
-			
-			<Anchor>//api/name/didRemoveObjectBlock</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/sharedCache</TokenIdentifier>
-			<Abstract type="html">A shared cache.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>- (instancetype)sharedCache</Declaration>
-			
-			<ReturnValue><Abstract type="html">The shared singleton cache instance.</Abstract></ReturnValue>
 			<Anchor>//api/name/sharedCache</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/clm/TMDiskCache/sharedQueue</TokenIdentifier>
-			<Abstract type="html">A shared serial queue, used by all instances of this class. Use dispatchsettarget_queue to integrate
-this queue with an exisiting serial I/O queue.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/initWithName:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>+ (dispatch_queue_t)sharedQueue</Declaration>
-			
-			<ReturnValue><Abstract type="html">The shared singleton queue instance.</Abstract></ReturnValue>
-			<Anchor>//api/name/sharedQueue</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/initWithName:</TokenIdentifier>
-			<Abstract type="html">The designated initializer. Multiple instances with the same name are allowed and can safely access
-the same data on disk thanks to the magic of seriality.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-	<RelatedTokens>
-		<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/name</TokenIdentifier>
-		
-	</RelatedTokens>
-	
 			<Declaration>- (instancetype)initWithName:(NSString *)name</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>name</Name>
-					<Abstract type="html">The name of the cache.</Abstract>
-				</Parameter>
-			</Parameters>
-			<ReturnValue><Abstract type="html">A new cache with the specified name.</Abstract></ReturnValue>
+			
+			
 			<Anchor>//api/name/initWithName:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/objectForKey:block:</TokenIdentifier>
-			<Abstract type="html">Retrieves the object for the specified key. This method returns immediately and executes the passed
-block as soon as the object is available on the serial sharedQueue.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/objectForKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)objectForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the requested object.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially when the object is available.</Abstract>
-				</Parameter>
-			</Parameters>
+			<Declaration>- (void)objectForKey:(NSString *)key block:(TMCacheObjectBlock)block</Declaration>
+			
 			
 			<Anchor>//api/name/objectForKey:block:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/fileURLForKey:block:</TokenIdentifier>
-			<Abstract type="html">Retrieves the fileURL for the specified key without actually reading the data from disk. This method
-returns immediately and executes the passed block as soon as the object is available on the serial
-sharedQueue.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setObject:forKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)fileURLForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the requested object.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially when the file URL is available.</Abstract>
-				</Parameter>
-			</Parameters>
+			<Declaration>- (void)setObject:(id&lt;NSCoding&gt;)object forKey:(NSString *)key block:(TMCacheObjectBlock)block</Declaration>
 			
-			<Anchor>//api/name/fileURLForKey:block:</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setObject:forKey:block:</TokenIdentifier>
-			<Abstract type="html">Stores an object in the cache for the specified key. This method returns immediately and executes the
-passed block as soon as the object has been stored.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>- (void)setObject:(id&lt;NSCoding&gt;)object forKey:(NSString *)key block:(TMDiskCacheObjectBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>object</Name>
-					<Abstract type="html">An object to store in the cache.</Abstract>
-				</Parameter><Parameter>
-					<Name>key</Name>
-					<Abstract type="html">A key to associate with the object. This string will be copied.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially after the object has been stored, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
 			
 			<Anchor>//api/name/setObject:forKey:block:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeObjectForKey:block:</TokenIdentifier>
-			<Abstract type="html">Removes the object for the specified key. This method returns immediately and executes the passed block
-as soon as the object has been removed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/removeObjectForKey:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)removeObjectForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the object to be removed.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially after the object has been removed, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
+			<Declaration>- (void)removeObjectForKey:(NSString *)key block:(TMCacheObjectBlock)block</Declaration>
+			
 			
 			<Anchor>//api/name/removeObjectForKey:block:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:block:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
-specified byteCount. This method returns immediately and executes the passed block as soon as the cache
-has been trimmed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/trimToDate:block:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)trimToSize:(NSUInteger)byteCount block:(TMDiskCacheBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>byteCount</Name>
-					<Abstract type="html">The cache will be trimmed equal to or smaller than this size.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially after the cache has been trimmed, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
+			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMCacheBlock)block</Declaration>
 			
-			<Anchor>//api/name/trimToSize:block:</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:block:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This method
-returns immediately and executes the passed block as soon as the cache has been trimmed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMDiskCacheBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>date</Name>
-					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially after the cache has been trimmed, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
 			
 			<Anchor>//api/name/trimToDate:block:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeAllObjects:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache without calling the associated event blocks.  This method returns
-immediately and executes the passed block as soon as the cache has been cleared.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/removeAllObjects:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)removeAllObjects:(TMDiskCacheBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed serially after the cache has been cleared, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
+			<Declaration>- (void)removeAllObjects:(TMCacheBlock)block</Declaration>
+			
 			
 			<Anchor>//api/name/removeAllObjects:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/objectForKey:</TokenIdentifier>
-			<Abstract type="html">Retrieves the object for the specified key. This method blocks the calling the thread until the
-object is available.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/objectForKey:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-	<RelatedTokens>
-		<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/objectForKey:block:</TokenIdentifier>
-		
-	</RelatedTokens>
-	
-			<Declaration>- (id&lt;NSCoding&gt;)objectForKey:(NSString *)key</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the object.</Abstract>
-				</Parameter>
-			</Parameters>
-			<ReturnValue><Abstract type="html">The object for the specified key.</Abstract></ReturnValue>
+			<Declaration>- (id)objectForKey:(NSString *)key</Declaration>
+			
+			
 			<Anchor>//api/name/objectForKey:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/fileURLForKey:</TokenIdentifier>
-			<Abstract type="html">Retrieves the file URL for the specified key. This method blocks the calling the thread until the
-url is available. Do not use this URL anywhere but on the sharedQueue. This method probably
-shouldn&apos;t even exist, just use the asynchronous one.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setObject:forKey:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
-	<RelatedTokens>
-		<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/fileURLForKey:block:</TokenIdentifier>
-		
-	</RelatedTokens>
-	
-			<Declaration>- (NSURL *)fileURLForKey:(NSString *)key</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the object.</Abstract>
-				</Parameter>
-			</Parameters>
-			<ReturnValue><Abstract type="html">The file URL for the specified key.</Abstract></ReturnValue>
-			<Anchor>//api/name/fileURLForKey:</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setObject:forKey:</TokenIdentifier>
-			<Abstract type="html">Stores an object in the cache for the specified key. This method blocks the calling the thread until
-the object has been stored.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-	<RelatedTokens>
-		<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setObject:forKey:block:</TokenIdentifier>
-		
-	</RelatedTokens>
-	
 			<Declaration>- (void)setObject:(id&lt;NSCoding&gt;)object forKey:(NSString *)key</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>object</Name>
-					<Abstract type="html">An object to store in the cache.</Abstract>
-				</Parameter><Parameter>
-					<Name>key</Name>
-					<Abstract type="html">A key to associate with the object. This string will be copied.</Abstract>
-				</Parameter>
-			</Parameters>
+			
 			
 			<Anchor>//api/name/setObject:forKey:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeObjectForKey:</TokenIdentifier>
-			<Abstract type="html">Removes the object for the specified key. This method blocks the calling the thread until the object
-has been removed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/removeObjectForKey:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)removeObjectForKey:(NSString *)key</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>key</Name>
-					<Abstract type="html">The key associated with the object to be removed.</Abstract>
-				</Parameter>
-			</Parameters>
+			
 			
 			<Anchor>//api/name/removeObjectForKey:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
-specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
-			
-			<Declaration>- (void)trimToSize:(NSUInteger)byteCount</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>byteCount</Name>
-					<Abstract type="html">The cache will be trimmed equal to or smaller than this size.</Abstract>
-				</Parameter>
-			</Parameters>
-			
-			<Anchor>//api/name/trimToSize:</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling the thread until the cache has been trimmed.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/trimToDate:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToDate:(NSDate *)date</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>date</Name>
-					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
-				</Parameter>
-			</Parameters>
+			
 			
 			<Anchor>//api/name/trimToDate:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeAllObjects</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling the thread until the cache has been cleared.</Abstract>
-			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/removeAllObjects</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)removeAllObjects</Declaration>
 			

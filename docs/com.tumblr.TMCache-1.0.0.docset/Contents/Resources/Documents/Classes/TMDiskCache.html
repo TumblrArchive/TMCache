@@ -46,6 +46,8 @@
 	
 	<option value="//api/name/byteLimit">&nbsp;&nbsp;&nbsp;&nbsp;byteLimit</option>
 	
+	<option value="//api/name/cacheURL">&nbsp;&nbsp;&nbsp;&nbsp;cacheURL</option>
+	
 	<option value="//api/name/didAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didAddObjectBlock</option>
 	
 	<option value="//api/name/didRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveObjectBlock</option>
@@ -137,6 +139,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/byteCount">byteCount</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/byteLimit">byteLimit</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cacheURL">cacheURL</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAddObjectBlock">didAddObjectBlock</a></span></li>
 	
@@ -235,7 +239,7 @@
 to the <code>NSCoding</code> protocol, which includes the basic Foundation data types and collection classes and also
 many UIKit classes, notably <code>UIImage</code>. All work is performed on a serial queue shared by all instances in
 the app, and archiving is handled by <code>NSKeyedArchiver</code>. This is a particular advantage for <code>UIImage</code> because
-it skips <code>UIImagePNGRepresentation()</code> and retains information like scale and orientation and even subclass.</p>
+it skips <code>UIImagePNGRepresentation()</code> and retains information like scale and orientation.</p>
 
 <p>The designated initializer for <code>TMDiskCache</code> is <a href="#//api/name/initWithName:">initWithName:</a>. The <a href="#//api/name/name">name</a> string is used to create a directory
 under Library/Caches that scopes disk access for any instance sharing this name. Multiple instances with the
@@ -247,8 +251,8 @@ will cause the queue to wait, making it safe to access and manipulate the actual
 duration of the block. In addition, the <a href="#//api/name/sharedQueue">sharedQueue</a> can be set to target an existing serial I/O queue, should
 your app already have one.</p>
 
-<p>Because this cache is bound by disk I/O it can be much slower than <code>TMMemoryCache</code>, although values stored in
-<code>TMDiskCache</code> persist after application relaunch. Using <code>TMCache</code> is recommended over using <code>TMDiskCache</code>
+<p>Because this cache is bound by disk I/O it can be much slower than <a href="../Classes/TMMemoryCache.html">TMMemoryCache</a>, although values stored in
+<code>TMDiskCache</code> persist after application relaunch. Using <a href="../Classes/TMCache.html">TMCache</a> is recommended over using <code>TMDiskCache</code>
 by itself, as it adds a fast layer of additional memory caching while still writing to disk.</p>
 
 <p>All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an optional
@@ -272,6 +276,13 @@ by itself, as it adds a fast layer of additional memory caching while still writ
 	<span class="tooltip">
 		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
 		<span class="tooltip"><p>The name of this cache, used to create a directory under Library/Caches and also appearing in stack traces.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cacheURL">&nbsp;&nbsp;cacheURL</a></code>
+		<span class="tooltip"><p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/</code>name<code></code> on iOS.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -598,6 +609,47 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/cacheURL" title="cacheURL"></a>
+	<h3 class="subsubtitle method-title">cacheURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/</code>name<code></code> on iOS.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSURL *cacheURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> Do not interact with anything under this path except on the <a href="#//api/name/sharedQueue">sharedQueue</a>.</p></div>
+	</div>
 	
 	
 	
@@ -1705,7 +1757,7 @@ has been trimmed.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-18)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-21)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

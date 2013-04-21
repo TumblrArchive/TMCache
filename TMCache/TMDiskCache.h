@@ -3,7 +3,7 @@
  to the `NSCoding` protocol, which includes the basic Foundation data types and collection classes and also
  many UIKit classes, notably `UIImage`. All work is performed on a serial queue shared by all instances in
  the app, and archiving is handled by `NSKeyedArchiver`. This is a particular advantage for `UIImage` because
- it skips `UIImagePNGRepresentation()` and retains information like scale and orientation and even subclass.
+ it skips `UIImagePNGRepresentation()` and retains information like scale and orientation.
  
  The designated initializer for `TMDiskCache` is <initWithName:>. The <name> string is used to create a directory
  under Library/Caches that scopes disk access for any instance sharing this name. Multiple instances with the
@@ -15,8 +15,8 @@
  duration of the block. In addition, the <sharedQueue> can be set to target an existing serial I/O queue, should
  your app already have one.
  
- Because this cache is bound by disk I/O it can be much slower than `TMMemoryCache`, although values stored in
- `TMDiskCache` persist after application relaunch. Using `TMCache` is recommended over using `TMDiskCache`
+ Because this cache is bound by disk I/O it can be much slower than <TMMemoryCache>, although values stored in
+ `TMDiskCache` persist after application relaunch. Using <TMCache> is recommended over using `TMDiskCache`
  by itself, as it adds a fast layer of additional memory caching while still writing to disk.
 
  All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an optional
@@ -39,7 +39,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (readonly) NSString *name;
 
 /**
- The URL of the directory used by this cache, usually under `Library/Caches/com.tumblr.TMDiskCache` on iOS.
+ The URL of the directory used by this cache, usually `Library/Caches/com.tumblr.TMDiskCache/<name>` on iOS.
  
  @warning Do not interact with anything under this path except on the <sharedQueue>.
  */
