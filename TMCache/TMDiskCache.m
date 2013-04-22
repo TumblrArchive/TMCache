@@ -484,9 +484,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             return;
         }
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[strongSelf.cacheURL path]]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[strongSelf->_cacheURL path]]) {
             NSError *error = nil;
-            [[NSFileManager defaultManager] removeItemAtURL:strongSelf.cacheURL error:&error];
+            [[NSFileManager defaultManager] removeItemAtURL:strongSelf->_cacheURL error:&error];
             TMDiskCacheError(error);
         }
 
