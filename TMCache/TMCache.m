@@ -70,6 +70,7 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
             return;
 
         id object = [strongSelf->_memoryCache objectForKey:key];
+
         if (!object) {
             object = [strongSelf->_diskCache objectForKey:key];
             [strongSelf->_memoryCache setObject:object forKey:key block:nil];
