@@ -31,6 +31,8 @@ NSArray *images = @[ image, image, image ];
 NSLog(@"three for the price of one: %d", [[[TMCache sharedCache] diskCache] byteCount]);
 ```
 
+[![Build Status](https://travis-ci.org/tumblr/TMCache.png?branch=master)](https://travis-ci.org/tumblr/TMCache)
+
 ## Installation  ##
 
 ### Manually ####
