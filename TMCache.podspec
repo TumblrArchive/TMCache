@@ -33,7 +33,11 @@ Pod::Spec.new do |s|
       '--ignore', '*.m',
       '--no-repeat-first-par',
       '--explicit-crossref',
-      '--clean-output'
+      '--clean-output',
+      'keep-undocumented-member',
+      'no-keep-undocumented-object',
+      'no-warn-undocumented-object',
+      'no-warn-undocumented-member'
     ]
   }
 end
