@@ -39,9 +39,9 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (readonly) NSString *name;
 
 /**
- The URL of the directory used by this cache, usually `Library/Caches/com.tumblr.TMDiskCache/<name>` on iOS.
+ The URL of the directory used by this cache, usually `Library/Caches/com.tumblr.TMDiskCache/name` on iOS.
  
- @warning Do not interact with anything under this path except on the <sharedQueue>.
+ @warning Do not interact with files under this URL except on the <sharedQueue>.
  */
 @property (readonly) NSURL *cacheURL;
 
