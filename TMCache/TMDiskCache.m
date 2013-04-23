@@ -242,23 +242,16 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 - (void)trimDiskToSize:(NSUInteger)trimByteCount
 {
-    NSUInteger startingByteCount = _byteCount;
-    
-    if (startingByteCount > trimByteCount) {
-        NSArray *keysSortedBySize = [_byteSizes keysSortedByValueUsingSelector:@selector(compare:)];
-        NSUInteger runningByteCount = startingByteCount;
-        
-        for (NSString *key in [keysSortedBySize reverseObjectEnumerator]) { // biggest files first
-            NSNumber *byteSize = [_byteSizes objectForKey:key];
-            if (!byteSize)
-                continue;
-            
-            if ([self removeFileAndExecuteBlocksForKey:key])
-                runningByteCount -= [byteSize unsignedIntegerValue];
-            
-            if (runningByteCount <= trimByteCount)
-                break;
-        }
+    if (_byteCount <= trimByteCount)
+        return;
+
+    NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
+
+    for (NSString *key in keysSortedByDate) { // oldest objects first
+        [self removeFileAndExecuteBlocksForKey:key];
+
+        if (_byteCount <= trimByteCount)
+            break;
     }
 }
 
