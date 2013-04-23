@@ -31,15 +31,13 @@ NSArray *images = @[ image, image, image ];
 NSLog(@"three for the price of one: %d", [[[TMCache sharedCache] diskCache] byteCount]);
 ```
 
-[![Build Status](https://travis-ci.org/tumblr/TMCache.png?branch=master)](https://travis-ci.org/tumblr/TMCache)
-
 ## Installation  ##
 
 ### Manually ####
 
 [Download the latest tag](https://github.com/tumblr/TMCache/tags) and drag the `TMCache` folder into your Xcode project.
 
-Install the docs by double clicking the `.docset` file under `docs/`.
+Install the docs by double clicking the `.docset` file under `docs/`, or view them online at [cocoadocs.org](http://cocoadocs.org/docsets/TMCache/)
 
 ### Git Submodule ###
 
@@ -49,6 +47,10 @@ Install the docs by double clicking the `.docset` file under `docs/`.
 ### CocoaPods ###
 
 Add [TMCache](http://cocoapods.org/?q=name%3ATMCache) to your `Podfile` and run `pod install`.
+
+## Build Status ##
+
+[![Build Status](https://travis-ci.org/tumblr/TMCache.png?branch=master)](https://travis-ci.org/tumblr/TMCache)
 
 ## Requirements ##
 
