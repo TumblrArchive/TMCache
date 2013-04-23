@@ -8,13 +8,16 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 #else
 @property (assign, nonatomic) dispatch_queue_t queue;
 #endif
+@property (assign) NSUInteger totalCost;
 @property (strong, nonatomic) NSMutableDictionary *dictionary;
 @property (strong, nonatomic) NSMutableDictionary *accessDates;
+@property (strong, nonatomic) NSMutableDictionary *costs;
 @end
 
 @implementation TMMemoryCache
 
 @synthesize ageLimit = _ageLimit;
+@synthesize costLimit = _costLimit;
 @synthesize willAddObjectBlock = _willAddObjectBlock;
 @synthesize willRemoveObjectBlock = _willRemoveObjectBlock;
 @synthesize didAddObjectBlock = _didAddObjectBlock;
@@ -40,13 +43,16 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
         _dictionary = [[NSMutableDictionary alloc] init];
         _accessDates = [[NSMutableDictionary alloc] init];
+        _costs = [[NSMutableDictionary alloc] init];
 
         _willAddObjectBlock = nil;
         _willRemoveObjectBlock = nil;
         _didAddObjectBlock = nil;
         _didRemoveObjectBlock = nil;
-        
+
         _ageLimit = 0.0;
+        _costLimit = 0;
+        _totalCost = 0;
 
         #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
         for (NSString *name in @[UIApplicationDidReceiveMemoryWarningNotification, UIApplicationDidEnterBackgroundNotification]) {
@@ -82,12 +88,17 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 - (void)removeObjectAndExecuteBlocksForKey:(NSString *)key
 {
     id object = [_dictionary objectForKey:key];
+    NSNumber *cost = [_costs objectForKey:key];
 
     if (_willRemoveObjectBlock)
         _willRemoveObjectBlock(self, key, object);
 
+    if (cost)
+        self.totalCost = _totalCost - [cost unsignedIntegerValue]; // atomic
+
     [_dictionary removeObjectForKey:key];
     [_accessDates removeObjectForKey:key];
+    [_costs removeObjectForKey:key];
 
     if (_didRemoveObjectBlock)
         _didRemoveObjectBlock(self, key, nil);
@@ -97,7 +108,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 {
     NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
     
-    for (NSString *key in keysSortedByDate) { // oldest data first
+    for (NSString *key in keysSortedByDate) { // oldest objects first
         NSDate *accessDate = [_accessDates objectForKey:key];
         if (!accessDate)
             continue;
@@ -107,6 +118,21 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         } else {
             break;
         }
+    }
+}
+
+- (void)trimToCostLimit:(NSUInteger)limit
+{
+    if (_totalCost <= limit)
+        return;
+
+    NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
+
+    for (NSString *key in keysSortedByDate) { // oldest objects first
+        [self removeObjectAndExecuteBlocksForKey:key];
+
+        if (_totalCost <= limit)
+            break;
     }
 }
 
@@ -168,6 +194,11 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
 - (void)setObject:(id)object forKey:(NSString *)key block:(TMMemoryCacheObjectBlock)block
 {
+    [self setObject:object forKey:key withCost:0 block:block];
+}
+
+- (void)setObject:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost block:(TMMemoryCacheObjectBlock)block
+{
     NSDate *now = [[NSDate alloc] init];
 
     if (!key || !object)
@@ -185,9 +216,15 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
         [strongSelf->_dictionary setObject:object forKey:key];
         [strongSelf->_accessDates setObject:now forKey:key];
+        [strongSelf->_costs setObject:@(cost) forKey:key];
+
+        self.totalCost = _totalCost + cost; // atomic
 
         if (strongSelf->_didAddObjectBlock)
             strongSelf->_didAddObjectBlock(strongSelf, key, object);
+
+        if (strongSelf->_costLimit > 0)
+            [strongSelf trimToCost:strongSelf->_costLimit block:nil];
 
         if (block) {
             __weak TMMemoryCache *weakSelf = strongSelf;
@@ -255,6 +292,28 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     });
 }
 
+- (void)trimToCost:(NSUInteger)cost block:(TMMemoryCacheBlock)block
+{
+    __weak TMMemoryCache *weakSelf = self;
+
+    dispatch_barrier_async(_queue, ^{
+        TMMemoryCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        [strongSelf trimToCostLimit:cost];
+
+        if (block) {
+            __weak TMMemoryCache *weakSelf = strongSelf;
+            dispatch_async(strongSelf->_queue, ^{
+                TMMemoryCache *strongSelf = weakSelf;
+                if (strongSelf)
+                    block(strongSelf);
+            });
+        }
+    });
+}
+
 - (void)removeAllObjects:(TMMemoryCacheBlock)block
 {
     __weak TMMemoryCache *weakSelf = self;
@@ -305,12 +364,17 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
 - (void)setObject:(id)object forKey:(NSString *)key
 {
+    [self setObject:object forKey:key withCost:0];
+}
+
+- (void)setObject:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost
+{
     if (!object || !key)
         return;
-    
+
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-    [self setObject:object forKey:key block:^(TMMemoryCache *cache, NSString *key, id object) {
+    [self setObject:object forKey:key withCost:cost block:^(TMMemoryCache *cache, NSString *key, id object) {
         dispatch_semaphore_signal(semaphore);
     }];
 
@@ -343,10 +407,30 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 {
     if (!date)
         return;
+
+    if ([date isEqualToDate:[NSDate distantPast]]) {
+        [self removeAllObjects];
+        return;
+    }
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [self trimToDate:date block:^(TMMemoryCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)trimToCost:(NSUInteger)cost
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self trimToCost:cost block:^(TMMemoryCache *cache) {
         dispatch_semaphore_signal(semaphore);
     }];
 
@@ -493,6 +577,33 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         strongSelf->_ageLimit = ageLimit;
         
         [strongSelf trimToAgeLimitRecursively];
+    });
+}
+
+- (NSUInteger)costLimit
+{
+    __block NSUInteger costLimit = 0;
+
+    dispatch_sync(_queue, ^{
+        costLimit = _costLimit;
+    });
+
+    return costLimit;
+}
+
+- (void)setCostLimit:(NSUInteger)costLimit
+{
+    __weak TMMemoryCache *weakSelf = self;
+
+    dispatch_barrier_async(_queue, ^{
+        TMMemoryCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        strongSelf->_costLimit = costLimit;
+
+        if (costLimit > 0)
+            [strongSelf trimToCostLimit:costLimit];
     });
 }
 
