@@ -188,7 +188,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 /// @name Synchronous Methods
 
 /**
- Retrieves the object for the specified key. This method blocks the calling the thread until the
+ Retrieves the object for the specified key. This method blocks the calling thread until the
  object is available.
  
  @see objectForKey:block:
@@ -198,7 +198,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (id <NSCoding>)objectForKey:(NSString *)key;
 
 /**
- Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+ Retrieves the file URL for the specified key. This method blocks the calling thread until the
  url is available. Do not use this URL anywhere but on the <sharedQueue>. This method probably
  shouldn't even exist, just use the asynchronous one.
  
@@ -209,7 +209,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (NSURL *)fileURLForKey:(NSString *)key;
 
 /**
- Stores an object in the cache for the specified key. This method blocks the calling the thread until
+ Stores an object in the cache for the specified key. This method blocks the calling thread until
  the object has been stored.
  
  @see setObject:forKey:block:
@@ -219,7 +219,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key;
 
 /**
- Removes the object for the specified key. This method blocks the calling the thread until the object
+ Removes the object for the specified key. This method blocks the calling thread until the object
  has been removed.
  
  @param key The key associated with the object to be removed.
@@ -228,7 +228,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 
 /**
  Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
- specified byteCount. This method blocks the calling the thread until the cache has been trimmed.
+ specified byteCount. This method blocks the calling thread until the cache has been trimmed.
  
  @param byteCount The cache will be trimmed equal to or smaller than this size.
  */
@@ -236,7 +236,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 
 /**
  Removes all objects from the cache older than the specified date, as ordered by access time. This
- method blocks the calling the thread until the cache has been trimmed.
+ method blocks the calling thread until the cache has been trimmed.
  
  @param date Objects that haven't been accessed since this date are removed from the cache.
  */
@@ -244,7 +244,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 
 /**
  Removes all objects from the cache without calling the associated event blocks. This method blocks
- the calling the thread until the cache has been cleared.
+ the calling thread until the cache has been cleared.
  */
 - (void)removeAllObjects;
 
