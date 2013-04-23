@@ -21,8 +21,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 @property (assign) NSUInteger byteCount;
 @property (strong, nonatomic) NSURL *cacheURL;
 @property (assign, nonatomic) dispatch_queue_t queue;
-@property (strong, nonatomic) NSMutableDictionary *diskAccessDates;
-@property (strong, nonatomic) NSMutableDictionary *diskByteSizes;
+@property (strong, nonatomic) NSMutableDictionary *accessDates;
+@property (strong, nonatomic) NSMutableDictionary *byteSizes;
 @end
 
 @implementation TMDiskCache
@@ -54,8 +54,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         _byteLimit = 0;
         _ageLimit = 0.0;
 
-        _diskAccessDates = [[NSMutableDictionary alloc] init];
-        _diskByteSizes = [[NSMutableDictionary alloc] init];
+        _accessDates = [[NSMutableDictionary alloc] init];
+        _byteSizes = [[NSMutableDictionary alloc] init];
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *pathComponent = [[NSString alloc] initWithFormat:@"%@.%@", TMDiskCachePrefix, _name];
@@ -184,11 +184,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         NSDate *date = [dictionary objectForKey:NSURLContentModificationDateKey];
         if (date)
-            [_diskAccessDates setObject:date forKey:key];
+            [_accessDates setObject:date forKey:key];
 
         NSNumber *fileSize = [dictionary objectForKey:NSURLTotalFileAllocatedSizeKey];
         if (fileSize) {
-            [_diskByteSizes setObject:fileSize forKey:key];
+            [_byteSizes setObject:fileSize forKey:key];
             byteCount += [fileSize unsignedIntegerValue];
         }
     }
@@ -206,7 +206,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     TMDiskCacheError(error);
 
     if (success)
-        [_diskAccessDates setObject:date forKey:[self keyForEncodedFileURL:fileURL]];
+        [_accessDates setObject:date forKey:[self keyForEncodedFileURL:fileURL]];
 
     return success;
 }
@@ -227,12 +227,12 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (!removed)
         return NO;
 
-    NSNumber *byteSize = [_diskByteSizes objectForKey:key];
+    NSNumber *byteSize = [_byteSizes objectForKey:key];
     if (byteSize)
         self.byteCount = _byteCount + [byteSize unsignedIntegerValue]; // atomic
 
-    [_diskByteSizes removeObjectForKey:key];
-    [_diskAccessDates removeObjectForKey:key];
+    [_byteSizes removeObjectForKey:key];
+    [_accessDates removeObjectForKey:key];
 
     if (_didRemoveObjectBlock)
         _didRemoveObjectBlock(self, key, nil, fileURL);
@@ -245,11 +245,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     NSUInteger startingByteCount = _byteCount;
     
     if (startingByteCount > trimByteCount) {
-        NSArray *keysSortedBySize = [_diskByteSizes keysSortedByValueUsingSelector:@selector(compare:)];
+        NSArray *keysSortedBySize = [_byteSizes keysSortedByValueUsingSelector:@selector(compare:)];
         NSUInteger runningByteCount = startingByteCount;
         
         for (NSString *key in [keysSortedBySize reverseObjectEnumerator]) { // biggest files first
-            NSNumber *byteSize = [_diskByteSizes objectForKey:key];
+            NSNumber *byteSize = [_byteSizes objectForKey:key];
             if (!byteSize)
                 continue;
             
@@ -264,10 +264,10 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 - (void)trimDiskToDate:(NSDate *)trimDate
 {
-    NSArray *keysSortedByDate = [_diskAccessDates keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
     
     for (NSString *key in keysSortedByDate) { // oldest files first
-        NSDate *accessDate = [_diskAccessDates objectForKey:key];
+        NSDate *accessDate = [_accessDates objectForKey:key];
         if (!accessDate)
             continue;
         
@@ -379,7 +379,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
             NSNumber *diskFileSize = [values objectForKey:NSURLTotalFileAllocatedSizeKey];
             if (diskFileSize) {
-                [strongSelf->_diskByteSizes setObject:diskFileSize forKey:key];
+                [strongSelf->_byteSizes setObject:diskFileSize forKey:key];
                 strongSelf.byteCount = strongSelf->_byteCount + [diskFileSize unsignedIntegerValue]; // atomic
             }
             
@@ -492,8 +492,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         [strongSelf createCacheDirectory];
 
-        [strongSelf->_diskAccessDates removeAllObjects];
-        [strongSelf->_diskByteSizes removeAllObjects];
+        [strongSelf->_accessDates removeAllObjects];
+        [strongSelf->_byteSizes removeAllObjects];
         strongSelf.byteCount = 0; // atomic
 
         if (block)
