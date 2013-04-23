@@ -325,6 +325,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
         [strongSelf->_dictionary removeAllObjects];
         [strongSelf->_accessDates removeAllObjects];
+        [strongSelf->_costs removeAllObjects];
 
         if (block) {
             __weak TMMemoryCache *weakSelf = strongSelf;
