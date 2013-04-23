@@ -607,6 +607,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (!date)
         return;
 
+    if ([date isEqualToDate:[NSDate distantPast]]) {
+        [self removeAllObjects];
+        return;
+    }
+
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [self trimToDate:date block:^(TMDiskCache *cache) {
