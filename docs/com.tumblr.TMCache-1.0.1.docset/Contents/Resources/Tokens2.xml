@@ -408,7 +408,7 @@ immediately and executes the passed block as soon as the cache has been cleared.
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/objectForKey:</TokenIdentifier>
-			<Abstract type="html">Retrieves the object for the specified key. This method blocks the calling the thread until the
+			<Abstract type="html">Retrieves the object for the specified key. This method blocks the calling thread until the
 object is available.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
@@ -430,7 +430,7 @@ object is available.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/fileURLForKey:</TokenIdentifier>
-			<Abstract type="html">Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+			<Abstract type="html">Retrieves the file URL for the specified key. This method blocks the calling thread until the
 url is available. Do not use this URL anywhere but on the sharedQueue. This method probably
 shouldn&apos;t even exist, just use the asynchronous one.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
@@ -453,7 +453,7 @@ shouldn&apos;t even exist, just use the asynchronous one.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setObject:forKey:</TokenIdentifier>
-			<Abstract type="html">Stores an object in the cache for the specified key. This method blocks the calling the thread until
+			<Abstract type="html">Stores an object in the cache for the specified key. This method blocks the calling thread until
 the object has been stored.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
@@ -478,7 +478,7 @@ the object has been stored.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeObjectForKey:</TokenIdentifier>
-			<Abstract type="html">Removes the object for the specified key. This method blocks the calling the thread until the object
+			<Abstract type="html">Removes the object for the specified key. This method blocks the calling thread until the object
 has been removed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
@@ -496,7 +496,7 @@ has been removed.</Abstract>
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:</TokenIdentifier>
 			<Abstract type="html">Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
-specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</Abstract>
+specified byteCount. This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToSize:(NSUInteger)byteCount</Declaration>
@@ -513,7 +513,7 @@ specified byteCount. This method blocks the calling the thread until the cache h
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:</TokenIdentifier>
 			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling the thread until the cache has been trimmed.</Abstract>
+method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToDate:(NSDate *)date</Declaration>
@@ -530,7 +530,7 @@ method blocks the calling the thread until the cache has been trimmed.</Abstract
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/removeAllObjects</TokenIdentifier>
 			<Abstract type="html">Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling the thread until the cache has been cleared.</Abstract>
+the calling thread until the cache has been cleared.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)removeAllObjects</Declaration>

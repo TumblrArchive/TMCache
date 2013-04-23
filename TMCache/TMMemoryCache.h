@@ -213,7 +213,6 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  value. This method blocks the calling thread until the cache has been trimmed.
  
  @param cost The total accumulation allowed to remain after the cache has been trimmed.
- @param block A block to be executed concurrently after the cache has been trimmed, or nil.
  */
 - (void)trimToCost:(NSUInteger)cost;
 

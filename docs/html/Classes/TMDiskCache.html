@@ -282,7 +282,7 @@ by itself, as it adds a fast layer of additional memory caching while still writ
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/cacheURL">&nbsp;&nbsp;cacheURL</a></code>
-		<span class="tooltip"><p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/</code>name<code></code> on iOS.</p></span>
+		<span class="tooltip"><p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/name</code> on iOS.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -446,7 +446,7 @@ immediately and executes the passed block as soon as the cache has been cleared.
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/objectForKey:">&ndash;&nbsp;objectForKey:</a></code>
-		<span class="tooltip"><p>Retrieves the object for the specified key. This method blocks the calling the thread until the
+		<span class="tooltip"><p>Retrieves the object for the specified key. This method blocks the calling thread until the
 object is available.</p></span>
 	</span>
 	
@@ -454,7 +454,7 @@ object is available.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/fileURLForKey:">&ndash;&nbsp;fileURLForKey:</a></code>
-		<span class="tooltip"><p>Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+		<span class="tooltip"><p>Retrieves the file URL for the specified key. This method blocks the calling thread until the
 url is available. Do not use this URL anywhere but on the <a href="#//api/name/sharedQueue">sharedQueue</a>. This method probably
 shouldn&rsquo;t even exist, just use the asynchronous one.</p></span>
 	</span>
@@ -463,7 +463,7 @@ shouldn&rsquo;t even exist, just use the asynchronous one.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setObject:forKey:">&ndash;&nbsp;setObject:forKey:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling the thread until
+		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling thread until
 the object has been stored.</p></span>
 	</span>
 	
@@ -471,7 +471,7 @@ the object has been stored.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeObjectForKey:">&ndash;&nbsp;removeObjectForKey:</a></code>
-		<span class="tooltip"><p>Removes the object for the specified key. This method blocks the calling the thread until the object
+		<span class="tooltip"><p>Removes the object for the specified key. This method blocks the calling thread until the object
 has been removed.</p></span>
 	</span>
 	
@@ -480,7 +480,7 @@ has been removed.</p></span>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToSize:">&ndash;&nbsp;trimToSize:</a></code>
 		<span class="tooltip"><p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
-specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</p></span>
+specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -488,7 +488,7 @@ specified byteCount. This method blocks the calling the thread until the cache h
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
 		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling the thread until the cache has been trimmed.</p></span>
+method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -496,7 +496,7 @@ method blocks the calling the thread until the cache has been trimmed.</p></span
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects">&ndash;&nbsp;removeAllObjects</a></code>
 		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling the thread until the cache has been cleared.</p></span>
+the calling thread until the cache has been cleared.</p></span>
 	</span>
 	
 	
@@ -631,7 +631,7 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/</code>name<code></code> on iOS.</p>
+		<p>The URL of the directory used by this cache, usually <code>Library/Caches/com.tumblr.TMDiskCache/name</code> on iOS.</p>
 	</div>		
 	
     
@@ -648,7 +648,7 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> Do not interact with anything under this path except on the <a href="#//api/name/sharedQueue">sharedQueue</a>.</p></div>
+		<div class="warning"><p><strong>Warning:</strong> Do not interact with files under this URL except on the <a href="#//api/name/sharedQueue">sharedQueue</a>.</p></div>
 	</div>
 	
 	
@@ -910,7 +910,7 @@ this queue with an exisiting serial I/O queue.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Retrieves the file URL for the specified key. This method blocks the calling the thread until the
+		<p>Retrieves the file URL for the specified key. This method blocks the calling thread until the
 url is available. Do not use this URL anywhere but on the <a href="#//api/name/sharedQueue">sharedQueue</a>. This method probably
 shouldn&rsquo;t even exist, just use the asynchronous one.</p>
 	</div>		
@@ -1092,7 +1092,7 @@ the same data on disk thanks to the magic of seriality.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Retrieves the object for the specified key. This method blocks the calling the thread until the
+		<p>Retrieves the object for the specified key. This method blocks the calling thread until the
 object is available.</p>
 	</div>		
 	
@@ -1211,7 +1211,7 @@ block as soon as the object is available on the serial <a href="#//api/name/shar
 	
 	<div class="method-subsection brief-description">
 		<p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling the thread until the cache has been cleared.</p>
+the calling thread until the cache has been cleared.</p>
 	</div>		
 	
     
@@ -1294,7 +1294,7 @@ immediately and executes the passed block as soon as the cache has been cleared.
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes the object for the specified key. This method blocks the calling the thread until the object
+		<p>Removes the object for the specified key. This method blocks the calling thread until the object
 has been removed.</p>
 	</div>		
 	
@@ -1393,7 +1393,7 @@ as soon as the object has been removed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key. This method blocks the calling the thread until
+		<p>Stores an object in the cache for the specified key. This method blocks the calling thread until
 the object has been stored.</p>
 	</div>		
 	
@@ -1553,7 +1553,7 @@ passed block as soon as the object has been stored.</p>
 	
 	<div class="method-subsection brief-description">
 		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling the thread until the cache has been trimmed.</p>
+method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1652,7 +1652,7 @@ returns immediately and executes the passed block as soon as the cache has been 
 	
 	<div class="method-subsection brief-description">
 		<p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
-specified byteCount. This method blocks the calling the thread until the cache has been trimmed.</p>
+specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1757,7 +1757,7 @@ has been trimmed.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-22)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-23)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						

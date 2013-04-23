@@ -9,18 +9,16 @@
 	<key>CFBundleName</key>
 	<string>TMCache</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	
 	
 	
-	<key>DocSetFallbackURL</key>
-	<string>http://tumblr.github.com/TMCache/</string>
+	
 	<key>DocSetFeedName</key>
-	<string>TMCache</string>
-	<key>DocSetFeedURL</key>
-	<string>http://tumblr.github.com/TMCache/docs/publish/com.tumblr.TMCache.atom</string>
+	<string>TMCache Documentation</string>
+	
 	<key>DocSetMinimumXcodeVersion</key>
 	<string>4.3</string>
 	
