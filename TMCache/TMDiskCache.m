@@ -378,6 +378,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         NSURL *fileURL = [strongSelf encodedFileURLForKey:key];
 
+        if (strongSelf->_willAddObjectBlock)
+            strongSelf->_willAddObjectBlock(strongSelf, key, object, fileURL);
+
         NSError *error = nil;
         BOOL written = [NSKeyedArchiver archiveRootObject:object toFile:[fileURL path]];
         TMDiskCacheError(error);
@@ -400,6 +403,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         } else {
             fileURL = nil;
         }
+
+        if (strongSelf->_didAddObjectBlock)
+            strongSelf->_didAddObjectBlock(strongSelf, key, object, written ? fileURL : nil);
 
         if (block)
             block(strongSelf, key, object, fileURL);
