@@ -4,7 +4,7 @@ appledoc \
     --company-id com.tumblr \
     --project-name TMCache \
     --project-company Tumblr \
-    --project-version 1.0.1 \
+    --project-version 1.0.2 \
     --docset-min-xcode-version 4.3 \
     --docset-bundle-id %COMPANYID.%PROJECTID \
     --docset-bundle-name "%PROJECT %VERSION" \
@@ -25,5 +25,5 @@ appledoc \
     --output ./docs \
     .
     
-mv docs/docset docs/com.tumblr.TMCache-1.0.1.docset
+mv docs/docset docs/com.tumblr.TMCache-1.0.2.docset
 rm docs/docset-installed.txt
