@@ -823,7 +823,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         strongSelf->_byteLimit = byteLimit;
 
         if (byteLimit > 0)
-            [strongSelf trimToSizeByDate:byteLimit];
+            [strongSelf trimDiskToSizeByDate:byteLimit];
     });
 }
 
