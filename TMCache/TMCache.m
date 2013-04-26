@@ -71,7 +71,11 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
 
         id object = [strongSelf->_memoryCache objectForKey:key];
 
-        if (!object) {
+        if (object) {
+            [strongSelf->_diskCache fileURLForKey:key block:^(TMDiskCache *cache, NSString *key, id <NSCoding> object, NSURL *fileURL) {
+                // no-op to update the access time on disk
+            }];
+        } else {
             object = [strongSelf->_diskCache objectForKey:key];
             [strongSelf->_memoryCache setObject:object forKey:key block:nil];
         }

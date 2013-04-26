@@ -1,3 +1,7 @@
+### 1.0.2 -- 2013 April 26 ###
+
+- TMCache: caches hits from memory will now update access time on disk
+
 ### 1.0.1 -- 2013 April 23 ###
 
 - added an optional "cost limit" to `TMMemoryCache`, including new properties and methods
