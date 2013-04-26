@@ -709,7 +709,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     __block TMDiskCacheObjectBlock block = nil;
 
     dispatch_sync(_queue, ^{
-        block = self->_willAddObjectBlock;
+        block = _willAddObjectBlock;
     });
 
     return block;
