@@ -656,7 +656,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         strongSelf->_costLimit = costLimit;
 
         if (costLimit > 0)
-            [strongSelf trimToCostLimit:costLimit];
+            [strongSelf trimToCostLimitByDate:costLimit];
     });
 }
 
