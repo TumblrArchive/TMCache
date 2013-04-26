@@ -155,6 +155,30 @@ within a barrier, i.e. all reads and writes are suspended for the duration of th
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setWillRemoveAllObjectsBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed just before all objects are removed from the cache as a result of removeAllObjects:.
+This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock willRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/willRemoveAllObjectsBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed just before all objects are removed from the cache as a result of removeAllObjects:.
+This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock willRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setDidAddObjectBlock:</TokenIdentifier>
 			<Abstract type="html">A block to be executed just after an object is added to the cache. This block will be excuted within
 a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
@@ -200,6 +224,30 @@ within a barrier, i.e. all reads and writes are suspended for the duration of th
 			
 			
 			<Anchor>//api/name/didRemoveObjectBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setDidRemoveAllObjectsBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed just after all objects are removed from the cache as a result of removeAllObjects:.
+This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/didRemoveAllObjectsBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed just after all objects are removed from the cache as a result of removeAllObjects:.
+This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didRemoveAllObjectsBlock</Anchor>
 		</Token>
 		
 		<Token>

@@ -176,6 +176,30 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setWillRemoveAllObjectsBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed just before all objects are removed from the cache as a result of removeAllObjects:.
+The queue waits during execution.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMDiskCacheBlock willRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/willRemoveAllObjectsBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed just before all objects are removed from the cache as a result of removeAllObjects:.
+The queue waits during execution.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMDiskCacheBlock willRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/willRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setDidAddObjectBlock:</TokenIdentifier>
 			<Abstract type="html">A block to be executed just after an object is added to the cache. The queue waits during execution.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
@@ -217,6 +241,30 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 			
 			
 			<Anchor>//api/name/didRemoveObjectBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setDidRemoveAllObjectsBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed just after all objects are removed from the cache as a result of removeAllObjects:.
+The queue waits during execution.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMDiskCacheBlock didRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/didRemoveAllObjectsBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed just after all objects are removed from the cache as a result of removeAllObjects:.
+The queue waits during execution.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMDiskCacheBlock didRemoveAllObjectsBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didRemoveAllObjectsBlock</Anchor>
 		</Token>
 		
 		<Token>

@@ -50,11 +50,15 @@
 	
 	<option value="//api/name/didAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didAddObjectBlock</option>
 	
+	<option value="//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveAllObjectsBlock</option>
+	
 	<option value="//api/name/didRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveObjectBlock</option>
 	
 	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
 	
 	<option value="//api/name/willAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willAddObjectBlock</option>
+	
+	<option value="//api/name/willRemoveAllObjectsBlock">&nbsp;&nbsp;&nbsp;&nbsp;willRemoveAllObjectsBlock</option>
 	
 	<option value="//api/name/willRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willRemoveObjectBlock</option>
 	
@@ -148,11 +152,15 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAddObjectBlock">didAddObjectBlock</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveAllObjectsBlock">didRemoveAllObjectsBlock</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willAddObjectBlock">willAddObjectBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willRemoveAllObjectsBlock">willRemoveAllObjectsBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willRemoveObjectBlock">willRemoveObjectBlock</a></span></li>
 	
@@ -334,6 +342,14 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/willRemoveAllObjectsBlock">&nbsp;&nbsp;willRemoveAllObjectsBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just before all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
+The queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/didAddObjectBlock">&nbsp;&nbsp;didAddObjectBlock</a></code>
 		<span class="tooltip"><p>A block to be executed just after an object is added to the cache. The queue waits during execution.</p></span>
 	</span>
@@ -343,6 +359,14 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	<span class="tooltip">
 		<code><a href="#//api/name/didRemoveObjectBlock">&nbsp;&nbsp;didRemoveObjectBlock</a></code>
 		<span class="tooltip"><p>A block to be executed just after an object is removed from the cache. The queue waits during execution.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;didRemoveAllObjectsBlock</a></code>
+		<span class="tooltip"><p>A block to be executed just after all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
+The queue waits during execution.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -726,6 +750,43 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/didRemoveAllObjectsBlock" title="didRemoveAllObjectsBlock"></a>
+	<h3 class="subsubtitle method-title">didRemoveAllObjectsBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just after all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
+The queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheBlock didRemoveAllObjectsBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/didRemoveObjectBlock" title="didRemoveObjectBlock"></a>
 	<h3 class="subsubtitle method-title">didRemoveObjectBlock</h3>
 	
@@ -810,6 +871,43 @@ size exceeds the limit a trim call is queued. Defaults to <code>0.0</code>, mean
     
 
 	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheObjectBlock willAddObjectBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willRemoveAllObjectsBlock" title="willRemoveAllObjectsBlock"></a>
+	<h3 class="subsubtitle method-title">willRemoveAllObjectsBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed just before all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
+The queue waits during execution.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMDiskCacheBlock willRemoveAllObjectsBlock</code></div>
 
     
 	
