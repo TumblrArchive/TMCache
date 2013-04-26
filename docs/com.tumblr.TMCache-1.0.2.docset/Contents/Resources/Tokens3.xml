@@ -306,9 +306,9 @@ block after the object has been removed, potentially in parallel with other bloc
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToDate:block:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially
-in parallel with other blocks on the queue.</Abstract>
+			<Abstract type="html">Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
+method returns immediately and executes the passed block after the cache has been trimmed, potentially in
+parallel with other blocks on the queue.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMMemoryCacheBlock)block</Declaration>
@@ -327,7 +327,7 @@ in parallel with other blocks on the queue.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCost:block:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache (oldest objects first) until the totalCost is below the specified
+			<Abstract type="html">Removes objects from the cache, costliest objects first, until the totalCost is below the specified
 value. This method returns immediately and executes the passed block after the cache has been trimmed,
 potentially in parallel with other blocks on the queue.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
@@ -344,6 +344,27 @@ potentially in parallel with other blocks on the queue.</Abstract>
 			</Parameters>
 			
 			<Anchor>//api/name/trimToCost:block:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCostByDate:block:</TokenIdentifier>
+			<Abstract type="html">Removes objects from the cache, ordered by access time (LRU first), until the totalCost is below the
+specified value. This method returns immediately and executes the passed block after the cache has been
+trimmed, potentially in parallel with other blocks on the queue.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimToCostByDate:(NSUInteger)cost block:(TMMemoryCacheBlock)block</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>cost</Name>
+					<Abstract type="html">The total accumulation allowed to remain after the cache has been trimmed.</Abstract>
+				</Parameter><Parameter>
+					<Name>block</Name>
+					<Abstract type="html">A block to be executed concurrently after the cache has been trimmed, or nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/trimToCostByDate:block:</Anchor>
 		</Token>
 		
 		<Token>
@@ -471,7 +492,7 @@ method blocks the calling thread until the cache has been trimmed.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCost:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache (oldest objects first) until the totalCost is below the specified
+			<Abstract type="html">Removes objects from the cache, costliest objects first, until the totalCost is below the specified
 value. This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
@@ -484,6 +505,23 @@ value. This method blocks the calling thread until the cache has been trimmed.</
 			</Parameters>
 			
 			<Anchor>//api/name/trimToCost:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCostByDate:</TokenIdentifier>
+			<Abstract type="html">Removes objects from the cache, ordered by access time (LRU first), until the totalCost is below the
+specified value. This method blocks the calling thread until the cache has been trimmed.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimToCostByDate:(NSUInteger)cost</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>cost</Name>
+					<Abstract type="html">The total accumulation allowed to remain after the cache has been trimmed.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/trimToCostByDate:</Anchor>
 		</Token>
 		
 		<Token>

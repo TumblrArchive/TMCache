@@ -349,10 +349,29 @@ as soon as the object has been removed.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:block:</TokenIdentifier>
+			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMDiskCacheBlock)block</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>date</Name>
+					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
+				</Parameter><Parameter>
+					<Name>block</Name>
+					<Abstract type="html">A block to be executed serially after the cache has been trimmed, or nil.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/trimToDate:block:</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:block:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
-specified byteCount. This method returns immediately and executes the passed block as soon as the cache
-has been trimmed.</Abstract>
+			<Abstract type="html">Removes objects from the cache, largest first, until the cache is equal to or smaller than the specified byteCount.
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToSize:(NSUInteger)byteCount block:(TMDiskCacheBlock)block</Declaration>
@@ -370,23 +389,24 @@ has been trimmed.</Abstract>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:block:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This method
-returns immediately and executes the passed block as soon as the cache has been trimmed.</Abstract>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSizeByDate:block:</TokenIdentifier>
+			<Abstract type="html">Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller than
+the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
+been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMDiskCacheBlock)block</Declaration>
+			<Declaration>- (void)trimToSizeByDate:(NSUInteger)byteCount block:(TMDiskCacheBlock)block</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>date</Name>
-					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
+					<Name>byteCount</Name>
+					<Abstract type="html">The cache will be trimmed equal to or smaller than this size.</Abstract>
 				</Parameter><Parameter>
 					<Name>block</Name>
 					<Abstract type="html">A block to be executed serially after the cache has been trimmed, or nil.</Abstract>
 				</Parameter>
 			</Parameters>
 			
-			<Anchor>//api/name/trimToDate:block:</Anchor>
+			<Anchor>//api/name/trimToSizeByDate:block:</Anchor>
 		</Token>
 		
 		<Token>
@@ -494,8 +514,25 @@ has been removed.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:</TokenIdentifier>
+			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
+method blocks the calling thread until the cache has been trimmed.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)trimToDate:(NSDate *)date</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>date</Name>
+					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/trimToDate:</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSize:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+			<Abstract type="html">Removes objects from the cache, largest first, until the cache is equal to or smaller than the
 specified byteCount. This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
@@ -511,20 +548,20 @@ specified byteCount. This method blocks the calling thread until the cache has b
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToDate:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</Abstract>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/trimToSizeByDate:</TokenIdentifier>
+			<Abstract type="html">Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller
+than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
-			<Declaration>- (void)trimToDate:(NSDate *)date</Declaration>
+			<Declaration>- (void)trimToSizeByDate:(NSUInteger)byteCount</Declaration>
 			<Parameters>
 				<Parameter>
-					<Name>date</Name>
-					<Abstract type="html">Objects that haven&apos;t been accessed since this date are removed from the cache.</Abstract>
+					<Name>byteCount</Name>
+					<Abstract type="html">The cache will be trimmed equal to or smaller than this size.</Abstract>
 				</Parameter>
 			</Parameters>
 			
-			<Anchor>//api/name/trimToDate:</Anchor>
+			<Anchor>//api/name/trimToSizeByDate:</Anchor>
 		</Token>
 		
 		<Token>

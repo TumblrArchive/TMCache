@@ -102,6 +102,10 @@
 	
 	<option value="//api/name/trimToSize:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToSize:block:</option>
 	
+	<option value="//api/name/trimToSizeByDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToSizeByDate:</option>
+	
+	<option value="//api/name/trimToSizeByDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToSizeByDate:block:</option>
+	
 	
 	
 </select>
@@ -198,6 +202,10 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToSize:block:">trimToSize:block:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToSizeByDate:">trimToSizeByDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToSizeByDate:block:">trimToSizeByDate:block:</a></span></li>
+	
 </ul></li>
 
 
@@ -256,7 +264,7 @@ your app already have one.</p>
 by itself, as it adds a fast layer of additional memory caching while still writing to disk.</p>
 
 <p>All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an optional
-<a href="#//api/name/ageLimit">ageLimit</a> will trigger a GCD timer to periodically to trim the cache to that age.</p>
+<a href="#//api/name/ageLimit">ageLimit</a> will trigger a GCD timer to periodically to trim the cache with <a href="#//api/name/trimToDate:">trimToDate:</a>.</p>
 					</div>
 					
 					
@@ -412,18 +420,26 @@ as soon as the object has been removed.</p></span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/trimToSize:block:">&ndash;&nbsp;trimToSize:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
-specified byteCount. This method returns immediately and executes the passed block as soon as the cache
-has been trimmed.</p></span>
+		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This method
-returns immediately and executes the passed block as soon as the cache has been trimmed.</p></span>
+		<code><a href="#//api/name/trimToSize:block:">&ndash;&nbsp;trimToSize:block:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, largest first, until the cache is equal to or smaller than the specified byteCount.
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToSizeByDate:block:">&ndash;&nbsp;trimToSizeByDate:block:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller than
+the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
+been trimmed.</p></span>
 	</span>
 	
 	
@@ -478,17 +494,25 @@ has been removed.</p></span>
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
+		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
+method blocks the calling thread until the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/trimToSize:">&ndash;&nbsp;trimToSize:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+		<span class="tooltip"><p>Removes objects from the cache, largest first, until the cache is equal to or smaller than the
 specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</p></span>
+		<code><a href="#//api/name/trimToSizeByDate:">&ndash;&nbsp;trimToSizeByDate:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller
+than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -1599,8 +1623,8 @@ method blocks the calling thread until the cache has been trimmed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This method
-returns immediately and executes the passed block as soon as the cache has been trimmed.</p>
+		<p>Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1651,7 +1675,7 @@ returns immediately and executes the passed block as soon as the cache has been 
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access time, until the cache is equal to or smaller than the
+		<p>Removes objects from the cache, largest first, until the cache is equal to or smaller than the
 specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
@@ -1698,14 +1722,113 @@ specified byteCount. This method blocks the calling thread until the cache has b
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
-specified byteCount. This method returns immediately and executes the passed block as soon as the cache
-has been trimmed.</p>
+		<p>Removes objects from the cache, largest first, until the cache is equal to or smaller than the specified byteCount.
+This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p>
 	</div>		
 	
     
 
 	<div class="method-subsection method-declaration"><code>- (void)trimToSize:(NSUInteger)<em>byteCount</em> block:(TMDiskCacheBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>byteCount</em></dt>
+			<dd><p>The cache will be trimmed equal to or smaller than this size.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed serially after the cache has been trimmed, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToSizeByDate:" title="trimToSizeByDate:"></a>
+	<h3 class="subsubtitle method-title">trimToSizeByDate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller
+than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToSizeByDate:(NSUInteger)<em>byteCount</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>byteCount</em></dt>
+			<dd><p>The cache will be trimmed equal to or smaller than this size.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToSizeByDate:block:" title="trimToSizeByDate:block:"></a>
+	<h3 class="subsubtitle method-title">trimToSizeByDate:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller than
+the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
+been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToSizeByDate:(NSUInteger)<em>byteCount</em> block:(TMDiskCacheBlock)<em>block</em></code></div>
 
     
 	

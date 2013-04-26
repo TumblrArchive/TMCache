@@ -89,6 +89,10 @@
 	
 	<option value="//api/name/trimToCost:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCost:block:</option>
 	
+	<option value="//api/name/trimToCostByDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCostByDate:</option>
+	
+	<option value="//api/name/trimToCostByDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCostByDate:block:</option>
+	
 	<option value="//api/name/trimToDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:</option>
 	
 	<option value="//api/name/trimToDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:block:</option>
@@ -177,6 +181,10 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCost:block:">trimToCost:block:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCostByDate:block:">trimToCostByDate:block:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:">trimToDate:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:block:">trimToDate:block:</a></span></li>
@@ -228,7 +236,7 @@ automatically to reduce memory usage when the app receives a memory warning or g
 optional <a href="#//api/name/ageLimit">ageLimit</a> will trigger a GCD timer to periodically to trim the cache to that age.</p>
 
 <p>Objects can optionally be set with a &ldquo;cost&rdquo;, which could be a byte count or any other meaningful integer.
-Setting a <a href="#//api/name/costLimit">costLimit</a> will automatically keep the cache below that value with <a href="#//api/name/trimToCost:">trimToCost:</a>.</p>
+Setting a <a href="#//api/name/costLimit">costLimit</a> will automatically keep the cache below that value with <a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a>.</p>
 
 <p>Values will not persist after application relaunch or returning from the background. See <a href="../Classes/TMCache.html">TMCache</a> for
 a memory cache backed by a disk cache.</p>
@@ -378,18 +386,27 @@ block after the object has been removed, potentially in parallel with other bloc
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially
-in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
+method returns immediately and executes the passed block after the cache has been trimmed, potentially in
+parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToCost:block:">&ndash;&nbsp;trimToCost:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache (oldest objects first) until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
+		<span class="tooltip"><p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
 value. This method returns immediately and executes the passed block after the cache has been trimmed,
 potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToCostByDate:block:">&ndash;&nbsp;trimToCostByDate:block:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
+specified value. This method returns immediately and executes the passed block after the cache has been
+trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
@@ -454,8 +471,16 @@ method blocks the calling thread until the cache has been trimmed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToCost:">&ndash;&nbsp;trimToCost:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache (oldest objects first) until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
+		<span class="tooltip"><p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
 value. This method blocks the calling thread until the cache has been trimmed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/trimToCostByDate:">&ndash;&nbsp;trimToCostByDate:</a></code>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
+specified value. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -1370,7 +1395,7 @@ on the <a href="#//api/name/queue">queue</a>.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache (oldest objects first) until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
+		<p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
 value. This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
@@ -1417,7 +1442,7 @@ value. This method blocks the calling thread until the cache has been trimmed.</
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache (oldest objects first) until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
+		<p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
 value. This method returns immediately and executes the passed block after the cache has been trimmed,
 potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
@@ -1425,6 +1450,106 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
     
 
 	<div class="method-subsection method-declaration"><code>- (void)trimToCost:(NSUInteger)<em>cost</em> block:(TMMemoryCacheBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>cost</em></dt>
+			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed concurrently after the cache has been trimmed, or nil.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToCostByDate:" title="trimToCostByDate:"></a>
+	<h3 class="subsubtitle method-title">trimToCostByDate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
+specified value. This method blocks the calling thread until the cache has been trimmed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToCostByDate:(NSUInteger)<em>cost</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>cost</em></dt>
+			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/trimToCostByDate:block:" title="trimToCostByDate:block:"></a>
+	<h3 class="subsubtitle method-title">trimToCostByDate:block:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
+specified value. This method returns immediately and executes the passed block after the cache has been
+trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)trimToCostByDate:(NSUInteger)<em>cost</em> block:(TMMemoryCacheBlock)<em>block</em></code></div>
 
     
 	
@@ -1517,9 +1642,9 @@ method blocks the calling thread until the cache has been trimmed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially
-in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
+method returns immediately and executes the passed block after the cache has been trimmed, potentially in
+parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
