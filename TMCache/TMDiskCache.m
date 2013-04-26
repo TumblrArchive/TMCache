@@ -247,7 +247,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
     NSArray *keysSortedBySize = [_byteSizes keysSortedByValueUsingSelector:@selector(compare:)];
 
-    for (NSString *key in keysSortedBySize) { // largest objects first
+    for (NSString *key in [keysSortedBySize reverseObjectEnumerator]) { // largest objects first
         [self removeFileAndExecuteBlocksForKey:key];
 
         if (_byteCount <= trimByteCount)

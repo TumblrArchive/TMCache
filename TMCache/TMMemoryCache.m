@@ -128,7 +128,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
     NSArray *keysSortedByCost = [_costs keysSortedByValueUsingSelector:@selector(compare:)];
 
-    for (NSString *key in keysSortedByCost) { // costliest objects first
+    for (NSString *key in [keysSortedByCost reverseObjectEnumerator]) { // costliest objects first
         [self removeObjectAndExecuteBlocksForKey:key];
 
         if (_totalCost <= limit)
