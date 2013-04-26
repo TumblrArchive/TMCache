@@ -1,7 +1,9 @@
 ### 1.0.2 -- 2013 April 26 ###
 
-- TMCache: cache hits from memory will now update access time on disk
-- TMDiskCache: set & remove methods now acquire a `UIBackgroundTaskIdentifier`
+- [fix] TMCache: cache hits from memory will now update access time on disk
+- [fix] TMDiskCache: set & remove methods now acquire a `UIBackgroundTaskIdentifier`
+- [fix] TMDiskCache: trimToSize now correctly removes objects in order of size
+- [new] TMDiskCache: added method `trimToSizeByDate:`
 
 ### 1.0.1 -- 2013 April 23 ###
 

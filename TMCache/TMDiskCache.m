@@ -245,6 +245,21 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (_byteCount <= trimByteCount)
         return;
 
+    NSArray *keysSortedBySize = [_byteSizes keysSortedByValueUsingSelector:@selector(compare:)];
+
+    for (NSString *key in keysSortedBySize) { // largest objects first
+        [self removeFileAndExecuteBlocksForKey:key];
+
+        if (_byteCount <= trimByteCount)
+            break;
+    }
+}
+
+- (void)trimDiskToSizeByDate:(NSUInteger)trimByteCount
+{
+    if (_byteCount <= trimByteCount)
+        return;
+
     NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
 
     for (NSString *key in keysSortedByDate) { // oldest objects first
@@ -381,7 +396,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             }
             
             if (strongSelf->_byteLimit > 0 && strongSelf->_byteCount > strongSelf->_byteLimit)
-                [strongSelf trimToSize:strongSelf->_byteLimit block:nil];
+                [strongSelf trimToSizeByDate:strongSelf->_byteLimit block:nil];
         } else {
             fileURL = nil;
         }
@@ -472,6 +487,33 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         if (block)
             block(strongSelf);
         
+        TMCacheEndBackgroundTask();
+    });
+}
+
+- (void)trimToSizeByDate:(NSUInteger)trimByteCount block:(TMDiskCacheBlock)block
+{
+    if (trimByteCount == 0) {
+        [self removeAllObjects:block];
+        return;
+    }
+
+    TMCacheStartBackgroundTask();
+
+    __weak TMDiskCache *weakSelf = self;
+
+    dispatch_async(_queue, ^{
+        TMDiskCache *strongSelf = weakSelf;
+        if (!strongSelf) {
+            TMCacheEndBackgroundTask();
+            return;
+        }
+
+        [strongSelf trimDiskToSizeByDate:trimByteCount];
+
+        if (block)
+            block(strongSelf);
+
         TMCacheEndBackgroundTask();
     });
 }
@@ -630,6 +672,21 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     #endif
 }
 
+- (void)trimToSizeByDate:(NSUInteger)byteCount
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self trimToSizeByDate:byteCount block:^(TMDiskCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
 - (void)removeAllObjects
 {
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -766,7 +823,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         strongSelf->_byteLimit = byteLimit;
 
         if (byteLimit > 0)
-            [strongSelf trimDiskToSize:byteLimit];
+            [strongSelf trimToSizeByDate:byteLimit];
     });
 }
 

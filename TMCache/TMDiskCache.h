@@ -20,7 +20,7 @@
  by itself, as it adds a fast layer of additional memory caching while still writing to disk.
 
  All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an optional
- <ageLimit> will trigger a GCD timer to periodically to trim the cache to that age.
+ <ageLimit> will trigger a GCD timer to periodically to trim the cache with <trimToDate:>.
  */
 
 @class TMDiskCache;
@@ -158,9 +158,8 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (void)removeObjectForKey:(NSString *)key block:(TMDiskCacheObjectBlock)block;
 
 /**
- Removes objects from the cache, ordered by size, until the cache is equal to or smaller than the
- specified byteCount. This method returns immediately and executes the passed block as soon as the cache
- has been trimmed.
+ Removes objects from the cache, largest first, until the cache is equal to or smaller than the specified byteCount.
+ This method returns immediately and executes the passed block as soon as the cache has been trimmed.
  
  @param byteCount The cache will be trimmed equal to or smaller than this size.
  @param block A block to be executed serially after the cache has been trimmed, or nil.
@@ -168,13 +167,23 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 - (void)trimToSize:(NSUInteger)byteCount block:(TMDiskCacheBlock)block;
 
 /**
- Removes all objects from the cache older than the specified date, as ordered by access time. This method
- returns immediately and executes the passed block as soon as the cache has been trimmed.
+ Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+ This method returns immediately and executes the passed block as soon as the cache has been trimmed.
  
  @param date Objects that haven't been accessed since this date are removed from the cache.
  @param block A block to be executed serially after the cache has been trimmed, or nil.
  */
 - (void)trimToDate:(NSDate *)date block:(TMDiskCacheBlock)block;
+
+/**
+ Removes objects from the cache, ordered by date (LRU first), until the cache is equal to or smaller than
+ the specified byteCount. This method returns immediately and executes the passed block as soon as the cache
+ has been trimmed.
+
+ @param byteCount The cache will be trimmed equal to or smaller than this size.
+ @param block A block to be executed serially after the cache has been trimmed, or nil.
+ */
+- (void)trimToSizeByDate:(NSUInteger)byteCount block:(TMDiskCacheBlock)block;
 
 /**
  Removes all objects from the cache without calling the associated event blocks.  This method returns
@@ -241,6 +250,14 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  @param date Objects that haven't been accessed since this date are removed from the cache.
  */
 - (void)trimToDate:(NSDate *)date;
+
+/**
+ Removes objects from the cache, ordered by date (LRU first), until the cache is equal to or smaller than
+ the specified byteCount. This method blocks the calling thread until the cache has been trimmed.
+
+ @param byteCount The cache will be trimmed equal to or smaller than this size.
+ */
+- (void)trimToSizeByDate:(NSUInteger)byteCount;
 
 /**
  Removes all objects from the cache without calling the associated event blocks. This method blocks
