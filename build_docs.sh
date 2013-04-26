@@ -7,7 +7,7 @@ appledoc \
     --project-version 1.0.1 \
     --docset-min-xcode-version 4.3 \
     --docset-bundle-id %COMPANYID.%PROJECTID \
-    --docset-bundle-name %PROJECT \
+    --docset-bundle-name "%PROJECT %VERSION" \
     --docset-bundle-filename %COMPANYID.%PROJECTID-%VERSIONID.docset \
     --ignore "tests" \
     --ignore "docs" \

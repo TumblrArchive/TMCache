@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
       '--project-company', 'Tumblr',
       '--project-version', '1.0.1',
       '--docset-min-xcode-version', '4.3',
-      '--docset-bundle-name', '%PROJECT',
+      '--docset-bundle-name', '%PROJECT %VERSION',
       '--docset-bundle-id', '%COMPANYID.%PROJECTID',
       '--docset-bundle-filename', '%COMPANYID.%PROJECTID-%VERSIONID.docset',
       '--ignore', 'tests',
