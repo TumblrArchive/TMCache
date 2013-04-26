@@ -125,20 +125,38 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
 
 - (void)testMemoryCost
 {
-    NSString *key2 = @"key2";
     NSString *key1 = @"key1";
+    NSString *key2 = @"key2";
 
-    [self.cache.memoryCache setObject:key2 forKey:key2 withCost:2];
     [self.cache.memoryCache setObject:key1 forKey:key1 withCost:1];
+    [self.cache.memoryCache setObject:key2 forKey:key2 withCost:2];
 
     [self.cache.memoryCache trimToCost:1];
 
-    id object2 = [self.cache.memoryCache objectForKey:key2];
     id object1 = [self.cache.memoryCache objectForKey:key1];
+    id object2 = [self.cache.memoryCache objectForKey:key2];
 
     STAssertNotNil(object1, @"object did not survive memory cache trim to cost");
     STAssertNil(object2, @"object was not trimmed despite exceeding cost");
     STAssertTrue(self.cache.memoryCache.totalCost == 1, @"cache had an unexpected total cost");
+}
+
+- (void)testMemoryCostByDate
+{
+    NSString *key1 = @"key1";
+    NSString *key2 = @"key2";
+
+    [self.cache.memoryCache setObject:key1 forKey:key1 withCost:1];
+    [self.cache.memoryCache setObject:key2 forKey:key2 withCost:2];
+
+    [self.cache.memoryCache trimToCostByDate:1];
+
+    id object1 = [self.cache.memoryCache objectForKey:key1];
+    id object2 = [self.cache.memoryCache objectForKey:key2];
+
+    STAssertNil(object1, @"object was not trimmed despite exceeding cost");
+    STAssertNil(object2, @"object was not trimmed despite exceeding cost");
+    STAssertTrue(self.cache.memoryCache.totalCost == 0, @"cache had an unexpected total cost");
 }
 
 @end

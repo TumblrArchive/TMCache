@@ -6,6 +6,7 @@
 - [fix] TMMemoryCache: `trimToCost:` now correctly removes objects in order of cost
 - [new] TMDiskCache: added method `trimToSizeByDate:`
 - [new] TMMemoryCache: added method `trimToCostByDate:`
+- [new] TMCache: added unit tests
 
 ### 1.0.1 -- 2013 April 23 ###
 
