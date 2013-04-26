@@ -74,6 +74,12 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 @property (copy) TMDiskCacheObjectBlock willRemoveObjectBlock;
 
 /**
+ A block to be executed just before all objects are removed from the cache as a result of <removeAllObjects:>.
+ The queue waits during execution.
+ */
+@property (copy) TMDiskCacheBlock willRemoveAllObjectsBlock;
+
+/**
  A block to be executed just after an object is added to the cache. The queue waits during execution.
  */
 @property (copy) TMDiskCacheObjectBlock didAddObjectBlock;
@@ -82,6 +88,12 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  A block to be executed just after an object is removed from the cache. The queue waits during execution.
  */
 @property (copy) TMDiskCacheObjectBlock didRemoveObjectBlock;
+
+/**
+ A block to be executed just after all objects are removed from the cache as a result of <removeAllObjects:>.
+ The queue waits during execution.
+ */
+@property (copy) TMDiskCacheBlock didRemoveAllObjectsBlock;
 
 #pragma mark -
 /// @name Initialization

@@ -29,8 +29,10 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 @synthesize willAddObjectBlock = _willAddObjectBlock;
 @synthesize willRemoveObjectBlock = _willRemoveObjectBlock;
+@synthesize willRemoveAllObjectsBlock = _willRemoveAllObjectsBlock;
 @synthesize didAddObjectBlock = _didAddObjectBlock;
 @synthesize didRemoveObjectBlock = _didRemoveObjectBlock;
+@synthesize didRemoveAllObjectsBlock = _didRemoveAllObjectsBlock;
 @synthesize byteLimit = _byteLimit;
 @synthesize ageLimit = _ageLimit;
 
@@ -47,8 +49,10 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         _willAddObjectBlock = nil;
         _willRemoveObjectBlock = nil;
+        _willRemoveAllObjectsBlock = nil;
         _didAddObjectBlock = nil;
         _didRemoveObjectBlock = nil;
+        _didRemoveAllObjectsBlock = nil;
         
         _byteCount = 0;
         _byteLimit = 0;
@@ -537,6 +541,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             return;
         }
 
+        if (strongSelf->_willRemoveAllObjectsBlock)
+            strongSelf->_willRemoveAllObjectsBlock(strongSelf);
+
         if ([[NSFileManager defaultManager] fileExistsAtPath:[strongSelf->_cacheURL path]]) {
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtURL:strongSelf->_cacheURL error:&error];
@@ -548,6 +555,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         [strongSelf->_accessDates removeAllObjects];
         [strongSelf->_byteSizes removeAllObjects];
         strongSelf.byteCount = 0; // atomic
+
+        if (strongSelf->_didRemoveAllObjectsBlock)
+            strongSelf->_didRemoveAllObjectsBlock(strongSelf);
 
         if (block)
             block(strongSelf);
@@ -758,6 +768,30 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     });
 }
 
+- (TMDiskCacheBlock)willRemoveAllObjectsBlock
+{
+    __block TMDiskCacheBlock block = nil;
+
+    dispatch_sync(_queue, ^{
+        block = _willRemoveAllObjectsBlock;
+    });
+
+    return block;
+}
+
+- (void)setWillRemoveAllObjectsBlock:(TMDiskCacheBlock)block
+{
+    __weak TMDiskCache *weakSelf = self;
+
+    dispatch_async(_queue, ^{
+        TMDiskCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        strongSelf->_willRemoveAllObjectsBlock = [block copy];
+    });
+}
+
 - (TMDiskCacheObjectBlock)didAddObjectBlock
 {
     __block TMDiskCacheObjectBlock block = nil;
@@ -803,6 +837,30 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             return;
 
         strongSelf->_didRemoveObjectBlock = [block copy];
+    });
+}
+
+- (TMDiskCacheBlock)didRemoveAllObjectsBlock
+{
+    __block TMDiskCacheBlock block = nil;
+
+    dispatch_sync(_queue, ^{
+        block = _didRemoveAllObjectsBlock;
+    });
+
+    return block;
+}
+
+- (void)setDidRemoveAllObjectsBlock:(TMDiskCacheBlock)block
+{
+    __weak TMDiskCache *weakSelf = self;
+
+    dispatch_async(_queue, ^{
+        TMDiskCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        strongSelf->_didRemoveAllObjectsBlock = [block copy];
     });
 }
 
