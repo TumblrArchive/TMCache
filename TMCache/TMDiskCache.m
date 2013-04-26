@@ -350,12 +350,16 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (!key || !object)
         return;
 
+    TMCacheStartBackgroundTask();
+
     __weak TMDiskCache *weakSelf = self;
 
     dispatch_async(_queue, ^{
         TMDiskCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            TMCacheEndBackgroundTask();
             return;
+        }
 
         NSURL *fileURL = [strongSelf encodedFileURLForKey:key];
 
@@ -384,6 +388,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         if (block)
             block(strongSelf, key, object, fileURL);
+
+        TMCacheEndBackgroundTask();
     });
 }
 
@@ -392,18 +398,24 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (!key)
         return;
 
+    TMCacheStartBackgroundTask();
+
     __weak TMDiskCache *weakSelf = self;
 
     dispatch_async(_queue, ^{
         TMDiskCache *strongSelf = weakSelf;
-        if (!strongSelf)
+        if (!strongSelf) {
+            TMCacheEndBackgroundTask();
             return;
+        }
 
         NSURL *fileURL = [strongSelf encodedFileURLForKey:key];
         [strongSelf removeFileAndExecuteBlocksForKey:key];
 
         if (block)
             block(strongSelf, key, nil, fileURL);
+
+        TMCacheEndBackgroundTask();
     });
 }
 

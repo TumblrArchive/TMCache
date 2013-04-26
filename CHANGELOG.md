@@ -1,6 +1,7 @@
 ### 1.0.2 -- 2013 April 26 ###
 
-- TMCache: caches hits from memory will now update access time on disk
+- TMCache: cache hits from memory will now update access time on disk
+- TMDiskCache: set & remove methods now acquire a `UIBackgroundTaskIdentifier`
 
 ### 1.0.1 -- 2013 April 23 ###
 
