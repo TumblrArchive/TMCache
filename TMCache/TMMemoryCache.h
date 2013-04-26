@@ -64,6 +64,12 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 @property (copy) TMMemoryCacheObjectBlock willRemoveObjectBlock;
 
 /**
+ A block to be executed just before all objects are removed from the cache as a result of <removeAllObjects:>.
+ This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.
+ */
+@property (copy) TMMemoryCacheBlock willRemoveAllObjectsBlock;
+
+/**
  A block to be executed just after an object is added to the cache. This block will be excuted within
  a barrier, i.e. all reads and writes are suspended for the duration of the block.
  */
@@ -74,6 +80,12 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  within a barrier, i.e. all reads and writes are suspended for the duration of the block.
  */
 @property (copy) TMMemoryCacheObjectBlock didRemoveObjectBlock;
+
+/**
+ A block to be executed just after all objects are removed from the cache as a result of <removeAllObjects:>.
+ This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.
+ */
+@property (copy) TMMemoryCacheBlock didRemoveAllObjectsBlock;
 
 #pragma mark -
 /// @name Shared Cache

@@ -8,6 +8,7 @@
 - [new] TMDiskCache: added method `trimToSizeByDate:`
 - [new] TMMemoryCache: added method `trimToCostByDate:`
 - [new] TMDiskCache: added properties `willRemoveAllObjectsBlock` & `didRemoveAllObjectsBlock`
+- [new] TMMemoryCache: added properties `willRemoveAllObjectsBlock` & `didRemoveAllObjectsBlock`
 - [new] TMCache: added unit tests
 
 ### 1.0.1 -- 2013 April 23 ###
