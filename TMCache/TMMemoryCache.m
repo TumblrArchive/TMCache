@@ -9,7 +9,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 @property (assign, nonatomic) dispatch_queue_t queue;
 #endif
 @property (strong, nonatomic) NSMutableDictionary *dictionary;
-@property (strong, nonatomic) NSMutableDictionary *accessDates;
+@property (strong, nonatomic) NSMutableDictionary *dates;
 @property (strong, nonatomic) NSMutableDictionary *costs;
 @end
 
@@ -44,7 +44,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         _queue = dispatch_queue_create([queueName UTF8String], DISPATCH_QUEUE_CONCURRENT);
 
         _dictionary = [[NSMutableDictionary alloc] init];
-        _accessDates = [[NSMutableDictionary alloc] init];
+        _dates = [[NSMutableDictionary alloc] init];
         _costs = [[NSMutableDictionary alloc] init];
 
         _willAddObjectBlock = nil;
@@ -101,7 +101,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         _totalCost -= [cost unsignedIntegerValue];
 
     [_dictionary removeObjectForKey:key];
-    [_accessDates removeObjectForKey:key];
+    [_dates removeObjectForKey:key];
     [_costs removeObjectForKey:key];
 
     if (_didRemoveObjectBlock)
@@ -110,10 +110,10 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
 - (void)trimMemoryToDate:(NSDate *)trimDate
 {
-    NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *keysSortedByDate = [_dates keysSortedByValueUsingSelector:@selector(compare:)];
     
     for (NSString *key in keysSortedByDate) { // oldest objects first
-        NSDate *accessDate = [_accessDates objectForKey:key];
+        NSDate *accessDate = [_dates objectForKey:key];
         if (!accessDate)
             continue;
         
@@ -145,7 +145,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     if (_totalCost <= limit)
         return;
 
-    NSArray *keysSortedByDate = [_accessDates keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *keysSortedByDate = [_dates keysSortedByValueUsingSelector:@selector(compare:)];
 
     for (NSString *key in keysSortedByDate) { // oldest objects first
         [self removeObjectAndExecuteBlocksForKey:key];
@@ -203,7 +203,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
             dispatch_barrier_async(strongSelf->_queue, ^{
                 TMMemoryCache *strongSelf = weakSelf;
                 if (strongSelf)
-                    [strongSelf->_accessDates setObject:now forKey:key];
+                    [strongSelf->_dates setObject:now forKey:key];
             });
         }
 
@@ -234,7 +234,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
             strongSelf->_willAddObjectBlock(strongSelf, key, object);
 
         [strongSelf->_dictionary setObject:object forKey:key];
-        [strongSelf->_accessDates setObject:now forKey:key];
+        [strongSelf->_dates setObject:now forKey:key];
         [strongSelf->_costs setObject:@(cost) forKey:key];
 
         _totalCost += cost;
@@ -368,7 +368,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
             strongSelf->_willRemoveAllObjectsBlock(strongSelf);
 
         [strongSelf->_dictionary removeAllObjects];
-        [strongSelf->_accessDates removeAllObjects];
+        [strongSelf->_dates removeAllObjects];
         [strongSelf->_costs removeAllObjects];
         
         strongSelf->_totalCost = 0;
