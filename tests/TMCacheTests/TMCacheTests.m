@@ -161,4 +161,11 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     STAssertTrue(self.cache.memoryCache.totalCost == 0, @"cache had an unexpected total cost");
 }
 
+- (void)testDiskByteCount
+{
+    [self.cache setObject:[self image] forKey:@"image"];
+    
+    STAssertTrue(self.cache.diskByteCount > 0, @"disk cache byte count was not greater than zero");
+}
+
 @end

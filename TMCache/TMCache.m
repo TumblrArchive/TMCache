@@ -335,6 +335,19 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
     #endif
 }
 
+#pragma mark - Public Synchronous Accessors -
+
+- (NSUInteger)diskByteCount
+{
+    __block NSUInteger byteCount = 0;
+    
+    dispatch_sync([TMDiskCache sharedQueue], ^{
+        byteCount = self.diskCache.byteCount;
+    });
+    
+    return byteCount;
+}
+
 @end
 
 #pragma HC SVNT DRACONES

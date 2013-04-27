@@ -1,5 +1,6 @@
 ### 1.0.3 -- (Unreleased) ###
 
+- [new] TMCache: added property `diskByteCount` (for convenience)
 - [new] TMMemoryCache: `totalCost` now returned synchronously from queue
 - [fix] TMMemoryCache: `totalCost` set to zero immediately after `removeAllObjects:`
 

@@ -25,6 +25,7 @@ typedef void (^TMCacheObjectBlock)(TMCache *cache, NSString *key, id object);
 
 @property (readonly) NSString *name;
 @property (readonly) dispatch_queue_t queue;
+@property (readonly) NSUInteger diskByteCount;
 
 @property (readonly) TMDiskCache *diskCache;
 @property (readonly) TMMemoryCache *memoryCache;
