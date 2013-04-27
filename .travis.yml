@@ -1,2 +1,5 @@
 language: objective-c
 script: ./build_tests.sh
+branches:
+  only:
+    - master
