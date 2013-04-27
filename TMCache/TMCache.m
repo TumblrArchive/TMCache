@@ -241,6 +241,19 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
     }
 }
 
+#pragma mark - Public Synchronous Accessors -
+
+- (NSUInteger)diskByteCount
+{
+    __block NSUInteger byteCount = 0;
+    
+    dispatch_sync([TMDiskCache sharedQueue], ^{
+        byteCount = self.diskCache.byteCount;
+    });
+    
+    return byteCount;
+}
+
 #pragma mark - Public Synchronous Methods -
 
 - (id)objectForKey:(NSString *)key
@@ -333,19 +346,6 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
     #if !OS_OBJECT_USE_OBJC
     dispatch_release(semaphore);
     #endif
-}
-
-#pragma mark - Public Synchronous Accessors -
-
-- (NSUInteger)diskByteCount
-{
-    __block NSUInteger byteCount = 0;
-    
-    dispatch_sync([TMDiskCache sharedQueue], ^{
-        byteCount = self.diskCache.byteCount;
-    });
-    
-    return byteCount;
 }
 
 @end
