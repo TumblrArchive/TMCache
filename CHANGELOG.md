@@ -1,4 +1,4 @@
-### 1.0.3 -- (Unreleased) ###
+### 1.0.3 -- 2013 April 27 ###
 
 - [new] TMCache: added property `diskByteCount` (for convenience)
 - [new] TMMemoryCache: `totalCost` now returned synchronously from queue
