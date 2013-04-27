@@ -1,3 +1,7 @@
+### 1.0.3 -- (Unreleased) ###
+
+- [new] TMMemoryCache: `totalCost` now returned synchronously from queue
+
 ### 1.0.2 -- 2013 April 26 ###
 
 - [fix] TMCache: cache hits from memory will now update access time on disk

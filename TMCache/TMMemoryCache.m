@@ -8,7 +8,6 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 #else
 @property (assign, nonatomic) dispatch_queue_t queue;
 #endif
-@property (assign) NSUInteger totalCost;
 @property (strong, nonatomic) NSMutableDictionary *dictionary;
 @property (strong, nonatomic) NSMutableDictionary *accessDates;
 @property (strong, nonatomic) NSMutableDictionary *costs;
@@ -18,6 +17,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
 @synthesize ageLimit = _ageLimit;
 @synthesize costLimit = _costLimit;
+@synthesize totalCost = _totalCost;
 @synthesize willAddObjectBlock = _willAddObjectBlock;
 @synthesize willRemoveObjectBlock = _willRemoveObjectBlock;
 @synthesize willRemoveAllObjectsBlock = _willRemoveAllObjectsBlock;
@@ -98,7 +98,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         _willRemoveObjectBlock(self, key, object);
 
     if (cost)
-        self.totalCost = _totalCost - [cost unsignedIntegerValue]; // atomic
+        _totalCost -= [cost unsignedIntegerValue];
 
     [_dictionary removeObjectForKey:key];
     [_accessDates removeObjectForKey:key];
@@ -237,7 +237,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         [strongSelf->_accessDates setObject:now forKey:key];
         [strongSelf->_costs setObject:@(cost) forKey:key];
 
-        self.totalCost = _totalCost + cost; // atomic
+        _totalCost += cost;
 
         if (strongSelf->_didAddObjectBlock)
             strongSelf->_didAddObjectBlock(strongSelf, key, object);
@@ -716,6 +716,17 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         if (costLimit > 0)
             [strongSelf trimToCostLimitByDate:costLimit];
     });
+}
+
+- (NSUInteger)totalCost
+{
+    __block NSUInteger cost = 0;
+    
+    dispatch_sync(_queue, ^{
+        cost = _totalCost;
+    });
+    
+    return cost;
 }
 
 @end
