@@ -58,6 +58,28 @@ stores, one in memory (TMMemoryCache and one on disk (TMDiskCache.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setDiskByteCount:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSUInteger diskByteCount</Declaration>
+			
+			
+			<Anchor>//api/name/diskByteCount</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMCache/diskByteCount</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TMCache.h</DeclaredIn>			
+			
+			<Declaration>@property (readonly) NSUInteger diskByteCount</Declaration>
+			
+			
+			<Anchor>//api/name/diskByteCount</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setDiskCache:</TokenIdentifier>
 			<Abstract type="html"></Abstract>
 			<DeclaredIn>TMCache.h</DeclaredIn>			

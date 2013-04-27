@@ -47,19 +47,35 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 
 /**
  The total number of bytes used on disk, as reported by `NSURLTotalFileAllocatedSizeKey`.
+ 
+ @warning This property is technically safe to access from any thread, but it reflects the value *right now*,
+ not taking into account any pending operations. In most cases this value should only be read from a block on the
+ <sharedQueue>, which will ensure its accuracy and prevent it from changing during the lifetime of the block.
+ 
+ For example:
+ 
+    // some background thread, not a block already running on the shared queue
+
+    dispatch_sync([TMDiskCache sharedQueue], ^{
+        NSLog(@"accurate, unchanging byte count: %d", [[TMDiskCache sharedCache] byteCount]);
+    });
  */
 @property (readonly) NSUInteger byteCount;
 
 /**
  The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
  size exceeds the limit a trim call is queued. Defaults to `0.0`, meaning no practical limit.
+ 
+ @warning Do not read this property on the <sharedQueue> (including asynchronous method blocks).
  */
 @property (assign) NSUInteger byteLimit;
 
 /**
  The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
  greater than `0.0` will start a recurring GCD timer with the same period that calls <trimToDate:>.
- Setting it back to `0.0` will stop the timer. Defaults to `0.0`.
+ Setting it back to `0.0` will stop the timer. Defaults to `0.0`, meaning no limit.
+ 
+ @warning Do not read this property on the <sharedQueue> (including asynchronous method blocks).
  */
 @property (assign) NSTimeInterval ageLimit;
 

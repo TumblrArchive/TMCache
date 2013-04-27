@@ -109,7 +109,7 @@ size exceeds the limit a trim call is queued. Defaults to 0.0, meaning no practi
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setAgeLimit:</TokenIdentifier>
 			<Abstract type="html">The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
 greater than 0.0 will start a recurring GCD timer with the same period that calls trimToDate:.
-Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
+Setting it back to 0.0 will stop the timer. Defaults to 0.0, meaning no limit.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSTimeInterval ageLimit</Declaration>
@@ -122,7 +122,7 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/ageLimit</TokenIdentifier>
 			<Abstract type="html">The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
 greater than 0.0 will start a recurring GCD timer with the same period that calls trimToDate:.
-Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
+Setting it back to 0.0 will stop the timer. Defaults to 0.0, meaning no limit.</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSTimeInterval ageLimit</Declaration>

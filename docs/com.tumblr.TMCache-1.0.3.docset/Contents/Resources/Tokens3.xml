@@ -60,7 +60,7 @@ other queue, such as a global concurrent queue with a priority other than the de
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setCostLimit:</TokenIdentifier>
-			<Abstract type="html">The maximum cost allowed to accumulate before objects begin to be removed (oldest first).</Abstract>
+			<Abstract type="html">The maximum cost allowed to accumulate before objects begin to be removed with trimToCostByDate:.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSUInteger costLimit</Declaration>
@@ -71,7 +71,7 @@ other queue, such as a global concurrent queue with a priority other than the de
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/costLimit</TokenIdentifier>
-			<Abstract type="html">The maximum cost allowed to accumulate before objects begin to be removed (oldest first).</Abstract>
+			<Abstract type="html">The maximum cost allowed to accumulate before objects begin to be removed with trimToCostByDate:.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>@property (assign) NSUInteger costLimit</Declaration>

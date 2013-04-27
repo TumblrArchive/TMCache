@@ -37,7 +37,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 @property (readonly) NSUInteger totalCost;
 
 /**
- The maximum cost allowed to accumulate before objects begin to be removed (oldest first).
+ The maximum cost allowed to accumulate before objects begin to be removed with <trimToCostByDate:>.
  */
 @property (assign) NSUInteger costLimit;
 
