@@ -39,7 +39,7 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/setCacheURL:</TokenIdentifier>
-			<Abstract type="html">The URL of the directory used by this cache, usually Library/Caches/com.tumblr.TMDiskCache/name on iOS.</Abstract>
+			<Abstract type="html">The URL of the directory used by this cache, usually Library/Caches/com.tumblr.TMDiskCache.(name)</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (readonly) NSURL *cacheURL</Declaration>
@@ -50,7 +50,7 @@ it skips UIImagePNGRepresentation() and retains information like scale and orien
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instp/TMDiskCache/cacheURL</TokenIdentifier>
-			<Abstract type="html">The URL of the directory used by this cache, usually Library/Caches/com.tumblr.TMDiskCache/name on iOS.</Abstract>
+			<Abstract type="html">The URL of the directory used by this cache, usually Library/Caches/com.tumblr.TMDiskCache.(name)</Abstract>
 			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
 			
 			<Declaration>@property (readonly) NSURL *cacheURL</Declaration>

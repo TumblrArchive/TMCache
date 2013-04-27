@@ -16,6 +16,12 @@
     [self.window.rootViewController.view addSubview:view];
     [self.window makeKeyAndVisible];
     
+        NSLog(@"%@", [[[TMCache sharedCache] diskCache] cacheURL]);
+    
+    TMCache *cache = [[TMCache alloc] initWithName:@"asdflkj"];
+    
+    NSLog(@"%@", [cache.diskCache cacheURL]);
+    
     return YES;
 }
 
