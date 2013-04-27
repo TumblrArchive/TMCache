@@ -130,6 +130,8 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
 
     [self.cache.memoryCache setObject:key1 forKey:key1 withCost:1];
     [self.cache.memoryCache setObject:key2 forKey:key2 withCost:2];
+    
+    STAssertTrue(self.cache.memoryCache.totalCost == 3, @"memory cache total cost was incorrect");
 
     [self.cache.memoryCache trimToCost:1];
 
