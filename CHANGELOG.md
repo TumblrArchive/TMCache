@@ -1,6 +1,8 @@
 ### 1.0.3 -- (Unreleased) ###
 
 - [new] TMMemoryCache: `totalCost` now returned synchronously from queue
+- [fix] TMMemoryCache: `totalCost` set to zero immediately after `removeAllObjects:`
+
 
 ### 1.0.2 -- 2013 April 26 ###
 
@@ -14,6 +16,7 @@
 - [new] TMDiskCache: added properties `willRemoveAllObjectsBlock` & `didRemoveAllObjectsBlock`
 - [new] TMMemoryCache: added properties `willRemoveAllObjectsBlock` & `didRemoveAllObjectsBlock`
 - [new] TMCache: added unit tests
+
 
 ### 1.0.1 -- 2013 April 23 ###
 
