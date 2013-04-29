@@ -1,7 +1,7 @@
 ### 1.1.0 -- 2013 April 29 ###
 
-[new] TMCache: added method `setObject:forKey:withCost:`
-[new] TMCache: documentation
+- [new] TMCache: added method `setObject:forKey:withCost:`
+- [new] TMCache: documentation
 
 
 ### 1.0.3 -- 2013 April 27 ###
