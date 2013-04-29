@@ -128,6 +128,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Core">Core</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Event Blocks">Event Blocks</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Asynchronous Methods">Asynchronous Methods</a></span></li>
@@ -326,7 +328,15 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	</span>
 	<span class="task-item-suffix">property</span>
 	
-</li><li>
+</li>
+						</ul>
+						
+						
+						<a title="Event Blocks" name="task_Event Blocks"></a>
+						<h3 class="subsubtitle task-title">Event Blocks</h3>
+
+						<ul class="task-list">
+							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/willAddObjectBlock">&nbsp;&nbsp;willAddObjectBlock</a></code>
 		<span class="tooltip"><p>A block to be executed just before an object is added to the cache. The queue waits during execution.</p></span>
@@ -445,7 +455,7 @@ as soon as the object has been removed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
 This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p></span>
 	</span>
 	
@@ -461,8 +471,8 @@ This method returns immediately and executes the passed block as soon as the cac
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToSizeByDate:block:">&ndash;&nbsp;trimToSizeByDate:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller than
-the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
+		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the cache is equal to or smaller
+than the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
 been trimmed.</p></span>
 	</span>
 	
@@ -470,8 +480,8 @@ been trimmed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects:">&ndash;&nbsp;removeAllObjects:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks.  This method returns
-immediately and executes the passed block as soon as the cache has been cleared.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache. This method returns immediately and executes the passed block as soon as the
+cache has been cleared.</p></span>
 	</span>
 	
 	
@@ -519,8 +529,8 @@ has been removed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
+This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -535,16 +545,15 @@ specified byteCount. This method blocks the calling thread until the cache has b
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToSizeByDate:">&ndash;&nbsp;trimToSizeByDate:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller
-than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p></span>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the cache is equal to or
+smaller than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects">&ndash;&nbsp;removeAllObjects</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling thread until the cache has been cleared.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</p></span>
 	</span>
 	
 	
@@ -1358,8 +1367,7 @@ block as soon as the object is available on the serial <a href="#//api/name/shar
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling thread until the cache has been cleared.</p>
+		<p>Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</p>
 	</div>		
 	
     
@@ -1395,8 +1403,8 @@ the calling thread until the cache has been cleared.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache without calling the associated event blocks.  This method returns
-immediately and executes the passed block as soon as the cache has been cleared.</p>
+		<p>Removes all objects from the cache. This method returns immediately and executes the passed block as soon as the
+cache has been cleared.</p>
 	</div>		
 	
     
@@ -1700,8 +1708,8 @@ passed block as soon as the object has been stored.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</p>
+		<p>Removes all objects from the cache that have not been used since the specified date.
+This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1747,7 +1755,7 @@ method blocks the calling thread until the cache has been trimmed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, as ordered by access time (LRU first).
+		<p>Removes all objects from the cache that have not been used since the specified date.
 This method returns immediately and executes the passed block as soon as the cache has been trimmed.</p>
 	</div>		
 	
@@ -1898,8 +1906,8 @@ This method returns immediately and executes the passed block as soon as the cac
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller
-than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p>
+		<p>Removes objects from the cache, ordered by date (least recently used first), until the cache is equal to or
+smaller than the specified byteCount. This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1945,8 +1953,8 @@ than the specified byteCount. This method blocks the calling thread until the ca
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access date (LRU first), until the cache is equal to or smaller than
-the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
+		<p>Removes objects from the cache, ordered by date (least recently used first), until the cache is equal to or smaller
+than the specified byteCount. This method returns immediately and executes the passed block as soon as the cache has
 been trimmed.</p>
 	</div>		
 	
@@ -2004,7 +2012,7 @@ been trimmed.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-27)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-29)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

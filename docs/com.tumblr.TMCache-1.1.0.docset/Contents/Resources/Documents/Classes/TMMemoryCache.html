@@ -410,9 +410,9 @@ block after the object has been removed, potentially in parallel with other bloc
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially in
-parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
+This method returns immediately and executes the passed block after the cache has been trimmed,
+potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
@@ -428,8 +428,8 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToCostByDate:block:">&ndash;&nbsp;trimToCostByDate:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
-specified value. This method returns immediately and executes the passed block after the cache has been
+		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
+the specified value. This method returns immediately and executes the passed block after the cache has been
 trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
@@ -437,9 +437,8 @@ trimmed, potentially in parallel with other blocks on the <a href="#//api/name/q
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects:">&ndash;&nbsp;removeAllObjects:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks. This method returns
-immediately and executes the passed block after the cache has been cleared, potentially in parallel
-with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache. This method returns immediately and executes the passed block after
+the cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
@@ -487,8 +486,8 @@ has been removed.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
+This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -503,16 +502,15 @@ value. This method blocks the calling thread until the cache has been trimmed.</
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToCostByDate:">&ndash;&nbsp;trimToCostByDate:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
-specified value. This method blocks the calling thread until the cache has been trimmed.</p></span>
+		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
+the specified value. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects">&ndash;&nbsp;removeAllObjects</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling thread until the cache has been cleared.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</p></span>
 	</span>
 	
 	
@@ -1028,8 +1026,7 @@ block after the object is available, potentially in parallel with other blocks o
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling thread until the cache has been cleared.</p>
+		<p>Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</p>
 	</div>		
 	
     
@@ -1065,9 +1062,8 @@ the calling thread until the cache has been cleared.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache without calling the associated event blocks. This method returns
-immediately and executes the passed block after the cache has been cleared, potentially in parallel
-with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Removes all objects from the cache. This method returns immediately and executes the passed block after
+the cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
@@ -1593,8 +1589,8 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
-specified value. This method blocks the calling thread until the cache has been trimmed.</p>
+		<p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
+the specified value. This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1640,8 +1636,8 @@ specified value. This method blocks the calling thread until the cache has been 
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by access time (LRU first), until the <a href="#//api/name/totalCost">totalCost</a> is below the
-specified value. This method returns immediately and executes the passed block after the cache has been
+		<p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
+the specified value. This method returns immediately and executes the passed block after the cache has been
 trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
@@ -1693,8 +1689,8 @@ trimmed, potentially in parallel with other blocks on the <a href="#//api/name/q
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</p>
+		<p>Removes all objects from the cache that have not been used since the specified date.
+This method blocks the calling thread until the cache has been trimmed.</p>
 	</div>		
 	
     
@@ -1740,9 +1736,9 @@ method blocks the calling thread until the cache has been trimmed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially in
-parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Removes all objects from the cache that have not been used since the specified date.
+This method returns immediately and executes the passed block after the cache has been trimmed,
+potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
@@ -1799,7 +1795,7 @@ parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-27)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-29)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						

@@ -354,9 +354,9 @@ block after the object has been removed, potentially in parallel with other bloc
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToDate:block:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
-method returns immediately and executes the passed block after the cache has been trimmed, potentially in
-parallel with other blocks on the queue.</Abstract>
+			<Abstract type="html">Removes all objects from the cache that have not been used since the specified date.
+This method returns immediately and executes the passed block after the cache has been trimmed,
+potentially in parallel with other blocks on the queue.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToDate:(NSDate *)date block:(TMMemoryCacheBlock)block</Declaration>
@@ -396,8 +396,8 @@ potentially in parallel with other blocks on the queue.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCostByDate:block:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by access time (LRU first), until the totalCost is below the
-specified value. This method returns immediately and executes the passed block after the cache has been
+			<Abstract type="html">Removes objects from the cache, ordered by date (least recently used first), until the totalCost is below
+the specified value. This method returns immediately and executes the passed block after the cache has been
 trimmed, potentially in parallel with other blocks on the queue.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
@@ -417,9 +417,8 @@ trimmed, potentially in parallel with other blocks on the queue.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/removeAllObjects:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache without calling the associated event blocks. This method returns
-immediately and executes the passed block after the cache has been cleared, potentially in parallel
-with other blocks on the queue.</Abstract>
+			<Abstract type="html">Removes all objects from the cache. This method returns immediately and executes the passed block after
+the cache has been cleared, potentially in parallel with other blocks on the queue.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)removeAllObjects:(TMMemoryCacheBlock)block</Declaration>
@@ -523,8 +522,8 @@ has been removed.</Abstract>
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToDate:</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache older than the specified date, as ordered by access time. This
-method blocks the calling thread until the cache has been trimmed.</Abstract>
+			<Abstract type="html">Removes all objects from the cache that have not been used since the specified date.
+This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToDate:(NSDate *)date</Declaration>
@@ -557,8 +556,8 @@ value. This method blocks the calling thread until the cache has been trimmed.</
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/trimToCostByDate:</TokenIdentifier>
-			<Abstract type="html">Removes objects from the cache, ordered by access time (LRU first), until the totalCost is below the
-specified value. This method blocks the calling thread until the cache has been trimmed.</Abstract>
+			<Abstract type="html">Removes objects from the cache, ordered by date (least recently used first), until the totalCost is below
+the specified value. This method blocks the calling thread until the cache has been trimmed.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)trimToCostByDate:(NSUInteger)cost</Declaration>
@@ -574,8 +573,7 @@ specified value. This method blocks the calling thread until the cache has been 
 		
 		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/removeAllObjects</TokenIdentifier>
-			<Abstract type="html">Removes all objects from the cache without calling the associated event blocks. This method blocks
-the calling thread until the cache has been cleared.</Abstract>
+			<Abstract type="html">Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</Abstract>
 			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
 			
 			<Declaration>- (void)removeAllObjects</Declaration>

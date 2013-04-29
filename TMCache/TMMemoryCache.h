@@ -142,9 +142,9 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 - (void)removeObjectForKey:(NSString *)key block:(TMMemoryCacheObjectBlock)block;
 
 /**
- Removes all objects from the cache older than the specified date, ordered by access time (LRU first). This
- method returns immediately and executes the passed block after the cache has been trimmed, potentially in
- parallel with other blocks on the <queue>.
+ Removes all objects from the cache that have not been used since the specified date.
+ This method returns immediately and executes the passed block after the cache has been trimmed,
+ potentially in parallel with other blocks on the <queue>.
  
  @param date Objects that haven't been accessed since this date are removed from the cache.
  @param block A block to be executed concurrently after the cache has been trimmed, or nil.
@@ -162,8 +162,8 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 - (void)trimToCost:(NSUInteger)cost block:(TMMemoryCacheBlock)block;
 
 /**
- Removes objects from the cache, ordered by access time (LRU first), until the <totalCost> is below the
- specified value. This method returns immediately and executes the passed block after the cache has been
+ Removes objects from the cache, ordered by date (least recently used first), until the <totalCost> is below
+ the specified value. This method returns immediately and executes the passed block after the cache has been
  trimmed, potentially in parallel with other blocks on the <queue>.
 
  @param cost The total accumulation allowed to remain after the cache has been trimmed.
@@ -172,9 +172,8 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 - (void)trimToCostByDate:(NSUInteger)cost block:(TMMemoryCacheBlock)block;
 
 /**
- Removes all objects from the cache without calling the associated event blocks. This method returns
- immediately and executes the passed block after the cache has been cleared, potentially in parallel
- with other blocks on the <queue>.
+ Removes all objects from the cache. This method returns immediately and executes the passed block after
+ the cache has been cleared, potentially in parallel with other blocks on the <queue>.
  
  @param block A block to be executed concurrently after the cache has been cleared, or nil.
  */
@@ -223,8 +222,8 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 - (void)removeObjectForKey:(NSString *)key;
 
 /**
- Removes all objects from the cache older than the specified date, as ordered by access time. This
- method blocks the calling thread until the cache has been trimmed.
+ Removes all objects from the cache that have not been used since the specified date.
+ This method blocks the calling thread until the cache has been trimmed.
  
  @param date Objects that haven't been accessed since this date are removed from the cache.
  */
@@ -239,16 +238,15 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
 - (void)trimToCost:(NSUInteger)cost;
 
 /**
- Removes objects from the cache, ordered by access time (LRU first), until the <totalCost> is below the
- specified value. This method blocks the calling thread until the cache has been trimmed.
+ Removes objects from the cache, ordered by date (least recently used first), until the <totalCost> is below
+ the specified value. This method blocks the calling thread until the cache has been trimmed.
 
  @param cost The total accumulation allowed to remain after the cache has been trimmed.
  */
 - (void)trimToCostByDate:(NSUInteger)cost;
 
 /**
- Removes all objects from the cache without calling the associated event blocks. This method blocks
- the calling thread until the cache has been cleared.
+ Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.
  */
 - (void)removeAllObjects;
 
