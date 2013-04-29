@@ -86,6 +86,11 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
 
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key block:(TMCacheObjectBlock)block
 {
+    [self setObject:object forKey:key withCost:0 block:block];
+}
+
+- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost block:(TMCacheObjectBlock)block
+{
     if (!key || !object)
         return;
 
@@ -107,7 +112,7 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
         };
     }
     
-    [_memoryCache setObject:object forKey:key block:memBlock];
+    [_memoryCache setObject:object forKey:key withCost:cost block:memBlock];
     [_diskCache setObject:object forKey:key block:diskBlock];
     
     if (group) {
@@ -281,12 +286,17 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
 
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key
 {
+    [self setObject:object forKey:key withCost:0];
+}
+
+- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost
+{
     if (!object || !key)
         return;
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-    [self setObject:object forKey:key block:^(TMCache *cache, NSString *key, id object) {
+    [self setObject:object forKey:key withCost:cost block:^(TMCache *cache, NSString *key, id object) {
         dispatch_semaphore_signal(semaphore);
     }];
 

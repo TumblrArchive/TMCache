@@ -37,6 +37,7 @@ typedef void (^TMCacheObjectBlock)(TMCache *cache, NSString *key, id object);
 
 - (void)objectForKey:(NSString *)key block:(TMCacheObjectBlock)block;
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key block:(TMCacheObjectBlock)block;
+- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost block:(TMCacheObjectBlock)block;
 - (void)removeObjectForKey:(NSString *)key block:(TMCacheObjectBlock)block;
 
 - (void)trimToDate:(NSDate *)date block:(TMCacheBlock)block;
@@ -46,6 +47,7 @@ typedef void (^TMCacheObjectBlock)(TMCache *cache, NSString *key, id object);
 
 - (id)objectForKey:(NSString *)key;
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key;
+- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost;
 - (void)removeObjectForKey:(NSString *)key;
 
 - (void)trimToDate:(NSDate *)date;
