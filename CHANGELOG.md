@@ -1,3 +1,8 @@
+### 1.1.1 -- 2013 May 1 ###
+
+- [fix] simplified appledoc arguments in podspec, updated doc script
+
+
 ### 1.1.0 -- 2013 April 29 ###
 
 - [new] TMCache: added method `setObject:forKey:withCost:`

@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>TMMemoryCache Class Reference</title>
+		<title>TMCache Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 789)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">TMMemoryCache Class Reference</h1>
+				<h1 class="hideInXcode">TMCache Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,25 +40,15 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/ageLimit">&nbsp;&nbsp;&nbsp;&nbsp;ageLimit</option>
+	<option value="//api/name/diskByteCount">&nbsp;&nbsp;&nbsp;&nbsp;diskByteCount</option>
 	
-	<option value="//api/name/costLimit">&nbsp;&nbsp;&nbsp;&nbsp;costLimit</option>
+	<option value="//api/name/diskCache">&nbsp;&nbsp;&nbsp;&nbsp;diskCache</option>
 	
-	<option value="//api/name/didAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didAddObjectBlock</option>
+	<option value="//api/name/memoryCache">&nbsp;&nbsp;&nbsp;&nbsp;memoryCache</option>
 	
-	<option value="//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveAllObjectsBlock</option>
-	
-	<option value="//api/name/didRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveObjectBlock</option>
+	<option value="//api/name/name">&nbsp;&nbsp;&nbsp;&nbsp;name</option>
 	
 	<option value="//api/name/queue">&nbsp;&nbsp;&nbsp;&nbsp;queue</option>
-	
-	<option value="//api/name/totalCost">&nbsp;&nbsp;&nbsp;&nbsp;totalCost</option>
-	
-	<option value="//api/name/willAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willAddObjectBlock</option>
-	
-	<option value="//api/name/willRemoveAllObjectsBlock">&nbsp;&nbsp;&nbsp;&nbsp;willRemoveAllObjectsBlock</option>
-	
-	<option value="//api/name/willRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;willRemoveObjectBlock</option>
 	
 	
 	
@@ -66,6 +56,8 @@
 	
 	
 	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/initWithName:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithName:</option>
 	
 	<option value="//api/name/objectForKey:">&nbsp;&nbsp;&nbsp;&nbsp;- objectForKey:</option>
 	
@@ -89,14 +81,6 @@
 	
 	<option value="//api/name/sharedCache">&nbsp;&nbsp;&nbsp;&nbsp;- sharedCache</option>
 	
-	<option value="//api/name/trimToCost:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCost:</option>
-	
-	<option value="//api/name/trimToCost:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCost:block:</option>
-	
-	<option value="//api/name/trimToCostByDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCostByDate:</option>
-	
-	<option value="//api/name/trimToCostByDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToCostByDate:block:</option>
-	
 	<option value="//api/name/trimToDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:</option>
 	
 	<option value="//api/name/trimToDate:block:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:block:</option>
@@ -119,9 +103,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Core">Core</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Event Blocks">Event Blocks</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Shared Cache">Shared Cache</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initialization">Initialization</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Asynchronous Methods">Asynchronous Methods</a></span></li>
 	
@@ -135,25 +117,15 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/ageLimit">ageLimit</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/diskByteCount">diskByteCount</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/costLimit">costLimit</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/diskCache">diskCache</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAddObjectBlock">didAddObjectBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/memoryCache">memoryCache</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveAllObjectsBlock">didRemoveAllObjectsBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/name">name</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/queue">queue</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/totalCost">totalCost</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willAddObjectBlock">willAddObjectBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willRemoveAllObjectsBlock">willRemoveAllObjectsBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willRemoveObjectBlock">willRemoveObjectBlock</a></span></li>
 	
 </ul></li>
 
@@ -162,6 +134,8 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithName:">initWithName:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectForKey:">objectForKey:</a></span></li>
 	
@@ -185,14 +159,6 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCache">sharedCache</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCost:">trimToCost:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCost:block:">trimToCost:block:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToCostByDate:block:">trimToCostByDate:block:</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:">trimToDate:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/trimToDate:block:">trimToDate:block:</a></span></li>
@@ -204,7 +170,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="TMMemoryCache Class Reference" name="top"></a>
+				<a title="TMCache Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -213,7 +179,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">TMMemoryCache Class Reference</h1>
+						<h1 class="title title-header">TMCache Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -224,7 +190,7 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">TMMemoryCache.h</td>
+	<td class="specification-value">TMCache.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -234,20 +200,18 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><code>TMMemoryCache</code> is a fast, thread safe key/value store similar to <code>NSCache</code>. On iOS it will clear itself
-automatically to reduce memory usage when the app receives a memory warning or goes into the background.</p>
+						<p><code>TMCache</code> is a thread safe key/value store designed for persisting temporary objects that are expensive to
+reproduce, such as downloaded data or the results of slow processing. It is comprised of two self-similar
+stores, one in memory (<a href="../Classes/TMMemoryCache.html">TMMemoryCache</a>) and one on disk (<a href="../Classes/TMDiskCache.html">TMDiskCache</a>).</p>
 
-<p>Access is natively asynchronous. Every method accepts a callback block that runs on a concurrent
-<a href="#//api/name/queue">queue</a>, with cache writes protected by GCD barriers. Synchronous variations are provided.</p>
+<p><code>TMCache</code> itself actually does very little; its main function is providing a front end for a common use case:
+a small, fast memory cache that asynchronously persists itself to a large, slow disk cache. When objects are
+removed from the memory cache in response to an &ldquo;apocalyptic&rdquo; event they remain in the disk cache and are
+repopulated in memory the next time they are accessed. <code>TMCache</code> also does the tedious work of creating a
+dispatch group to wait for both caches to finish their operations without blocking each other.</p>
 
-<p>All access to the cache is dated so the that the least-used objects can be trimmed first. Setting an
-optional <a href="#//api/name/ageLimit">ageLimit</a> will trigger a GCD timer to periodically to trim the cache to that age.</p>
-
-<p>Objects can optionally be set with a &ldquo;cost&rdquo;, which could be a byte count or any other meaningful integer.
-Setting a <a href="#//api/name/costLimit">costLimit</a> will automatically keep the cache below that value with <a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a>.</p>
-
-<p>Values will not persist after application relaunch or returning from the background. See <a href="../Classes/TMCache.html">TMCache</a> for
-a memory cache backed by a disk cache.</p>
+<p>The parallel caches are accessible as public properties (<a href="#//api/name/memoryCache">memoryCache</a> and <a href="#//api/name/diskCache">diskCache</a>) and can be manipulated
+separately if necessary. See the docs for <a href="../Classes/TMMemoryCache.html">TMMemoryCache</a> and <a href="../Classes/TMDiskCache.html">TMDiskCache</a> for more details.</p>
 					</div>
 					
 					
@@ -265,32 +229,36 @@ a memory cache backed by a disk cache.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
+		<code><a href="#//api/name/name">&nbsp;&nbsp;name</a></code>
+		<span class="tooltip"><p>The name of this cache, used to create the <a href="#//api/name/diskCache">diskCache</a> and also appearing in stack traces.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/queue">&nbsp;&nbsp;queue</a></code>
-		<span class="tooltip"><p>A concurrent queue on which all work is done. It is exposed here so that it can be set to target some
-other queue, such as a global concurrent queue with a priority other than the default.</p></span>
+		<span class="tooltip"><p>A concurrent queue on which blocks passed to the asynchronous access methods are run.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/totalCost">&nbsp;&nbsp;totalCost</a></code>
-		<span class="tooltip"><p>The total accumulated cost.</p></span>
+		<code><a href="#//api/name/diskByteCount">&nbsp;&nbsp;diskByteCount</a></code>
+		<span class="tooltip"><p>Synchronously retrieves the total byte count of the <a href="#//api/name/diskCache">diskCache</a> on the shared disk queue.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/costLimit">&nbsp;&nbsp;costLimit</a></code>
-		<span class="tooltip"><p>The maximum cost allowed to accumulate before objects begin to be removed with <a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a>.</p></span>
+		<code><a href="#//api/name/diskCache">&nbsp;&nbsp;diskCache</a></code>
+		<span class="tooltip"><p>The underlying disk cache, see <a href="../Classes/TMDiskCache.html">TMDiskCache</a> for additional configuration and trimming options.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/ageLimit">&nbsp;&nbsp;ageLimit</a></code>
-		<span class="tooltip"><p>The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
-greater than <code>0.0</code> will start a recurring GCD timer with the same period that calls <a href="#//api/name/trimToDate:">trimToDate:</a>.
-Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</code>.</p></span>
+		<code><a href="#//api/name/memoryCache">&nbsp;&nbsp;memoryCache</a></code>
+		<span class="tooltip"><p>The underlying memory cache, see <a href="../Classes/TMMemoryCache.html">TMMemoryCache</a> for additional configuration and trimming options.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -298,70 +266,22 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 						</ul>
 						
 						
-						<a title="Event Blocks" name="task_Event Blocks"></a>
-						<h3 class="subsubtitle task-title">Event Blocks</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/willAddObjectBlock">&nbsp;&nbsp;willAddObjectBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just before an object is added to the cache. This block will be excuted within
-a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/willRemoveObjectBlock">&nbsp;&nbsp;willRemoveObjectBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just before an object is removed from the cache. This block will be excuted
-within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/willRemoveAllObjectsBlock">&nbsp;&nbsp;willRemoveAllObjectsBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just before all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
-This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/didAddObjectBlock">&nbsp;&nbsp;didAddObjectBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just after an object is added to the cache. This block will be excuted within
-a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/didRemoveObjectBlock">&nbsp;&nbsp;didRemoveObjectBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just after an object is removed from the cache. This block will be excuted
-within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;didRemoveAllObjectsBlock</a></code>
-		<span class="tooltip"><p>A block to be executed just after all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
-This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li>
-						</ul>
-						
-						
-						<a title="Shared Cache" name="task_Shared Cache"></a>
-						<h3 class="subsubtitle task-title">Shared Cache</h3>
+						<a title="Initialization" name="task_Initialization"></a>
+						<h3 class="subsubtitle task-title">Initialization</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sharedCache">&ndash;&nbsp;sharedCache</a></code>
 		<span class="tooltip"><p>A shared cache.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithName:">&ndash;&nbsp;initWithName:</a></code>
+		<span class="tooltip"><p>The designated initializer. Multiple instances with the same name are allowed and can safely access
+the same data on disk thanks to the magic of seriality. Also used to create the <a href="#//api/name/diskCache">diskCache</a>.</p></span>
 	</span>
 	
 	
@@ -392,10 +312,9 @@ passed block after the object has been stored, potentially in parallel with othe
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setObject:forKey:withCost:block:">&ndash;&nbsp;setObject:forKey:withCost:block:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost. If the cost causes the total
-to go over the <a href="#//api/name/costLimit">costLimit</a> the cache is trimmed (oldest objects first). This method returns immediately
-and executes the passed block after the object has been stored, potentially in parallel with other blocks
-on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
+This method returns immediately and executes the passed block after the object has been stored, potentially
+in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
@@ -410,35 +329,16 @@ block after the object has been removed, potentially in parallel with other bloc
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/trimToDate:block:">&ndash;&nbsp;trimToDate:block:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
-This method returns immediately and executes the passed block after the cache has been trimmed,
-potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/trimToCost:block:">&ndash;&nbsp;trimToCost:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
-value. This method returns immediately and executes the passed block after the cache has been trimmed,
-potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/trimToCostByDate:block:">&ndash;&nbsp;trimToCostByDate:block:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
-the specified value. This method returns immediately and executes the passed block after the cache has been
-trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date. This method returns immediately and
+executes the passed block after the cache has been trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects:">&ndash;&nbsp;removeAllObjects:</a></code>
-		<span class="tooltip"><p>Removes all objects from the cache. This method returns immediately and executes the passed block after
-the cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+		<span class="tooltip"><p>Removes all objects from the cache.This method returns immediately and executes the passed block after the
+cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	
 	
@@ -453,25 +353,22 @@ the cache has been cleared, potentially in parallel with other blocks on the <a 
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/objectForKey:">&ndash;&nbsp;objectForKey:</a></code>
-		<span class="tooltip"><p>Retrieves the object for the specified key. This method blocks the calling thread until the
-object is available.</p></span>
+		<span class="tooltip"><p>Retrieves the object for the specified key. This method blocks the calling thread until the object is available.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setObject:forKey:">&ndash;&nbsp;setObject:forKey:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling thread until the object
-has been set.</p></span>
+		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling thread until the object has been set.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setObject:forKey:withCost:">&ndash;&nbsp;setObject:forKey:withCost:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost. If the cost causes the total
-to go over the <a href="#//api/name/costLimit">costLimit</a> the cache is trimmed (oldest objects first). This method blocks the calling thread
-until the object has been stored.</p></span>
+		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
+This method blocks the calling thread until the object has been stored.</p></span>
 	</span>
 	
 	
@@ -488,22 +385,6 @@ has been removed.</p></span>
 		<code><a href="#//api/name/trimToDate:">&ndash;&nbsp;trimToDate:</a></code>
 		<span class="tooltip"><p>Removes all objects from the cache that have not been used since the specified date.
 This method blocks the calling thread until the cache has been trimmed.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/trimToCost:">&ndash;&nbsp;trimToCost:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
-value. This method blocks the calling thread until the cache has been trimmed.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/trimToCostByDate:">&ndash;&nbsp;trimToCostByDate:</a></code>
-		<span class="tooltip"><p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
-the specified value. This method blocks the calling thread until the cache has been trimmed.</p></span>
 	</span>
 	
 	
@@ -528,20 +409,18 @@ the specified value. This method blocks the calling thread until the cache has b
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/ageLimit" title="ageLimit"></a>
-	<h3 class="subsubtitle method-title">ageLimit</h3>
+	<a name="//api/name/diskByteCount" title="diskByteCount"></a>
+	<h3 class="subsubtitle method-title">diskByteCount</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The maximum number of seconds an object is allowed to exist in the cache. Setting this to a value
-greater than <code>0.0</code> will start a recurring GCD timer with the same period that calls <a href="#//api/name/trimToDate:">trimToDate:</a>.
-Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</code>.</p>
+		<p>Synchronously retrieves the total byte count of the <a href="#//api/name/diskCache">diskCache</a> on the shared disk queue.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (assign) NSTimeInterval ageLimit</code></div>
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSUInteger diskByteCount</code></div>
 
     
 	
@@ -559,25 +438,25 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/costLimit" title="costLimit"></a>
-	<h3 class="subsubtitle method-title">costLimit</h3>
+	<a name="//api/name/diskCache" title="diskCache"></a>
+	<h3 class="subsubtitle method-title">diskCache</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The maximum cost allowed to accumulate before objects begin to be removed with <a href="#//api/name/trimToCostByDate:">trimToCostByDate:</a>.</p>
+		<p>The underlying disk cache, see <a href="../Classes/TMDiskCache.html">TMDiskCache</a> for additional configuration and trimming options.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (assign) NSUInteger costLimit</code></div>
+	<div class="method-subsection method-declaration"><code>@property (readonly) TMDiskCache *diskCache</code></div>
 
     
 	
@@ -595,26 +474,25 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/didAddObjectBlock" title="didAddObjectBlock"></a>
-	<h3 class="subsubtitle method-title">didAddObjectBlock</h3>
+	<a name="//api/name/memoryCache" title="memoryCache"></a>
+	<h3 class="subsubtitle method-title">memoryCache</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A block to be executed just after an object is added to the cache. This block will be excuted within
-a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
+		<p>The underlying memory cache, see <a href="../Classes/TMMemoryCache.html">TMMemoryCache</a> for additional configuration and trimming options.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheObjectBlock didAddObjectBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (readonly) TMMemoryCache *memoryCache</code></div>
 
     
 	
@@ -632,26 +510,25 @@ a barrier, i.e. all reads and writes are suspended for the duration of the block
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/didRemoveAllObjectsBlock" title="didRemoveAllObjectsBlock"></a>
-	<h3 class="subsubtitle method-title">didRemoveAllObjectsBlock</h3>
+	<a name="//api/name/name" title="name"></a>
+	<h3 class="subsubtitle method-title">name</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A block to be executed just after all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
-This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
+		<p>The name of this cache, used to create the <a href="#//api/name/diskCache">diskCache</a> and also appearing in stack traces.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheBlock didRemoveAllObjectsBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSString *name</code></div>
 
     
 	
@@ -669,44 +546,7 @@ This block will be excuted within a barrier, i.e. all reads and writes are suspe
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/didRemoveObjectBlock" title="didRemoveObjectBlock"></a>
-	<h3 class="subsubtitle method-title">didRemoveObjectBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>A block to be executed just after an object is removed from the cache. This block will be excuted
-within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheObjectBlock didRemoveObjectBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -719,8 +559,7 @@ within a barrier, i.e. all reads and writes are suspended for the duration of th
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A concurrent queue on which all work is done. It is exposed here so that it can be set to target some
-other queue, such as a global concurrent queue with a priority other than the default.</p>
+		<p>A concurrent queue on which blocks passed to the asynchronous access methods are run.</p>
 	</div>		
 	
     
@@ -743,154 +582,7 @@ other queue, such as a global concurrent queue with a priority other than the de
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/totalCost" title="totalCost"></a>
-	<h3 class="subsubtitle method-title">totalCost</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The total accumulated cost.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (readonly) NSUInteger totalCost</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/willAddObjectBlock" title="willAddObjectBlock"></a>
-	<h3 class="subsubtitle method-title">willAddObjectBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>A block to be executed just before an object is added to the cache. This block will be excuted within
-a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheObjectBlock willAddObjectBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/willRemoveAllObjectsBlock" title="willRemoveAllObjectsBlock"></a>
-	<h3 class="subsubtitle method-title">willRemoveAllObjectsBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>A block to be executed just before all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
-This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheBlock willRemoveAllObjectsBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/willRemoveObjectBlock" title="willRemoveObjectBlock"></a>
-	<h3 class="subsubtitle method-title">willRemoveObjectBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>A block to be executed just before an object is removed from the cache. This block will be excuted
-within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheObjectBlock willRemoveObjectBlock</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -907,14 +599,74 @@ within a barrier, i.e. all reads and writes are suspended for the duration of th
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
+	<a name="//api/name/initWithName:" title="initWithName:"></a>
+	<h3 class="subsubtitle method-title">initWithName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The designated initializer. Multiple instances with the same name are allowed and can safely access
+the same data on disk thanks to the magic of seriality. Also used to create the <a href="#//api/name/diskCache">diskCache</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (instancetype)initWithName:(NSString *)<em>name</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>The name of the cache.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new cache with the specified name.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/name">@property name</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/objectForKey:" title="objectForKey:"></a>
 	<h3 class="subsubtitle method-title">objectForKey:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Retrieves the object for the specified key. This method blocks the calling thread until the
-object is available.</p>
+		<p>Retrieves the object for the specified key. This method blocks the calling thread until the object is available.</p>
 	</div>		
 	
     
@@ -961,7 +713,7 @@ object is available.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -980,7 +732,7 @@ block after the object is available, potentially in parallel with other blocks o
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)objectForKey:(NSString *)<em>key</em> block:(TMMemoryCacheObjectBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)objectForKey:(NSString *)<em>key</em> block:(TMCacheObjectBlock)<em>block</em></code></div>
 
     
 	
@@ -1013,7 +765,7 @@ block after the object is available, potentially in parallel with other blocks o
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1049,7 +801,7 @@ block after the object is available, potentially in parallel with other blocks o
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1062,13 +814,13 @@ block after the object is available, potentially in parallel with other blocks o
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache. This method returns immediately and executes the passed block after
-the cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Removes all objects from the cache.This method returns immediately and executes the passed block after the
+cache has been cleared, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)removeAllObjects:(TMMemoryCacheBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)removeAllObjects:(TMCacheBlock)<em>block</em></code></div>
 
     
 	
@@ -1096,7 +848,7 @@ the cache has been cleared, potentially in parallel with other blocks on the <a 
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1143,7 +895,7 @@ has been removed.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1162,7 +914,7 @@ block after the object has been removed, potentially in parallel with other bloc
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em> block:(TMMemoryCacheObjectBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em> block:(TMCacheObjectBlock)<em>block</em></code></div>
 
     
 	
@@ -1195,7 +947,7 @@ block after the object has been removed, potentially in parallel with other bloc
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1208,13 +960,12 @@ block after the object has been removed, potentially in parallel with other bloc
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key. This method blocks the calling thread until the object
-has been set.</p>
+		<p>Stores an object in the cache for the specified key. This method blocks the calling thread until the object has been set.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKey:(NSString *)<em>key</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em></code></div>
 
     
 	
@@ -1256,7 +1007,7 @@ has been set.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1275,7 +1026,7 @@ passed block after the object has been stored, potentially in parallel with othe
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKey:(NSString *)<em>key</em> block:(TMMemoryCacheObjectBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> block:(TMCacheObjectBlock)<em>block</em></code></div>
 
     
 	
@@ -1313,7 +1064,7 @@ passed block after the object has been stored, potentially in parallel with othe
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1326,14 +1077,13 @@ passed block after the object has been stored, potentially in parallel with othe
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key and the specified cost. If the cost causes the total
-to go over the <a href="#//api/name/costLimit">costLimit</a> the cache is trimmed (oldest objects first). This method blocks the calling thread
-until the object has been stored.</p>
+		<p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
+This method blocks the calling thread until the object has been stored.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em></code></div>
 
     
 	
@@ -1352,7 +1102,7 @@ until the object has been stored.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>cost</em></dt>
-			<dd><p>An amount to add to the <a href="#//api/name/totalCost">totalCost</a>.</p></dd>
+			<dd><p>An amount to add to the <totalCost> of the <a href="#//api/name/memoryCache">memoryCache</a>.</p></dd>
 		</dl>
 		
 	</div>
@@ -1371,7 +1121,7 @@ until the object has been stored.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1384,15 +1134,14 @@ until the object has been stored.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key and the specified cost. If the cost causes the total
-to go over the <a href="#//api/name/costLimit">costLimit</a> the cache is trimmed (oldest objects first). This method returns immediately
-and executes the passed block after the object has been stored, potentially in parallel with other blocks
-on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
+This method returns immediately and executes the passed block after the object has been stored, potentially
+in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em> block:(TMMemoryCacheObjectBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em> block:(TMCacheObjectBlock)<em>block</em></code></div>
 
     
 	
@@ -1411,7 +1160,7 @@ on the <a href="#//api/name/queue">queue</a>.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>cost</em></dt>
-			<dd><p>An amount to add to the <a href="#//api/name/totalCost">totalCost</a>.</p></dd>
+			<dd><p>An amount to add to the <totalCost> of the <a href="#//api/name/memoryCache">memoryCache</a>.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -1435,7 +1184,7 @@ on the <a href="#//api/name/queue">queue</a>.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1476,207 +1225,7 @@ on the <a href="#//api/name/queue">queue</a>.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/trimToCost:" title="trimToCost:"></a>
-	<h3 class="subsubtitle method-title">trimToCost:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
-value. This method blocks the calling thread until the cache has been trimmed.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)trimToCost:(NSUInteger)<em>cost</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/trimToCost:block:" title="trimToCost:block:"></a>
-	<h3 class="subsubtitle method-title">trimToCost:block:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, costliest objects first, until the <a href="#//api/name/totalCost">totalCost</a> is below the specified
-value. This method returns immediately and executes the passed block after the cache has been trimmed,
-potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)trimToCost:(NSUInteger)<em>cost</em> block:(TMMemoryCacheBlock)<em>block</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block to be executed concurrently after the cache has been trimmed, or nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/trimToCostByDate:" title="trimToCostByDate:"></a>
-	<h3 class="subsubtitle method-title">trimToCostByDate:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
-the specified value. This method blocks the calling thread until the cache has been trimmed.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)trimToCostByDate:(NSUInteger)<em>cost</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/trimToCostByDate:block:" title="trimToCostByDate:block:"></a>
-	<h3 class="subsubtitle method-title">trimToCostByDate:block:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Removes objects from the cache, ordered by date (least recently used first), until the <a href="#//api/name/totalCost">totalCost</a> is below
-the specified value. This method returns immediately and executes the passed block after the cache has been
-trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)trimToCostByDate:(NSUInteger)<em>cost</em> block:(TMMemoryCacheBlock)<em>block</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>The total accumulation allowed to remain after the cache has been trimmed.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block to be executed concurrently after the cache has been trimmed, or nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1723,7 +1272,7 @@ This method blocks the calling thread until the cache has been trimmed.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1736,14 +1285,13 @@ This method blocks the calling thread until the cache has been trimmed.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Removes all objects from the cache that have not been used since the specified date.
-This method returns immediately and executes the passed block after the cache has been trimmed,
-potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+		<p>Removes all objects from the cache that have not been used since the specified date. This method returns immediately and
+executes the passed block after the cache has been trimmed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)trimToDate:(NSDate *)<em>date</em> block:(TMMemoryCacheBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)trimToDate:(NSDate *)<em>date</em> block:(TMCacheBlock)<em>block</em></code></div>
 
     
 	
@@ -1776,7 +1324,7 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+		<code class="declared-in-ref">TMCache.h</code><br />
 	</div>				
 	
 	
@@ -1795,9 +1343,9 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-04-29)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-05-01)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>

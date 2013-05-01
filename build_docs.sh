@@ -4,7 +4,7 @@ appledoc \
     --company-id com.tumblr \
     --project-name TMCache \
     --project-company Tumblr \
-    --project-version 1.1.0 \
+    --project-version 1.1.1 \
     --docset-min-xcode-version 4.3 \
     --docset-bundle-id %COMPANYID.%PROJECTID \
     --docset-bundle-name "%PROJECT %VERSION" \
@@ -15,15 +15,9 @@ appledoc \
     --no-repeat-first-par \
     --explicit-crossref \
     --clean-output \
-    \
-    --keep-undocumented-member \
-    --no-keep-undocumented-object \
-    --no-warn-undocumented-object \
-    --no-warn-undocumented-member \
-    \
     --keep-intermediate-files \
     --output ./docs \
     .
     
-mv docs/docset docs/com.tumblr.TMCache-1.1.0.docset
+mv docs/docset docs/com.tumblr.TMCache-1.1.1.docset
 rm docs/docset-installed.txt
