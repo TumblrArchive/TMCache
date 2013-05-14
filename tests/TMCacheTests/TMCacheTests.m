@@ -168,4 +168,34 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     STAssertTrue(self.cache.diskByteCount > 0, @"disk cache byte count was not greater than zero");
 }
 
+- (void)testOneThousandAndOneWrites
+{
+    NSUInteger max = 1001;
+    __block NSInteger count = max;
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    for (NSUInteger i = 0; i < max; i++) {
+        NSString *key = [[NSString alloc] initWithFormat:@"key %d", i];
+        NSString *obj = [[NSString alloc] initWithFormat:@"obj %d", i];
+        
+        [self.cache setObject:obj forKey:key block:nil];
+        
+        dispatch_group_enter(group);
+    }
+    
+    for (NSUInteger i = 0; i < max; i++) {
+        NSString *key = [[NSString alloc] initWithFormat:@"key %d", i];
+        
+        [self.cache objectForKey:key block:^(TMCache *cache, NSString *key, id object) {
+            count -= 1;
+            dispatch_group_leave(group);
+        }];
+    }
+    
+    dispatch_group_wait(group, [self timeout]);
+
+    STAssertTrue(count == 0, @"one or more object blocks failed to execute, possible queue deadlock");
+}
+
 @end

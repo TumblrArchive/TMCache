@@ -1,3 +1,9 @@
+### 1.1.2 -- 2013 May 13 ###
+
+- [fix] TMCache: prevent `objectForKey:block:` from hitting the thread ceiling
+- [new] TMCache: added a test to make sure we don't deadlock the queue
+
+
 ### 1.1.1 -- 2013 May 1 ###
 
 - [fix] simplified appledoc arguments in podspec, updated doc script
