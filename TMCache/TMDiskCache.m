@@ -36,7 +36,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 @synthesize byteLimit = _byteLimit;
 @synthesize ageLimit = _ageLimit;
 
-#pragma mark - Initialization
+#pragma mark - Initialization -
 
 - (instancetype)initWithName:(NSString *)name
 {

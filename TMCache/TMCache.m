@@ -13,6 +13,8 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
 
 @implementation TMCache
 
+#pragma mark - Initialization -
+
 #if !OS_OBJECT_USE_OBJC
 - (void)dealloc
 {

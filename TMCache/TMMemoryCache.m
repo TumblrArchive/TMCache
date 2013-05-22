@@ -25,7 +25,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 @synthesize didRemoveObjectBlock = _didRemoveObjectBlock;
 @synthesize didRemoveAllObjectsBlock = _didRemoveAllObjectsBlock;
 
-#pragma mark - Initialization
+#pragma mark - Initialization -
 
 - (void)dealloc
 {
@@ -82,7 +82,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     return cache;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Private Methods -
 
 - (void)didObserveApocalypticNotification:(NSNotification *)notification
 {
@@ -180,7 +180,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     });
 }
 
-#pragma mark - Public Asynchronous Methods
+#pragma mark - Public Asynchronous Methods -
 
 - (void)objectForKey:(NSString *)key block:(TMMemoryCacheObjectBlock)block
 {
@@ -387,7 +387,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     });
 }
 
-#pragma mark - Public Synchronous Methods
+#pragma mark - Public Synchronous Methods -
 
 - (id)objectForKey:(NSString *)key
 {
@@ -521,7 +521,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     #endif
 }
 
-#pragma mark - Public Thread Safe Accessors
+#pragma mark - Public Thread Safe Accessors -
 
 - (TMMemoryCacheObjectBlock)willAddObjectBlock
 {
