@@ -94,18 +94,6 @@ typedef void (^TMCacheObjectBlock)(TMCache *cache, NSString *key, id object);
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key block:(TMCacheObjectBlock)block;
 
 /**
- Stores an object in the cache for the specified key and the specified cost (applies to <memoryCache> only).
- This method returns immediately and executes the passed block after the object has been stored, potentially
- in parallel with other blocks on the <queue>.
- 
- @param object An object to store in the cache.
- @param key A key to associate with the object. This string will be copied.
- @param cost An amount to add to the <totalCost> of the <memoryCache>.
- @param block A block to be executed concurrently after the object has been stored, or nil.
- */
-- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost block:(TMCacheObjectBlock)block;
-
-/**
  Removes the object for the specified key. This method returns immediately and executes the passed
  block after the object has been removed, potentially in parallel with other blocks on the <queue>.
  
@@ -151,16 +139,6 @@ typedef void (^TMCacheObjectBlock)(TMCache *cache, NSString *key, id object);
  @param key A key to associate with the object. This string will be copied.
  */
 - (void)setObject:(id <NSCoding>)object forKey:(NSString *)key;
-
-/**
- Stores an object in the cache for the specified key and the specified cost (applies to <memoryCache> only).
- This method blocks the calling thread until the object has been stored.
- 
- @param object An object to store in the cache.
- @param key A key to associate with the object. This string will be copied.
- @param cost An amount to add to the <totalCost> of the <memoryCache>.
- */
-- (void)setObject:(id <NSCoding>)object forKey:(NSString *)key withCost:(NSUInteger)cost;
 
 /**
  Removes the object for the specified key. This method blocks the calling thread until the object

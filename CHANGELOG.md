@@ -1,3 +1,8 @@
+### 1.1.3 -- 2013 May 22 ###
+
+- [del] TMCache: removed `cost` methods pending a solution for disk-based cost
+
+
 ### 1.1.2 -- 2013 May 13 ###
 
 - [fix] TMCache: prevent `objectForKey:block:` from hitting the thread ceiling
