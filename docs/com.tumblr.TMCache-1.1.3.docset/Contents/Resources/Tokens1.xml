@@ -200,33 +200,6 @@ passed block after the object has been stored, potentially in parallel with othe
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setObject:forKey:withCost:block:</TokenIdentifier>
-			<Abstract type="html">Stores an object in the cache for the specified key and the specified cost (applies to memoryCache only).
-This method returns immediately and executes the passed block after the object has been stored, potentially
-in parallel with other blocks on the queue.</Abstract>
-			<DeclaredIn>TMCache.h</DeclaredIn>			
-			
-			<Declaration>- (void)setObject:(id&lt;NSCoding&gt;)object forKey:(NSString *)key withCost:(NSUInteger)cost block:(TMCacheObjectBlock)block</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>object</Name>
-					<Abstract type="html">An object to store in the cache.</Abstract>
-				</Parameter><Parameter>
-					<Name>key</Name>
-					<Abstract type="html">A key to associate with the object. This string will be copied.</Abstract>
-				</Parameter><Parameter>
-					<Name>cost</Name>
-					<Abstract type="html">An amount to add to the &lt;totalCost&gt; of the memoryCache.</Abstract>
-				</Parameter><Parameter>
-					<Name>block</Name>
-					<Abstract type="html">A block to be executed concurrently after the object has been stored, or nil.</Abstract>
-				</Parameter>
-			</Parameters>
-			
-			<Anchor>//api/name/setObject:forKey:withCost:block:</Anchor>
-		</Token>
-		
-		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMCache/removeObjectForKey:block:</TokenIdentifier>
 			<Abstract type="html">Removes the object for the specified key. This method returns immediately and executes the passed
 block after the object has been removed, potentially in parallel with other blocks on the queue.</Abstract>
@@ -326,29 +299,6 @@ cache has been cleared, potentially in parallel with other blocks on the queue.<
 			</Parameters>
 			
 			<Anchor>//api/name/setObject:forKey:</Anchor>
-		</Token>
-		
-		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/TMCache/setObject:forKey:withCost:</TokenIdentifier>
-			<Abstract type="html">Stores an object in the cache for the specified key and the specified cost (applies to memoryCache only).
-This method blocks the calling thread until the object has been stored.</Abstract>
-			<DeclaredIn>TMCache.h</DeclaredIn>			
-			
-			<Declaration>- (void)setObject:(id&lt;NSCoding&gt;)object forKey:(NSString *)key withCost:(NSUInteger)cost</Declaration>
-			<Parameters>
-				<Parameter>
-					<Name>object</Name>
-					<Abstract type="html">An object to store in the cache.</Abstract>
-				</Parameter><Parameter>
-					<Name>key</Name>
-					<Abstract type="html">A key to associate with the object. This string will be copied.</Abstract>
-				</Parameter><Parameter>
-					<Name>cost</Name>
-					<Abstract type="html">An amount to add to the &lt;totalCost&gt; of the memoryCache.</Abstract>
-				</Parameter>
-			</Parameters>
-			
-			<Anchor>//api/name/setObject:forKey:withCost:</Anchor>
 		</Token>
 		
 		<Token>

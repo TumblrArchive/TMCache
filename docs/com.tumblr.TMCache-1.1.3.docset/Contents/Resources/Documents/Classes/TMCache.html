@@ -75,10 +75,6 @@
 	
 	<option value="//api/name/setObject:forKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- setObject:forKey:block:</option>
 	
-	<option value="//api/name/setObject:forKey:withCost:">&nbsp;&nbsp;&nbsp;&nbsp;- setObject:forKey:withCost:</option>
-	
-	<option value="//api/name/setObject:forKey:withCost:block:">&nbsp;&nbsp;&nbsp;&nbsp;- setObject:forKey:withCost:block:</option>
-	
 	<option value="//api/name/sharedCache">&nbsp;&nbsp;&nbsp;&nbsp;- sharedCache</option>
 	
 	<option value="//api/name/trimToDate:">&nbsp;&nbsp;&nbsp;&nbsp;- trimToDate:</option>
@@ -152,10 +148,6 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:">setObject:forKey:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:block:">setObject:forKey:block:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:withCost:">setObject:forKey:withCost:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setObject:forKey:withCost:block:">setObject:forKey:withCost:block:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sharedCache">sharedCache</a></span></li>
 	
@@ -311,15 +303,6 @@ passed block after the object has been stored, potentially in parallel with othe
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/setObject:forKey:withCost:block:">&ndash;&nbsp;setObject:forKey:withCost:block:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
-This method returns immediately and executes the passed block after the object has been stored, potentially
-in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
 		<code><a href="#//api/name/removeObjectForKey:block:">&ndash;&nbsp;removeObjectForKey:block:</a></code>
 		<span class="tooltip"><p>Removes the object for the specified key. This method returns immediately and executes the passed
 block after the object has been removed, potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
@@ -361,14 +344,6 @@ cache has been cleared, potentially in parallel with other blocks on the <a href
 	<span class="tooltip">
 		<code><a href="#//api/name/setObject:forKey:">&ndash;&nbsp;setObject:forKey:</a></code>
 		<span class="tooltip"><p>Stores an object in the cache for the specified key. This method blocks the calling thread until the object has been set.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/setObject:forKey:withCost:">&ndash;&nbsp;setObject:forKey:withCost:</a></code>
-		<span class="tooltip"><p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
-This method blocks the calling thread until the object has been stored.</p></span>
 	</span>
 	
 	
@@ -1041,126 +1016,6 @@ passed block after the object has been stored, potentially in parallel with othe
 		<dl class="argument-def parameter-def">
 			<dt><em>key</em></dt>
 			<dd><p>A key to associate with the object. This string will be copied.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block to be executed concurrently after the object has been stored, or nil.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setObject:forKey:withCost:" title="setObject:forKey:withCost:"></a>
-	<h3 class="subsubtitle method-title">setObject:forKey:withCost:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
-This method blocks the calling thread until the object has been stored.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>object</em></dt>
-			<dd><p>An object to store in the cache.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>key</em></dt>
-			<dd><p>A key to associate with the object. This string will be copied.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>An amount to add to the <totalCost> of the <a href="#//api/name/memoryCache">memoryCache</a>.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">TMCache.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setObject:forKey:withCost:block:" title="setObject:forKey:withCost:block:"></a>
-	<h3 class="subsubtitle method-title">setObject:forKey:withCost:block:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Stores an object in the cache for the specified key and the specified cost (applies to <a href="#//api/name/memoryCache">memoryCache</a> only).
-This method returns immediately and executes the passed block after the object has been stored, potentially
-in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)setObject:(id&lt;NSCoding&gt;)<em>object</em> forKey:(NSString *)<em>key</em> withCost:(NSUInteger)<em>cost</em> block:(TMCacheObjectBlock)<em>block</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>object</em></dt>
-			<dd><p>An object to store in the cache.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>key</em></dt>
-			<dd><p>A key to associate with the object. This string will be copied.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>cost</em></dt>
-			<dd><p>An amount to add to the <totalCost> of the <a href="#//api/name/memoryCache">memoryCache</a>.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
