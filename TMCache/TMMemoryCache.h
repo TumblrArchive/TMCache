@@ -48,6 +48,18 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  */
 @property (assign) NSTimeInterval ageLimit;
 
+/**
+ When `YES` on iOS the cache will remove all objects when the app receives a memory warning.
+ Defaults to `YES`.
+ */
+@property (assign) BOOL removeAllObjectsOnMemoryWarning;
+
+/**
+ When `YES` on iOS the cache will remove all objects when the app enters the background.
+ Defaults to `YES`.
+ */
+@property (assign) BOOL removeAllObjectsOnEnteringBackground;
+
 #pragma mark -
 /// @name Event Blocks
 
@@ -86,6 +98,16 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.
  */
 @property (copy) TMMemoryCacheBlock didRemoveAllObjectsBlock;
+
+/**
+ A block to be executed upon receiving a memory warning (iOS only) potentially in parallel with other blocks on the <queue>.
+ */
+@property (copy) TMMemoryCacheBlock didReceiveMemoryWarningBlock;
+
+/**
+ A block to be executed when the app enters the background (iOS only) potentially in parallel with other blocks on the <queue>.
+ */
+@property (copy) TMMemoryCacheBlock didEnterBackgroundBlock;
 
 #pragma mark -
 /// @name Shared Cache

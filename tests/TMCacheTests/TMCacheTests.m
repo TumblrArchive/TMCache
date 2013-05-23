@@ -201,4 +201,42 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     STAssertTrue(count == 0, @"one or more object blocks failed to execute, possible queue deadlock");
 }
 
+- (void)testMemoryWarningBlock
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    __block BOOL blockDidExecute = NO;
+
+    self.cache.memoryCache.didReceiveMemoryWarningBlock = ^(TMMemoryCache *cache) {
+        blockDidExecute = YES;
+        dispatch_semaphore_signal(semaphore);
+    };
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification
+                                                        object:[UIApplication sharedApplication]];
+
+    dispatch_semaphore_wait(semaphore, [self timeout]);
+
+    STAssertTrue(blockDidExecute, @"memory warning block did not execute");
+}
+
+- (void)testBackgroundBlock
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    __block BOOL blockDidExecute = NO;
+
+    self.cache.memoryCache.didEnterBackgroundBlock = ^(TMMemoryCache *cache) {
+        blockDidExecute = YES;
+        dispatch_semaphore_signal(semaphore);
+    };
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidEnterBackgroundNotification
+                                                        object:[UIApplication sharedApplication]];
+
+    dispatch_semaphore_wait(semaphore, [self timeout]);
+
+    STAssertTrue(blockDidExecute, @"app background block did not execute");
+}
+
 @end

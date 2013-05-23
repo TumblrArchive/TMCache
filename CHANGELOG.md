@@ -1,5 +1,10 @@
-### 1.1.3 -- 2013 May 22 ###
+### 1.1.3 -- 2013 May 24 ###
 
+- [new] TMMemoryCache: added event block `didReceiveMemoryWarningBlock`
+- [new] TMMemoryCache: added event block `didEnterBackgroundBlock`
+- [new] TMMemoryCache: added boolean property `removeAllObjectsOnMemoryWarning`
+- [new] TMMemoryCache: added boolean property `removeAllObjectsOnEnteringBackground`
+- [new] TMMemoryCache: unit tests for memory warning and app background blocks
 - [del] TMCache: removed `cost` methods pending a solution for disk-based cost
 
 
