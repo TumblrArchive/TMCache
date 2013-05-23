@@ -46,11 +46,19 @@
 	
 	<option value="//api/name/didAddObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didAddObjectBlock</option>
 	
+	<option value="//api/name/didEnterBackgroundBlock">&nbsp;&nbsp;&nbsp;&nbsp;didEnterBackgroundBlock</option>
+	
+	<option value="//api/name/didReceiveMemoryWarningBlock">&nbsp;&nbsp;&nbsp;&nbsp;didReceiveMemoryWarningBlock</option>
+	
 	<option value="//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveAllObjectsBlock</option>
 	
 	<option value="//api/name/didRemoveObjectBlock">&nbsp;&nbsp;&nbsp;&nbsp;didRemoveObjectBlock</option>
 	
 	<option value="//api/name/queue">&nbsp;&nbsp;&nbsp;&nbsp;queue</option>
+	
+	<option value="//api/name/removeAllObjectsOnEnteringBackground">&nbsp;&nbsp;&nbsp;&nbsp;removeAllObjectsOnEnteringBackground</option>
+	
+	<option value="//api/name/removeAllObjectsOnMemoryWarning">&nbsp;&nbsp;&nbsp;&nbsp;removeAllObjectsOnMemoryWarning</option>
 	
 	<option value="//api/name/totalCost">&nbsp;&nbsp;&nbsp;&nbsp;totalCost</option>
 	
@@ -141,11 +149,19 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didAddObjectBlock">didAddObjectBlock</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didEnterBackgroundBlock">didEnterBackgroundBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didReceiveMemoryWarningBlock">didReceiveMemoryWarningBlock</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveAllObjectsBlock">didRemoveAllObjectsBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/queue">queue</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllObjectsOnEnteringBackground">removeAllObjectsOnEnteringBackground</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeAllObjectsOnMemoryWarning">removeAllObjectsOnMemoryWarning</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/totalCost">totalCost</a></span></li>
 	
@@ -294,6 +310,22 @@ Setting it back to <code>0.0</code> will stop the timer. Defaults to <code>0.0</
 	</span>
 	<span class="task-item-suffix">property</span>
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllObjectsOnMemoryWarning">&nbsp;&nbsp;removeAllObjectsOnMemoryWarning</a></code>
+		<span class="tooltip"><p>When <code>YES</code> on iOS the cache will remove all objects when the app receives a memory warning.
+Defaults to <code>YES</code>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeAllObjectsOnEnteringBackground">&nbsp;&nbsp;removeAllObjectsOnEnteringBackground</a></code>
+		<span class="tooltip"><p>When <code>YES</code> on iOS the cache will remove all objects when the app enters the background.
+Defaults to <code>YES</code>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
 </li>
 						</ul>
 						
@@ -347,6 +379,20 @@ within a barrier, i.e. all reads and writes are suspended for the duration of th
 		<code><a href="#//api/name/didRemoveAllObjectsBlock">&nbsp;&nbsp;didRemoveAllObjectsBlock</a></code>
 		<span class="tooltip"><p>A block to be executed just after all objects are removed from the cache as a result of <a href="#//api/name/removeAllObjects:">removeAllObjects:</a>.
 This block will be excuted within a barrier, i.e. all reads and writes are suspended for the duration of the block.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didReceiveMemoryWarningBlock">&nbsp;&nbsp;didReceiveMemoryWarningBlock</a></code>
+		<span class="tooltip"><p>A block to be executed upon receiving a memory warning (iOS only) potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didEnterBackgroundBlock">&nbsp;&nbsp;didEnterBackgroundBlock</a></code>
+		<span class="tooltip"><p>A block to be executed when the app enters the background (iOS only) potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -639,6 +685,78 @@ a barrier, i.e. all reads and writes are suspended for the duration of the block
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/didEnterBackgroundBlock" title="didEnterBackgroundBlock"></a>
+	<h3 class="subsubtitle method-title">didEnterBackgroundBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed when the app enters the background (iOS only) potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheBlock didEnterBackgroundBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didReceiveMemoryWarningBlock" title="didReceiveMemoryWarningBlock"></a>
+	<h3 class="subsubtitle method-title">didReceiveMemoryWarningBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>A block to be executed upon receiving a memory warning (iOS only) potentially in parallel with other blocks on the <a href="#//api/name/queue">queue</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (copy) TMMemoryCacheBlock didReceiveMemoryWarningBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/didRemoveAllObjectsBlock" title="didRemoveAllObjectsBlock"></a>
 	<h3 class="subsubtitle method-title">didRemoveAllObjectsBlock</h3>
 	
@@ -726,6 +844,80 @@ other queue, such as a global concurrent queue with a priority other than the de
     
 
 	<div class="method-subsection method-declaration"><code>@property (readonly) dispatch_queue_t queue</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeAllObjectsOnEnteringBackground" title="removeAllObjectsOnEnteringBackground"></a>
+	<h3 class="subsubtitle method-title">removeAllObjectsOnEnteringBackground</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>When <code>YES</code> on iOS the cache will remove all objects when the app enters the background.
+Defaults to <code>YES</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign) BOOL removeAllObjectsOnEnteringBackground</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMMemoryCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeAllObjectsOnMemoryWarning" title="removeAllObjectsOnMemoryWarning"></a>
+	<h3 class="subsubtitle method-title">removeAllObjectsOnMemoryWarning</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>When <code>YES</code> on iOS the cache will remove all objects when the app receives a memory warning.
+Defaults to <code>YES</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (assign) BOOL removeAllObjectsOnMemoryWarning</code></div>
 
     
 	
@@ -1795,7 +1987,7 @@ potentially in parallel with other blocks on the <a href="#//api/name/queue">que
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-05-22)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-05-23)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						

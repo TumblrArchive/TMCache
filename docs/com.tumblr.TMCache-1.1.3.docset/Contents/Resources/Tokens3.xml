@@ -107,6 +107,54 @@ Setting it back to 0.0 will stop the timer. Defaults to 0.0.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setRemoveAllObjectsOnMemoryWarning:</TokenIdentifier>
+			<Abstract type="html">When YES on iOS the cache will remove all objects when the app receives a memory warning.
+Defaults to YES.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) BOOL removeAllObjectsOnMemoryWarning</Declaration>
+			
+			
+			<Anchor>//api/name/removeAllObjectsOnMemoryWarning</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/removeAllObjectsOnMemoryWarning</TokenIdentifier>
+			<Abstract type="html">When YES on iOS the cache will remove all objects when the app receives a memory warning.
+Defaults to YES.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) BOOL removeAllObjectsOnMemoryWarning</Declaration>
+			
+			
+			<Anchor>//api/name/removeAllObjectsOnMemoryWarning</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setRemoveAllObjectsOnEnteringBackground:</TokenIdentifier>
+			<Abstract type="html">When YES on iOS the cache will remove all objects when the app enters the background.
+Defaults to YES.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) BOOL removeAllObjectsOnEnteringBackground</Declaration>
+			
+			
+			<Anchor>//api/name/removeAllObjectsOnEnteringBackground</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/removeAllObjectsOnEnteringBackground</TokenIdentifier>
+			<Abstract type="html">When YES on iOS the cache will remove all objects when the app enters the background.
+Defaults to YES.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (assign) BOOL removeAllObjectsOnEnteringBackground</Declaration>
+			
+			
+			<Anchor>//api/name/removeAllObjectsOnEnteringBackground</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setWillAddObjectBlock:</TokenIdentifier>
 			<Abstract type="html">A block to be executed just before an object is added to the cache. This block will be excuted within
 a barrier, i.e. all reads and writes are suspended for the duration of the block.</Abstract>
@@ -248,6 +296,50 @@ This block will be excuted within a barrier, i.e. all reads and writes are suspe
 			
 			
 			<Anchor>//api/name/didRemoveAllObjectsBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setDidReceiveMemoryWarningBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed upon receiving a memory warning (iOS only) potentially in parallel with other blocks on the queue.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didReceiveMemoryWarningBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didReceiveMemoryWarningBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/didReceiveMemoryWarningBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed upon receiving a memory warning (iOS only) potentially in parallel with other blocks on the queue.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didReceiveMemoryWarningBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didReceiveMemoryWarningBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMMemoryCache/setDidEnterBackgroundBlock:</TokenIdentifier>
+			<Abstract type="html">A block to be executed when the app enters the background (iOS only) potentially in parallel with other blocks on the queue.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didEnterBackgroundBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didEnterBackgroundBlock</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/TMMemoryCache/didEnterBackgroundBlock</TokenIdentifier>
+			<Abstract type="html">A block to be executed when the app enters the background (iOS only) potentially in parallel with other blocks on the queue.</Abstract>
+			<DeclaredIn>TMMemoryCache.h</DeclaredIn>			
+			
+			<Declaration>@property (copy) TMMemoryCacheBlock didEnterBackgroundBlock</Declaration>
+			
+			
+			<Anchor>//api/name/didEnterBackgroundBlock</Anchor>
 		</Token>
 		
 		<Token>
