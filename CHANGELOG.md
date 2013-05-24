@@ -1,5 +1,7 @@
 ### 1.1.3 -- 2013 May 24 ###
 
+- [new] TMMemoryCache: added method `enumerateObjectsWithBlock:completionBlock:`
+- [new] TMMemoryCache: added method `enumerateObjectsWithBlock:`
 - [new] TMMemoryCache: added event block `didReceiveMemoryWarningBlock`
 - [new] TMMemoryCache: added event block `didEnterBackgroundBlock`
 - [new] TMMemoryCache: added boolean property `removeAllObjectsOnMemoryWarning`

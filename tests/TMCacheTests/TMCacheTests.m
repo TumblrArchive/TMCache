@@ -24,6 +24,10 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
 - (void)tearDown
 {
     [self.cache removeAllObjects];
+
+    self.cache = nil;
+
+    STAssertNil(self.cache, @"test cache did not deallocate");
     
     [super tearDown];
 }
@@ -237,6 +241,61 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     dispatch_semaphore_wait(semaphore, [self timeout]);
 
     STAssertTrue(blockDidExecute, @"app background block did not execute");
+}
+
+- (void)testMemoryWarningProperty
+{
+    [self.cache.memoryCache setObject:@"object" forKey:@"object" block:nil];
+
+    self.cache.memoryCache.removeAllObjectsOnMemoryWarning = NO;
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    __block id object = nil;
+    
+    self.cache.memoryCache.didReceiveMemoryWarningBlock = ^(TMMemoryCache *cache) {
+        object = [cache objectForKey:@"object"];
+        dispatch_semaphore_signal(semaphore);
+    };
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification
+                                                        object:[UIApplication sharedApplication]];
+
+    dispatch_semaphore_wait(semaphore, [self timeout]);
+
+    STAssertNotNil(object, @"object was removed from the cache");
+}
+
+- (void)testMemoryCacheEnumerationWithWarning
+{
+    NSUInteger objectCount = 3;
+
+    dispatch_apply(objectCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t index) {
+        NSString *key = [[NSString alloc] initWithFormat:@"key %zd", index];
+        NSString *obj = [[NSString alloc] initWithFormat:@"obj %zd", index];
+        [self.cache.memoryCache setObject:obj forKey:key block:nil];
+    });
+
+    self.cache.memoryCache.removeAllObjectsOnMemoryWarning = NO;
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    __block NSUInteger enumCount = 0;
+
+    self.cache.memoryCache.didReceiveMemoryWarningBlock = ^(TMMemoryCache *cache) {
+        [cache enumerateObjectsWithBlock:^(TMMemoryCache *cache, NSString *key, id object) {
+            enumCount++;
+        } completionBlock:^(TMMemoryCache *cache) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    };
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification
+                                                        object:[UIApplication sharedApplication]];
+
+    dispatch_semaphore_wait(semaphore, [self timeout]);
+
+    STAssertTrue(objectCount == enumCount, @"some objects were not enumerated");
 }
 
 @end

@@ -428,6 +428,33 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     });
 }
 
+- (void)enumerateObjectsWithBlock:(TMMemoryCacheObjectBlock)block completionBlock:(TMMemoryCacheBlock)completionBlock
+{
+    if (!block)
+        return;
+
+    __weak TMMemoryCache *weakSelf = self;
+
+    dispatch_barrier_async(_queue, ^{
+        TMMemoryCache *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+
+        for (NSString *key in [strongSelf->_dictionary allKeys]) {
+            block(strongSelf, key, [strongSelf->_dictionary objectForKey:key]);
+        }
+
+        if (completionBlock) {
+            __weak TMMemoryCache *weakSelf = strongSelf;
+            dispatch_async(strongSelf->_queue, ^{
+                TMMemoryCache *strongSelf = weakSelf;
+                if (strongSelf)
+                    completionBlock(strongSelf);
+            });
+        }
+    });
+}
+
 #pragma mark - Public Synchronous Methods -
 
 - (id)objectForKey:(NSString *)key
@@ -552,6 +579,24 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [self removeAllObjects:^(TMMemoryCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)enumerateObjectsWithBlock:(TMMemoryCacheObjectBlock)block
+{
+    if (!block)
+        return;
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self enumerateObjectsWithBlock:block completionBlock:^(TMMemoryCache *cache) {
         dispatch_semaphore_signal(semaphore);
     }];
 
