@@ -1122,10 +1122,8 @@ This method blocks the calling thread until all objects have been enumerated.</p
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p><strong>Warning:</strong> Do not call this method within the event blocks (<a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a>, etc.)</p>
-
-<pre><code>      Instead use the asynchronous version, enumerateObjectsWithBlock:completionBlock:.
-</code></pre></div>
+		<div class="warning"><p><strong>Warning:</strong> Do not call this method within the event blocks (<a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a>, etc.)
+Instead use the asynchronous version, <a href="#//api/name/enumerateObjectsWithBlock:completionBlock:">enumerateObjectsWithBlock:completionBlock:</a>.</p></div>
 	</div>
 	
 	

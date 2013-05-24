@@ -313,7 +313,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  @param block A block to be executed for every object in the cache.
 
  @warning Do not call this method within the event blocks (<didRemoveObjectBlock>, etc.)
-          Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
+ Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
  */
 - (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block;
 

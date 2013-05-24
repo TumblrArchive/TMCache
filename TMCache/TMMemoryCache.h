@@ -290,7 +290,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  @param block A block to be executed for every object in the cache.
  
  @warning Do not call this method within the event blocks (<didReceiveMemoryWarningBlock>, etc.)
-          Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
+ Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
  
  */
 - (void)enumerateObjectsWithBlock:(TMMemoryCacheObjectBlock)block;
