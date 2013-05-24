@@ -207,8 +207,8 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  Loops through all objects in the cache within a memory barrier (reads and writes are suspended during the enumeration).
  This method returns immediately.
 
- @param block A block to execute for every object in the cache.
- @param completionBlock An optional block to be execute concurrently when the enumeration is complete.
+ @param block A block to be executed for every object in the cache.
+ @param completionBlock An optional block to be executed concurrently when the enumeration is complete.
  */
 - (void)enumerateObjectsWithBlock:(TMMemoryCacheObjectBlock)block completionBlock:(TMMemoryCacheBlock)completionBlock;
 
@@ -287,7 +287,7 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  Loops through all objects in the cache within a memory barrier (reads and writes are suspended during the enumeration).
  This method blocks the calling thread until all objects have been enumerated.
 
- @param block A block to execute for every object in the cache.
+ @param block A block to be executed for every object in the cache.
  
  @warning Do not call this method within the event blocks (<didReceiveMemoryWarningBlock>, etc.)
           Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
