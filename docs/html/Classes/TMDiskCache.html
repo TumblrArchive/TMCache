@@ -74,6 +74,10 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/enumerateObjectsWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- enumerateObjectsWithBlock:</option>
+	
+	<option value="//api/name/enumerateObjectsWithBlock:completionBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- enumerateObjectsWithBlock:completionBlock:</option>
+	
 	<option value="//api/name/fileURLForKey:">&nbsp;&nbsp;&nbsp;&nbsp;- fileURLForKey:</option>
 	
 	<option value="//api/name/fileURLForKey:block:">&nbsp;&nbsp;&nbsp;&nbsp;- fileURLForKey:block:</option>
@@ -179,6 +183,10 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enumerateObjectsWithBlock:">enumerateObjectsWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/enumerateObjectsWithBlock:completionBlock:">enumerateObjectsWithBlock:completionBlock:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/fileURLForKey:">fileURLForKey:</a></span></li>
 	
@@ -485,6 +493,15 @@ cache has been cleared.</p></span>
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enumerateObjectsWithBlock:completionBlock:">&ndash;&nbsp;enumerateObjectsWithBlock:completionBlock:</a></code>
+		<span class="tooltip"><p>Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the <code>object</code> parameter of the block will be <code>nil</code> but the <code>fileURL</code> will be available.
+This method returns immediately.</p></span>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -554,6 +571,15 @@ smaller than the specified byteCount. This method blocks the calling thread unti
 	<span class="tooltip">
 		<code><a href="#//api/name/removeAllObjects">&ndash;&nbsp;removeAllObjects</a></code>
 		<span class="tooltip"><p>Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/enumerateObjectsWithBlock:">&ndash;&nbsp;enumerateObjectsWithBlock:</a></code>
+		<span class="tooltip"><p>Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the <code>object</code> parameter of the block will be <code>nil</code> but the <code>fileURL</code> will be available.
+This method blocks the calling thread until all objects have been enumerated.</p></span>
 	</span>
 	
 	
@@ -1059,6 +1085,115 @@ this queue with an exisiting serial I/O queue.</p>
 					<div class="section section-methods">
 						<a title="Instance Methods" name="instance_methods"></a>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/enumerateObjectsWithBlock:" title="enumerateObjectsWithBlock:"></a>
+	<h3 class="subsubtitle method-title">enumerateObjectsWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the <code>object</code> parameter of the block will be <code>nil</code> but the <code>fileURL</code> will be available.
+This method blocks the calling thread until all objects have been enumerated.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed for every object in the cache.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> Do not call this method within the event blocks (<a href="#//api/name/didRemoveObjectBlock">didRemoveObjectBlock</a>, etc.)</p>
+
+<pre><code>      Instead use the asynchronous version, enumerateObjectsWithBlock:completionBlock:.
+</code></pre></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/enumerateObjectsWithBlock:completionBlock:" title="enumerateObjectsWithBlock:completionBlock:"></a>
+	<h3 class="subsubtitle method-title">enumerateObjectsWithBlock:completionBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the <code>object</code> parameter of the block will be <code>nil</code> but the <code>fileURL</code> will be available.
+This method returns immediately.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)<em>block</em> completionBlock:(TMDiskCacheBlock)<em>completionBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block to be executed for every object in the cache.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>completionBlock</em></dt>
+			<dd><p>An optional block to be executed after the enumeration is complete.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">TMDiskCache.h</code><br />
+	</div>				
+	
+	
+</div>
 						
 						<div class="section-method">
 	<a name="//api/name/fileURLForKey:" title="fileURLForKey:"></a>
@@ -2012,7 +2147,7 @@ been trimmed.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-05-23)</span><br />
+						<p><span class="copyright">&copy; 2013 Tumblr. All rights reserved. (Last updated: 2013-05-24)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						

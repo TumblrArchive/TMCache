@@ -1,4 +1,4 @@
-### 1.1.3 -- 2013 May 24 ###
+### 1.2.0 -- 2013 May 24 ###
 
 - [new] TMDiskCache: added method `enumerateObjectsWithBlock:completionBlock:`
 - [new] TMDiskCache: added method `enumerateObjectsWithBlock:`

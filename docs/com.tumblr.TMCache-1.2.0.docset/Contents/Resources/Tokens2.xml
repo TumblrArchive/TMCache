@@ -475,6 +475,27 @@ cache has been cleared.</Abstract>
 		</Token>
 		
 		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/enumerateObjectsWithBlock:completionBlock:</TokenIdentifier>
+			<Abstract type="html">Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the object parameter of the block will be nil but the fileURL will be available.
+This method returns immediately.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block completionBlock:(TMDiskCacheBlock)completionBlock</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>block</Name>
+					<Abstract type="html">A block to be executed for every object in the cache.</Abstract>
+				</Parameter><Parameter>
+					<Name>completionBlock</Name>
+					<Abstract type="html">An optional block to be executed after the enumeration is complete.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/enumerateObjectsWithBlock:completionBlock:</Anchor>
+		</Token>
+		
+		<Token>
 			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/objectForKey:</TokenIdentifier>
 			<Abstract type="html">Retrieves the object for the specified key. This method blocks the calling thread until the
 object is available.</Abstract>
@@ -621,6 +642,24 @@ smaller than the specified byteCount. This method blocks the calling thread unti
 			
 			
 			<Anchor>//api/name/removeAllObjects</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/TMDiskCache/enumerateObjectsWithBlock:</TokenIdentifier>
+			<Abstract type="html">Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+read from disk, the object parameter of the block will be nil but the fileURL will be available.
+This method blocks the calling thread until all objects have been enumerated.</Abstract>
+			<DeclaredIn>TMDiskCache.h</DeclaredIn>			
+			
+			<Declaration>- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>block</Name>
+					<Abstract type="html">A block to be executed for every object in the cache.</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/enumerateObjectsWithBlock:</Anchor>
 		</Token>
 		
 	</File>
