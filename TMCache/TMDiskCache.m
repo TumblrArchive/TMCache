@@ -233,7 +233,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
     NSNumber *byteSize = [_sizes objectForKey:key];
     if (byteSize)
-        self.byteCount = _byteCount + [byteSize unsignedIntegerValue]; // atomic
+        self.byteCount = _byteCount - [byteSize unsignedIntegerValue]; // atomic
 
     [_sizes removeObjectForKey:key];
     [_dates removeObjectForKey:key];
