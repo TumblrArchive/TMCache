@@ -440,7 +440,9 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
         if (!strongSelf)
             return;
 
-        for (NSString *key in [strongSelf->_dictionary allKeys]) {
+        NSArray *keysSortedByDate = [strongSelf->_dates keysSortedByValueUsingSelector:@selector(compare:)];
+        
+        for (NSString *key in keysSortedByDate) {
             block(strongSelf, key, [strongSelf->_dictionary objectForKey:key]);
         }
 
