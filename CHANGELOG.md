@@ -1,12 +1,15 @@
 ### 1.1.3 -- 2013 May 24 ###
 
+- [new] TMDiskCache: added method `enumerateObjectsWithBlock:completionBlock:`
+- [new] TMDiskCache: added method `enumerateObjectsWithBlock:`
+- [new] TMDiskCache: added unit tests for the above
 - [new] TMMemoryCache: added method `enumerateObjectsWithBlock:completionBlock:`
 - [new] TMMemoryCache: added method `enumerateObjectsWithBlock:`
 - [new] TMMemoryCache: added event block `didReceiveMemoryWarningBlock`
 - [new] TMMemoryCache: added event block `didEnterBackgroundBlock`
 - [new] TMMemoryCache: added boolean property `removeAllObjectsOnMemoryWarning`
 - [new] TMMemoryCache: added boolean property `removeAllObjectsOnEnteringBackground`
-- [new] TMMemoryCache: unit tests for memory warning and app background blocks
+- [new] TMMemoryCache: added unit tests for memory warning and app background blocks
 - [del] TMCache: removed `cost` methods pending a solution for disk-based cost
 
 

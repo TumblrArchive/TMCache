@@ -224,6 +224,16 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  */
 - (void)removeAllObjects:(TMDiskCacheBlock)block;
 
+/**
+ Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+ read from disk, the `object` parameter of the block will be `nil` but the `fileURL` will be available.
+ This method returns immediately.
+
+ @param block A block to be executed for every object in the cache.
+ @param completionBlock An optional block to be executed after the enumeration is complete.
+ */
+- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block completionBlock:(TMDiskCacheBlock)completionBlock;
+
 #pragma mark -
 /// @name Synchronous Methods
 
@@ -294,5 +304,17 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  Removes all objects from the cache. This method blocks the calling thread until the cache has been cleared.
  */
 - (void)removeAllObjects;
+
+/**
+ Loops through all objects in the cache (reads and writes are suspended during the enumeration). Data is not actually
+ read from disk, the `object` parameter of the block will be `nil` but the `fileURL` will be available.
+ This method blocks the calling thread until all objects have been enumerated.
+
+ @param block A block to be executed for every object in the cache.
+
+ @warning Do not call this method within the event blocks (<didRemoveObjectBlock>, etc.)
+          Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
+ */
+- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block;
 
 @end

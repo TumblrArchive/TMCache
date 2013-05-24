@@ -566,6 +566,36 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     });
 }
 
+- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block completionBlock:(TMDiskCacheBlock)completionBlock
+{
+    if (!block)
+        return;
+
+    TMCacheStartBackgroundTask();
+
+    __weak TMDiskCache *weakSelf = self;
+
+    dispatch_async(_queue, ^{
+        TMDiskCache *strongSelf = weakSelf;
+        if (!strongSelf) {
+            TMCacheEndBackgroundTask();
+            return;
+        }
+
+        NSArray *keysSortedByDate = [strongSelf->_dates keysSortedByValueUsingSelector:@selector(compare:)];
+
+        for (NSString *key in keysSortedByDate) {
+            NSURL *fileURL = [strongSelf encodedFileURLForKey:key];
+            block(strongSelf, key, nil, fileURL);
+        }
+
+        if (completionBlock)
+            completionBlock(strongSelf);
+
+        TMCacheEndBackgroundTask();
+    });
+}
+
 #pragma mark - Public Synchronous Methods -
 
 - (id <NSCoding>)objectForKey:(NSString *)key
@@ -708,6 +738,24 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
     [self removeAllObjects:^(TMDiskCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+    #if !OS_OBJECT_USE_OBJC
+    dispatch_release(semaphore);
+    #endif
+}
+
+- (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block
+{
+    if (!block)
+        return;
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    [self enumerateObjectsWithBlock:block completionBlock:^(TMDiskCache *cache) {
         dispatch_semaphore_signal(semaphore);
     }];
 

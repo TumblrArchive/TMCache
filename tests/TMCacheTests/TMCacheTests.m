@@ -298,4 +298,32 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     STAssertTrue(objectCount == enumCount, @"some objects were not enumerated");
 }
 
+- (void)testDiskCacheEnumeration
+{
+    NSUInteger objectCount = 3;
+
+    dispatch_apply(objectCount, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t index) {
+        NSString *key = [[NSString alloc] initWithFormat:@"key %zd", index];
+        NSString *obj = [[NSString alloc] initWithFormat:@"obj %zd", index];
+        [self.cache.diskCache setObject:obj forKey:key block:nil];
+    });
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    __block NSUInteger enumCount = 0;
+
+    [self.cache.diskCache enumerateObjectsWithBlock:^(TMDiskCache *cache, NSString *key, id <NSCoding> object, NSURL *fileURL) {
+        enumCount++;
+    } completionBlock:^(TMDiskCache *cache) {
+        dispatch_semaphore_signal(semaphore);
+    }];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceiveMemoryWarningNotification
+                                                        object:[UIApplication sharedApplication]];
+
+    dispatch_semaphore_wait(semaphore, [self timeout]);
+
+    STAssertTrue(objectCount == enumCount, @"some objects were not enumerated");
+}
+
 @end
