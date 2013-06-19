@@ -572,6 +572,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
                 emptyTrashSemaphore = dispatch_semaphore_create(1);
             });
             
+            UIBackgroundTaskIdentifier emptyTrashTaskID = UIBackgroundTaskInvalid;
+            emptyTrashTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+                [[UIApplication sharedApplication] endBackgroundTask:emptyTrashTaskID];
+            }];
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 dispatch_semaphore_wait(emptyTrashSemaphore, DISPATCH_TIME_FOREVER);
                 
@@ -589,6 +594,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
                 }
 
                 dispatch_semaphore_signal(emptyTrashSemaphore);
+                
+                [[UIApplication sharedApplication] endBackgroundTask:emptyTrashTaskID];
             });
         }
 
