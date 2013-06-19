@@ -543,11 +543,53 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
         if (strongSelf->_willRemoveAllObjectsBlock)
             strongSelf->_willRemoveAllObjectsBlock(strongSelf);
-
+        
         if ([[NSFileManager defaultManager] fileExistsAtPath:[strongSelf->_cacheURL path]]) {
-            NSError *error = nil;
-            [[NSFileManager defaultManager] removeItemAtURL:strongSelf->_cacheURL error:&error];
-            TMDiskCacheError(error);
+            NSURL *tempDirURL = [[[NSURL alloc] initFileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:TMDiskCachePrefix isDirectory:YES];
+            BOOL tempDirExists = NO;
+            
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[tempDirURL path]]) {
+                tempDirExists = YES;
+            } else {
+                NSError *error = nil;
+                tempDirExists = [[NSFileManager defaultManager] createDirectoryAtURL:tempDirURL
+                                                        withIntermediateDirectories:YES
+                                                                         attributes:nil
+                                                                              error:&error];
+                TMDiskCacheError(error);
+            }
+            
+            if (tempDirExists) {
+                NSError *error = nil;
+                NSURL *uniqueTempURL = [tempDirURL URLByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString] isDirectory:YES];
+                [[NSFileManager defaultManager] moveItemAtURL:strongSelf->_cacheURL toURL:uniqueTempURL error:&error];
+                TMDiskCacheError(error);
+            }
+            
+            static dispatch_semaphore_t emptyTrashSemaphore;
+            static dispatch_once_t predicate;
+            dispatch_once(&predicate, ^{
+                emptyTrashSemaphore = dispatch_semaphore_create(1);
+            });
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                dispatch_semaphore_wait(emptyTrashSemaphore, DISPATCH_TIME_FOREVER);
+                
+                NSError *error = nil;
+                NSArray *cacheDirs = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:tempDirURL
+                                                                   includingPropertiesForKeys:nil
+                                                                                      options:0
+                                                                                        error:&error];
+                TMDiskCacheError(error);
+                
+                for (NSURL *cacheDirURL in cacheDirs) {
+                    NSError *error = nil;
+                    [[NSFileManager defaultManager] removeItemAtURL:cacheDirURL error:&error];
+                    TMDiskCacheError(error);
+                }
+
+                dispatch_semaphore_signal(emptyTrashSemaphore);
+            });
         }
 
         [strongSelf createCacheDirectory];
