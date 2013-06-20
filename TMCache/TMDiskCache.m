@@ -196,7 +196,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
     NSError *error = nil;
     NSString *uniqueString = [[NSProcessInfo processInfo] globallyUniqueString];
-    NSURL *uniqueTrashURL = [[TMDiskCache sharedTrashURL] URLByAppendingPathComponent:uniqueString isDirectory:YES];
+    NSURL *uniqueTrashURL = [[TMDiskCache sharedTrashURL] URLByAppendingPathComponent:uniqueString];
     BOOL moved = [[NSFileManager defaultManager] moveItemAtURL:itemURL toURL:uniqueTrashURL error:&error];
     TMDiskCacheError(error);
     return moved;
