@@ -150,6 +150,80 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     return (__bridge_transfer NSString *)unescapedString;
 }
 
+#pragma mark - Private Trash Methods -
+
++ (dispatch_queue_t)sharedTrashQueue
+{
+    static dispatch_queue_t trashQueue;
+    static dispatch_once_t predicate;
+    
+    dispatch_once(&predicate, ^{
+        NSString *queueName = [[NSString alloc] initWithFormat:@"%@.trash", TMDiskCachePrefix];
+        trashQueue = dispatch_queue_create([queueName UTF8String], DISPATCH_QUEUE_SERIAL);
+        dispatch_set_target_queue(trashQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0));
+    });
+    
+    return trashQueue;
+}
+
++ (NSURL *)sharedTrashURL
+{
+    static NSURL *sharedTrashURL;
+    static dispatch_once_t predicate;
+    
+    dispatch_once(&predicate, ^{
+        sharedTrashURL = [[[NSURL alloc] initFileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:TMDiskCachePrefix isDirectory:YES];
+        
+        dispatch_async([self sharedTrashQueue], ^{
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[sharedTrashURL path]]) {
+                NSError *error = nil;
+                [[NSFileManager defaultManager] createDirectoryAtURL:sharedTrashURL
+                                         withIntermediateDirectories:YES
+                                                          attributes:nil
+                                                               error:&error];
+                TMDiskCacheError(error);
+            }
+        });
+    });
+    
+    return sharedTrashURL;
+}
+
++(BOOL)moveItemAtURLToTrash:(NSURL *)itemURL
+{
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[itemURL path]])
+        return NO;
+
+    NSError *error = nil;
+    NSString *uniqueString = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSURL *uniqueTrashURL = [[TMDiskCache sharedTrashURL] URLByAppendingPathComponent:uniqueString isDirectory:YES];
+    BOOL moved = [[NSFileManager defaultManager] moveItemAtURL:itemURL toURL:uniqueTrashURL error:&error];
+    TMDiskCacheError(error);
+    return moved;
+}
+
++ (void)emptyTrash
+{
+    TMCacheStartBackgroundTask();
+    
+    dispatch_async([self sharedTrashQueue], ^{        
+        NSError *error = nil;
+        NSArray *trashedItems = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[self sharedTrashURL]
+                                                              includingPropertiesForKeys:nil
+                                                                                 options:0
+                                                                                   error:&error];
+        TMDiskCacheError(error);
+
+        for (NSURL *trashedItemURL in trashedItems) {
+            NSError *error = nil;
+            [[NSFileManager defaultManager] removeItemAtURL:trashedItemURL error:&error];
+            TMDiskCacheError(error);
+        }
+            
+        TMCacheEndBackgroundTask();
+    });
+}
+
 #pragma mark - Private Queue Methods -
 
 - (BOOL)createCacheDirectory
@@ -224,12 +298,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     if (_willRemoveObjectBlock)
         _willRemoveObjectBlock(self, key, nil, fileURL);
 
-    NSError *error = nil;
-    BOOL removed = [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
-    TMDiskCacheError(error);
-
-    if (!removed)
+    BOOL trashed = [TMDiskCache moveItemAtURLToTrash:fileURL];
+    if (!trashed)
         return NO;
+    
+    [TMDiskCache emptyTrash];
 
     NSNumber *byteSize = [_sizes objectForKey:key];
     if (byteSize)
@@ -544,60 +617,8 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         if (strongSelf->_willRemoveAllObjectsBlock)
             strongSelf->_willRemoveAllObjectsBlock(strongSelf);
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[strongSelf->_cacheURL path]]) {
-            NSURL *tempDirURL = [[[NSURL alloc] initFileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:TMDiskCachePrefix isDirectory:YES];
-            BOOL tempDirExists = NO;
-            
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[tempDirURL path]]) {
-                tempDirExists = YES;
-            } else {
-                NSError *error = nil;
-                tempDirExists = [[NSFileManager defaultManager] createDirectoryAtURL:tempDirURL
-                                                        withIntermediateDirectories:YES
-                                                                         attributes:nil
-                                                                              error:&error];
-                TMDiskCacheError(error);
-            }
-            
-            if (tempDirExists) {
-                NSError *error = nil;
-                NSURL *uniqueTempURL = [tempDirURL URLByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString] isDirectory:YES];
-                [[NSFileManager defaultManager] moveItemAtURL:strongSelf->_cacheURL toURL:uniqueTempURL error:&error];
-                TMDiskCacheError(error);
-            }
-            
-            static dispatch_semaphore_t emptyTrashSemaphore;
-            static dispatch_once_t predicate;
-            dispatch_once(&predicate, ^{
-                emptyTrashSemaphore = dispatch_semaphore_create(1);
-            });
-            
-            UIBackgroundTaskIdentifier emptyTrashTaskID = UIBackgroundTaskInvalid;
-            emptyTrashTaskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-                [[UIApplication sharedApplication] endBackgroundTask:emptyTrashTaskID];
-            }];
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                dispatch_semaphore_wait(emptyTrashSemaphore, DISPATCH_TIME_FOREVER);
-                
-                NSError *error = nil;
-                NSArray *cacheDirs = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:tempDirURL
-                                                                   includingPropertiesForKeys:nil
-                                                                                      options:0
-                                                                                        error:&error];
-                TMDiskCacheError(error);
-                
-                for (NSURL *cacheDirURL in cacheDirs) {
-                    NSError *error = nil;
-                    [[NSFileManager defaultManager] removeItemAtURL:cacheDirURL error:&error];
-                    TMDiskCacheError(error);
-                }
-
-                dispatch_semaphore_signal(emptyTrashSemaphore);
-                
-                [[UIApplication sharedApplication] endBackgroundTask:emptyTrashTaskID];
-            });
-        }
+        [TMDiskCache moveItemAtURLToTrash:strongSelf->_cacheURL];
+        [TMDiskCache emptyTrash];
 
         [strongSelf createCacheDirectory];
 
