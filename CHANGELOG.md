@@ -1,3 +1,8 @@
+### 1.3.0 -- 2013 XXXX ###
+
+- [new] TMDiskCache: introduced concept of "trash" for rapid wipeouts
+
+
 ### 1.2.0 -- 2013 May 24 ###
 
 - [new] TMDiskCache: added method `enumerateObjectsWithBlock:completionBlock:`
