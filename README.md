@@ -7,8 +7,8 @@
 `TMCache` and `TMDiskCache` accept any object conforming to [NSCoding](https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html). Put things in like this:
 
 ```objective-c
-UIImage *image = [[UIImage alloc] initWithData:data scale:[[UIScreen mainScreen] scale]];
-[[TMCache sharedCache] setObject:image forKey:@"image" block:nil]; // returns immediately
+UIImage *img = [[UIImage alloc] initWithData:data scale:[[UIScreen mainScreen] scale]];
+[[TMCache sharedCache] setObject:image forKey:@"img" block:nil]; // returns immediately
 ```
     
 Get them back out like this:
@@ -28,7 +28,7 @@ Collections work too. Thanks to the magic of `NSKeyedArchiver`, objects repeated
 ```objective-c
 NSArray *images = @[ image, image, image ];
 [[TMCache sharedCache] setObject:images forKey:@"images"];
-NSLog(@"three for the price of one: %d", [[[TMCache sharedCache] diskCache] byteCount]);
+NSLog(@"3 for the price of 1: %d", [[[TMCache sharedCache] diskCache] byteCount]);
 ```
 
 ## Installation  ##
