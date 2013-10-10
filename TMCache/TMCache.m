@@ -379,4 +379,4 @@ NSString * const TMCacheSharedName = @"TMCacheShared";
 
 @end
 
-#pragma HC SVNT DRACONES
+// HC SVNT DRACONES
