@@ -8,7 +8,7 @@
 
 ```objective-c
 UIImage *img = [[UIImage alloc] initWithData:data scale:[[UIScreen mainScreen] scale]];
-[[TMCache sharedCache] setObject:image forKey:@"img" block:nil]; // returns immediately
+[[TMCache sharedCache] setObject:img forKey:@"image" block:nil]; // returns immediately
 ```
     
 Get them back out like this:
