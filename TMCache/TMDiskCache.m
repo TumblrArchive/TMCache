@@ -289,7 +289,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
     if (success) {
         NSString *key = [self keyForEncodedFileURL:fileURL];
-        [_dates setObject:date forKey:key];
+        if (key) {
+            [_dates setObject:date forKey:key];
+        }
     }
 
     return success;
