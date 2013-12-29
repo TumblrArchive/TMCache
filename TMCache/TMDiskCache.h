@@ -139,7 +139,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 
 
 /**
- The designated initializer. Multiple instances with the same name are allowed and can safely access
+ Multiple instances with the same name are allowed and can safely access
  the same data on disk thanks to the magic of seriality.
  
  @see name
@@ -147,6 +147,17 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  @result A new cache with the specified name.
  */
 - (instancetype)initWithName:(NSString *)name;
+
+/**
+ The designated initializer. Multiple instances with the same name are allowed and can safely access
+ the same data on disk thanks to the magic of seriality.
+ 
+ @see name
+ @param name The name of the cache.
+ @param rootPath The path of the cache.
+ @result A new cache with the specified name.
+ */
+- (instancetype)initWithName:(NSString *)name rootPath:(NSString *)rootPath;
 
 #pragma mark -
 /// @name Asynchronous Methods
