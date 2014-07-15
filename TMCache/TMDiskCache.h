@@ -60,7 +60,7 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
         NSLog(@"accurate, unchanging byte count: %d", [[TMDiskCache sharedCache] byteCount]);
     });
  */
-@property (readonly) NSUInteger byteCount;
+@property (readonly) unsigned long long byteCount;
 
 /**
  The maximum number of bytes allowed on disk. This value is checked every time an object is set, if the written
