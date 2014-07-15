@@ -251,21 +251,26 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
     NSError *error = nil;
     NSArray *keys = @[NSURLContentModificationDateKey, NSURLFileSizeKey, NSURLParentDirectoryURLKey];
-    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtURL:_cacheURL includingPropertiesForKeys:keys options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
-    TMDiskCacheError(error);
+    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtURL:_cacheURL
+                                                        includingPropertiesForKeys:keys
+                                                                           options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                      errorHandler:^BOOL(NSURL *url, NSError *enumerationError) {
+                                                                          TMDiskCacheError(enumerationError);
+                                                                          return YES;
+                                                                      }];
 
     for (NSURL *fileURL in files) {
         error = nil;
         NSDictionary *dictionary = [fileURL resourceValuesForKeys:keys error:&error];
+        TMDiskCacheError(error);
 
         NSURL *rootURL = fileURL;
         for (NSInteger level = files.level; level > 1; level--) {
             [rootURL getResourceValue:&rootURL forKey:NSURLParentDirectoryURLKey error:&error];
+            TMDiskCacheError(error);
         }
 
         NSString *key = [self keyForEncodedFileURL:rootURL];
-
-        TMDiskCacheError(error);
 
         if (files.level == 1) {
             NSDate *date = dictionary[NSURLContentModificationDateKey];
@@ -280,9 +285,10 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             byteCount += fileSize;
         }
     }
-
-    if (byteCount > 0)
+    
+    if (byteCount > 0) {
         self.byteCount = byteCount; // atomic
+    }
 }
 
 - (BOOL)setFileModificationDate:(NSDate *)date forURL:(NSURL *)fileURL
