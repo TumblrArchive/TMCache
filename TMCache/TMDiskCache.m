@@ -250,7 +250,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     unsigned long long byteCount = 0;
 
     NSError *error = nil;
-    NSArray *keys = @[NSURLContentModificationDateKey, NSURLFileSizeKey, NSURLParentDirectoryURLKey];
+    NSArray *keys = @[NSURLContentModificationDateKey, NSURLTotalFileSizeKey, NSURLParentDirectoryURLKey];
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtURL:_cacheURL
                                                         includingPropertiesForKeys:keys
                                                                            options:NSDirectoryEnumerationSkipsHiddenFiles
@@ -279,7 +279,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             }
         }
 
-        unsigned long long fileSize = [dictionary[NSURLFileSizeKey] unsignedLongLongValue];
+        unsigned long long fileSize = [dictionary[NSURLTotalFileSizeKey] unsignedLongLongValue];
         if (fileSize) {
             [_sizes setObject:@([_sizes[key] unsignedLongLongValue] + fileSize) forKey:key];
             byteCount += fileSize;
