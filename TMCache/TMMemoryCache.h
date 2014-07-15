@@ -15,6 +15,8 @@
  a memory cache backed by a disk cache.
  */
 
+#import <Foundation/Foundation.h>
+
 @class TMMemoryCache;
 
 typedef void (^TMMemoryCacheBlock)(TMMemoryCache *cache);

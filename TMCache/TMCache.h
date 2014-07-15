@@ -13,6 +13,8 @@
  separately if necessary. See the docs for <TMMemoryCache> and <TMDiskCache> for more details.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "TMDiskCache.h"
 #import "TMMemoryCache.h"
 
