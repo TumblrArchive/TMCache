@@ -4,6 +4,11 @@
 NSString * const TMCacheTestName = @"TMCacheTest";
 NSTimeInterval TMCacheTestBlockTimeout = 5.0;
 
+@interface TMDiskCache ()
+- (void)initializeDiskProperties;
+- (NSURL *)encodedFileURLForKey:(NSString *)key;
+@end
+
 @interface TMCacheTests ()
 @property (strong, nonatomic) TMCache *cache;
 @end
@@ -324,6 +329,21 @@ NSTimeInterval TMCacheTestBlockTimeout = 5.0;
     dispatch_semaphore_wait(semaphore, [self timeout]);
 
     STAssertTrue(objectCount == enumCount, @"some objects were not enumerated");
+}
+
+- (void)testDiskCacheRecursiveByteCount {
+    NSString *diskPath = [[self.cache.diskCache encodedFileURLForKey:@"http://tumblr.com"] path];
+    NSString *path = [NSString stringWithFormat:@"%@_", diskPath];
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+
+    NSData *data = [@"This is a string that will be turned into data." dataUsingEncoding:NSUTF8StringEncoding];
+    for (NSInteger i = 0; i < 10; i++) {
+        NSURL *fileURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%li.txt", (long)i]]];
+        [[NSFileManager defaultManager] createFileAtPath:fileURL.path contents:data attributes:nil];
+    }
+
+    [self.cache.diskCache initializeDiskProperties];
+    STAssertTrue(self.cache.diskCache.byteCount > 400, @"byte count did not take into consideration subdirectories");
 }
 
 @end
