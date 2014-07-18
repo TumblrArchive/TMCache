@@ -18,7 +18,7 @@ NSString * const TMDiskCachePrefix = @"com.tumblr.TMDiskCache";
 NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 @interface TMDiskCache ()
-@property (assign) unsigned long long byteCount;
+@property (assign) NSUInteger byteCount;
 @property (strong, nonatomic) NSURL *cacheURL;
 @property (assign, nonatomic) dispatch_queue_t queue;
 @property (strong, nonatomic) NSMutableDictionary *dates;
@@ -247,48 +247,36 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 - (void)initializeDiskProperties
 {
-    unsigned long long byteCount = 0;
+    NSUInteger byteCount = 0;
+    NSArray *keys = @[ NSURLContentModificationDateKey, NSURLTotalFileAllocatedSizeKey ];
 
     NSError *error = nil;
-    NSArray *keys = @[NSURLContentModificationDateKey, NSURLTotalFileSizeKey, NSURLParentDirectoryURLKey];
-    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtURL:_cacheURL
-                                                        includingPropertiesForKeys:keys
-                                                                           options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                      errorHandler:^BOOL(NSURL *url, NSError *enumerationError) {
-                                                                          TMDiskCacheError(enumerationError);
-                                                                          return YES;
-                                                                      }];
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:_cacheURL
+                                                   includingPropertiesForKeys:keys
+                                                                      options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                        error:&error];
+    TMDiskCacheError(error);
 
     for (NSURL *fileURL in files) {
+        NSString *key = [self keyForEncodedFileURL:fileURL];
+
         error = nil;
         NSDictionary *dictionary = [fileURL resourceValuesForKeys:keys error:&error];
         TMDiskCacheError(error);
 
-        NSURL *rootURL = fileURL;
-        for (NSInteger level = files.level; level > 1; level--) {
-            [rootURL getResourceValue:&rootURL forKey:NSURLParentDirectoryURLKey error:&error];
-            TMDiskCacheError(error);
-        }
+        NSDate *date = [dictionary objectForKey:NSURLContentModificationDateKey];
+        if (date)
+            [_dates setObject:date forKey:key];
 
-        NSString *key = [self keyForEncodedFileURL:rootURL];
-
-        if (files.level == 1) {
-            NSDate *date = dictionary[NSURLContentModificationDateKey];
-            if (date) {
-                [_dates setObject:date forKey:key];
-            }
-        }
-
-        unsigned long long fileSize = [dictionary[NSURLTotalFileSizeKey] unsignedLongLongValue];
+        NSNumber *fileSize = [dictionary objectForKey:NSURLTotalFileAllocatedSizeKey];
         if (fileSize) {
-            [_sizes setObject:@([_sizes[key] unsignedLongLongValue] + fileSize) forKey:key];
-            byteCount += fileSize;
+            [_sizes setObject:fileSize forKey:key];
+            byteCount += [fileSize unsignedIntegerValue];
         }
     }
-    
-    if (byteCount > 0) {
+
+    if (byteCount > 0)
         self.byteCount = byteCount; // atomic
-    }
 }
 
 - (BOOL)setFileModificationDate:(NSDate *)date forURL:(NSURL *)fileURL
