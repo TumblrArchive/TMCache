@@ -265,7 +265,7 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         TMDiskCacheError(error);
 
         NSDate *date = [dictionary objectForKey:NSURLContentModificationDateKey];
-        if (date)
+        if (date && key)
             [_dates setObject:date forKey:key];
 
         NSNumber *fileSize = [dictionary objectForKey:NSURLTotalFileAllocatedSizeKey];
@@ -281,14 +281,22 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 - (BOOL)setFileModificationDate:(NSDate *)date forURL:(NSURL *)fileURL
 {
+    if (!date || !fileURL) {
+        return NO;
+    }
+    
     NSError *error = nil;
     BOOL success = [[NSFileManager defaultManager] setAttributes:@{ NSFileModificationDate: date }
                                                     ofItemAtPath:[fileURL path]
                                                            error:&error];
     TMDiskCacheError(error);
 
-    if (success)
-        [_dates setObject:date forKey:[self keyForEncodedFileURL:fileURL]];
+    if (success) {
+        NSString *key = [self keyForEncodedFileURL:fileURL];
+        if (key) {
+            [_dates setObject:date forKey:key];
+        }
+    }
 
     return success;
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'TMCache'
-  s.version       = '1.2.0'
+  s.version       = '1.2.1'
   s.source_files  = 'TMCache/*.{h,m}'
   s.homepage      = 'https://github.com/tumblr/TMCache'
   s.summary       = 'Fast parallel object cache for iOS and OS X.'
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
       '--company-id', 'com.tumblr',
       '--project-name', 'TMCache',
       '--project-company', 'Tumblr',
-      '--project-version', '1.2.0',
+      '--project-version', '1.2.1',
       '--docset-min-xcode-version', '4.3',
       '--docset-bundle-name', '%PROJECT %VERSION',
       '--docset-bundle-id', '%COMPANYID.%PROJECTID',
