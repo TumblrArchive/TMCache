@@ -58,7 +58,7 @@ __TMCache__ requires iOS 5.0 or OS X 10.7 and greater.
 
 ## Contact ##
 
-[Justin Ouellette](mailto:jstn@tumblr.com)
+[Bryan Irace](mailto:bryan@tumblr.com)
 
 ## License ##
 
