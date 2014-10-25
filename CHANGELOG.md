@@ -1,7 +1,12 @@
-### 1.3.0 -- 2013 XXXX ###
+### 1.2.2 -- 2014 October 6 ###
+
+- [new] Remove deprecated `documentation` property from Podspec
+
+### 1.2.1 -- 2013 July 28 ###
 
 - [new] TMDiskCache: introduced concept of "trash" for rapid wipeouts
-
+- [new] TMDiskCache: `nil` checks to prevent crashes
+- [new] TMCache/TMDiskCache/TMMemoryCache: import Foundation to facilitate Swift usage
 
 ### 1.2.0 -- 2013 May 24 ###
 
