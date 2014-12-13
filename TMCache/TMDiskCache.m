@@ -1,4 +1,5 @@
 #import "TMDiskCache.h"
+#import <UIKit/UIKit.h>
 
 #define TMDiskCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
                                     [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \

@@ -1,4 +1,5 @@
 #import "TMMemoryCache.h"
+#import <UIKit/UIKit.h>
 
 NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
