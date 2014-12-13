@@ -1,3 +1,9 @@
+### 1.2.3 -- 2014 December 13 ###
+
+- [fix] TMDiskCache/TMMemoryCache: import `UIKit` to facilitate Swift usage (thanks [digabriel](https://github.com/tumblr/TMCache/pull/57)!)
+- [fix] TMDiskCache: add try catch to ensure an exception isn’t thrown if a file on disk is unable to be unarchived (thanks [leonskywalker](https://github.com/tumblr/TMCache/pull/62)!)
+- [fix] TMDiskCache: create trash directory asynchronously to avoid race condition (thanks [napoapo77](https://github.com/tumblr/TMCache/pull/68)!)
+
 ### 1.2.2 -- 2014 October 6 ###
 
 - [new] Remove deprecated `documentation` property from Podspec
