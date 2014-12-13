@@ -1,6 +1,6 @@
-# TMCache #
+# TMCache
 
-## Fast parallel object cache for iOS and OS X. ##
+## Fast parallel object cache for iOS and OS X.
 
 [![Build Status](https://img.shields.io/travis/tumblr/TMCache.svg?style=flat)](https://travis-ci.org/tumblr/XExtensionItem)
 [![Version](http://img.shields.io/cocoapods/v/TMCache.svg?style=flat)](http://cocoapods.org/?q=XExtensionItem)
@@ -36,32 +36,36 @@ NSArray *images = @[ image, image, image ];
 NSLog(@"3 for the price of 1: %d", [[[TMCache sharedCache] diskCache] byteCount]);
 ```
 
-## Installation  ##
+## Installation
 
-### Manually ####
+### Manually
 
 [Download the latest tag](https://github.com/tumblr/TMCache/tags) and drag the `TMCache` folder into your Xcode project.
 
 Install the docs by double clicking the `.docset` file under `docs/`, or view them online at [cocoadocs.org](http://cocoadocs.org/docsets/TMCache/)
 
-### Git Submodule ###
+### Git Submodule
 
     git submodule add https://github.com/tumblr/TMCache.git
     git submodule update --init
 
-### CocoaPods ###
+### CocoaPods
 
 Add [TMCache](http://cocoapods.org/?q=name%3ATMCache) to your `Podfile` and run `pod install`.
 
-## Requirements ##
+## Requirements
 
 __TMCache__ requires iOS 5.0 or OS X 10.7 and greater.
 
-## Contact ##
+## Contributing
+
+Please see [CONTRIBUTING.md](https://github.com/tumblr/XExtensionItem/blob/master/CONTRIBUTING.md) for information on how to help out.
+
+## Contact
 
 [Bryan Irace](mailto:bryan@tumblr.com)
 
-## License ##
+## License
 
 Copyright 2013 Tumblr, Inc.
 
