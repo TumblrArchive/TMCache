@@ -1,5 +1,8 @@
 #import "TMDiskCache.h"
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
 #import <UIKit/UIKit.h>
+#endif
 
 #define TMDiskCacheError(error) if (error) { NSLog(@"%@ (%d) ERROR: %@", \
                                     [[NSString stringWithUTF8String:__FILE__] lastPathComponent], \
