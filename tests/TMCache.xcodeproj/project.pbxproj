@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		662900351A66B724009C10BD /* TMCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83A171DF0AF0041E777 /* TMCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		662900361A66B727009C10BD /* TMCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83A171DF0AF0041E777 /* TMCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6629003B1A66B76B009C10BD /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83B171DF0AF0041E777 /* TMCache.m */; };
+		6629003C1A66B76B009C10BD /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83D171DF0AF0041E777 /* TMDiskCache.m */; };
+		6629003D1A66B76B009C10BD /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83F171DF0AF0041E777 /* TMMemoryCache.m */; };
+		662900401A66B79B009C10BD /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83B171DF0AF0041E777 /* TMCache.m */; };
+		662900411A66B79B009C10BD /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83D171DF0AF0041E777 /* TMDiskCache.m */; };
+		662900421A66B79B009C10BD /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E5D83F171DF0AF0041E777 /* TMMemoryCache.m */; };
+		662900451A66B830009C10BD /* TMDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83C171DF0AF0041E777 /* TMDiskCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		662900461A66B830009C10BD /* TMMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83E171DF0AF0041E777 /* TMMemoryCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		662900471A66B831009C10BD /* TMDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83C171DF0AF0041E777 /* TMDiskCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		662900481A66B831009C10BD /* TMMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D0E5D83E171DF0AF0041E777 /* TMMemoryCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07F1EB6171AFB7A001DBA02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F1EB5171AFB7A001DBA02 /* UIKit.framework */; };
 		D07F1EB8171AFB7A001DBA02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F1EB7171AFB7A001DBA02 /* Foundation.framework */; };
 		D07F1EBA171AFB7A001DBA02 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F1EB9171AFB7A001DBA02 /* CoreGraphics.framework */; };
@@ -36,7 +48,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6629002D1A66B60D009C10BD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		662900111A66B60D009C10BD /* TMCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TMCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		662900141A66B60D009C10BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6629FFED1A66B512009C10BD /* TMCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TMCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6629FFF01A66B512009C10BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D07F1EB2171AFB7A001DBA02 /* TMCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D07F1EB5171AFB7A001DBA02 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D07F1EB7171AFB7A001DBA02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,6 +92,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6629000D1A66B60D009C10BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6629FFE91A66B512009C10BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D07F1EAF171AFB7A001DBA02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,6 +129,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		662900121A66B60D009C10BD /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				662900131A66B60D009C10BD /* Supporting Files */,
+			);
+			path = "OS X";
+			sourceTree = "<group>";
+		};
+		662900131A66B60D009C10BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				662900141A66B60D009C10BD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6629FFEE1A66B512009C10BD /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6629FFEF1A66B512009C10BD /* Supporting Files */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6629FFEF1A66B512009C10BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6629FFF01A66B512009C10BD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		D07F1EA9171AFB7A001DBA02 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +168,8 @@
 				D0E5D839171DF0AF0041E777 /* TMCache */,
 				D07F1ED9171AFB7A001DBA02 /* TMCacheTests */,
 				D07F1EBC171AFB7A001DBA02 /* Supporting Files */,
+				6629FFEE1A66B512009C10BD /* iOS */,
+				662900121A66B60D009C10BD /* OS X */,
 				D07F1EB4171AFB7A001DBA02 /* Frameworks */,
 				D07F1EB3171AFB7A001DBA02 /* Products */,
 			);
@@ -103,6 +180,8 @@
 			children = (
 				D07F1EB2171AFB7A001DBA02 /* TMCache.app */,
 				D07F1ED2171AFB7A001DBA02 /* TMCacheTests.octest */,
+				6629FFED1A66B512009C10BD /* TMCache.framework */,
+				662900111A66B60D009C10BD /* TMCache.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,7 +246,66 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		6629000E1A66B60D009C10BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				662900361A66B727009C10BD /* TMCache.h in Headers */,
+				662900481A66B831009C10BD /* TMMemoryCache.h in Headers */,
+				662900471A66B831009C10BD /* TMDiskCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6629FFEA1A66B512009C10BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				662900351A66B724009C10BD /* TMCache.h in Headers */,
+				662900461A66B830009C10BD /* TMMemoryCache.h in Headers */,
+				662900451A66B830009C10BD /* TMDiskCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		662900101A66B60D009C10BD /* OS X */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6629002A1A66B60D009C10BD /* Build configuration list for PBXNativeTarget "OS X" */;
+			buildPhases = (
+				6629000C1A66B60D009C10BD /* Sources */,
+				6629000D1A66B60D009C10BD /* Frameworks */,
+				6629000E1A66B60D009C10BD /* Headers */,
+				6629000F1A66B60D009C10BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OS X";
+			productName = "OS X";
+			productReference = 662900111A66B60D009C10BD /* TMCache.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6629FFEC1A66B512009C10BD /* iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 662900061A66B513009C10BD /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildPhases = (
+				6629FFE81A66B512009C10BD /* Sources */,
+				6629FFE91A66B512009C10BD /* Frameworks */,
+				6629FFEA1A66B512009C10BD /* Headers */,
+				6629FFEB1A66B512009C10BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOS;
+			productName = iOS;
+			productReference = 6629FFED1A66B512009C10BD /* TMCache.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D07F1EB1171AFB7A001DBA02 /* TMCache */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D07F1EE4171AFB7A001DBA02 /* Build configuration list for PBXNativeTarget "TMCache" */;
@@ -175,6 +313,7 @@
 				D07F1EAE171AFB7A001DBA02 /* Sources */,
 				D07F1EAF171AFB7A001DBA02 /* Frameworks */,
 				D07F1EB0171AFB7A001DBA02 /* Resources */,
+				6629002D1A66B60D009C10BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,7 +341,7 @@
 			name = TMCacheTests;
 			productName = TMCacheTests;
 			productReference = D07F1ED2171AFB7A001DBA02 /* TMCacheTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -211,8 +350,17 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TM;
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Tumblr;
+				TargetAttributes = {
+					662900101A66B60D009C10BD = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					6629FFEC1A66B512009C10BD = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
 			};
 			buildConfigurationList = D07F1EAD171AFB7A001DBA02 /* Build configuration list for PBXProject "TMCache" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -228,11 +376,27 @@
 			targets = (
 				D07F1EB1171AFB7A001DBA02 /* TMCache */,
 				D07F1ED1171AFB7A001DBA02 /* TMCacheTests */,
+				6629FFEC1A66B512009C10BD /* iOS */,
+				662900101A66B60D009C10BD /* OS X */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6629000F1A66B60D009C10BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6629FFEB1A66B512009C10BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D07F1EB0171AFB7A001DBA02 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,6 +431,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6629000C1A66B60D009C10BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				662900401A66B79B009C10BD /* TMCache.m in Sources */,
+				662900411A66B79B009C10BD /* TMDiskCache.m in Sources */,
+				662900421A66B79B009C10BD /* TMMemoryCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6629FFE81A66B512009C10BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6629003B1A66B76B009C10BD /* TMCache.m in Sources */,
+				6629003C1A66B76B009C10BD /* TMDiskCache.m in Sources */,
+				6629003D1A66B76B009C10BD /* TMMemoryCache.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D07F1EAE171AFB7A001DBA02 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,6 +486,149 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		662900071A66B513009C10BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = TMCache;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		662900081A66B513009C10BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TMCache;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6629002B1A66B60D009C10BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "OS X/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = TMCache;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6629002C1A66B60D009C10BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "OS X/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TMCache;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		D07F1EE2171AFB7A001DBA02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -371,6 +698,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = "TMCache/TMCache-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -384,6 +712,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = "TMCache/TMCache-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -428,6 +757,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		662900061A66B513009C10BD /* Build configuration list for PBXNativeTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				662900071A66B513009C10BD /* Debug */,
+				662900081A66B513009C10BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6629002A1A66B60D009C10BD /* Build configuration list for PBXNativeTarget "OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6629002B1A66B60D009C10BD /* Debug */,
+				6629002C1A66B60D009C10BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D07F1EAD171AFB7A001DBA02 /* Build configuration list for PBXProject "TMCache" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
