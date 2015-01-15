@@ -34,6 +34,62 @@
                ReferencedContainer = "container:TMCache.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFAD1A66B433009C10BD"
+               BuildableName = "TMCache iOSTests.xctest"
+               BlueprintName = "TMCache iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFD21A66B465009C10BD"
+               BuildableName = "TMCache_iOSTests.xctest"
+               BlueprintName = "TMCache_iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFF61A66B512009C10BD"
+               BuildableName = "iOSTests.xctest"
+               BlueprintName = "iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629001A1A66B60D009C10BD"
+               BuildableName = "OS XTests.xctest"
+               BlueprintName = "OS XTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -49,6 +105,46 @@
                BlueprintIdentifier = "D07F1ED1171AFB7A001DBA02"
                BuildableName = "TMCacheTests.octest"
                BlueprintName = "TMCacheTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFAD1A66B433009C10BD"
+               BuildableName = "TMCache iOSTests.xctest"
+               BlueprintName = "TMCache iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFD21A66B465009C10BD"
+               BuildableName = "TMCache_iOSTests.xctest"
+               BlueprintName = "TMCache_iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629FFF61A66B512009C10BD"
+               BuildableName = "iOSTests.xctest"
+               BlueprintName = "iOSTests"
+               ReferencedContainer = "container:TMCache.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6629001A1A66B60D009C10BD"
+               BuildableName = "OS XTests.xctest"
+               BlueprintName = "OS XTests"
                ReferencedContainer = "container:TMCache.xcodeproj">
             </BuildableReference>
          </TestableReference>
