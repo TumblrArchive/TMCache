@@ -493,8 +493,9 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
             if (diskFileSize) {
                 NSNumber *oldEntry = [strongSelf->_sizes objectForKey:key];
                 
-                if ([oldEntry isKindOfClass:[NSNumber class]])
+                if ([oldEntry isKindOfClass:[NSNumber class]]){
                     strongSelf.byteCount = strongSelf->_byteCount - [oldEntry unsignedIntegerValue];
+                }
                 
                 [strongSelf->_sizes setObject:diskFileSize forKey:key];
                 strongSelf.byteCount = strongSelf->_byteCount + [diskFileSize unsignedIntegerValue]; // atomic
