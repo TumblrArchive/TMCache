@@ -340,6 +340,11 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
 #pragma mark -
 /// @name Background Tasks
 
+/**
+ Set a global manager to be used for setting up/tearing down any background tasks needed by TMCache.
+ 
+ @param backgroundTaskManager Background task manager.
+ */
 + (void)setBackgroundTaskManager:(id <TMCacheBackgroundTaskManager>)backgroundTaskManager;
 
 @end
