@@ -26,6 +26,7 @@
 #import <Foundation/Foundation.h>
 
 @class TMDiskCache;
+@protocol TMCacheBackgroundTaskManager;
 
 typedef void (^TMDiskCacheBlock)(TMDiskCache *cache);
 typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NSCoding> object, NSURL *fileURL);
@@ -335,5 +336,10 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  Instead use the asynchronous version, <enumerateObjectsWithBlock:completionBlock:>.
  */
 - (void)enumerateObjectsWithBlock:(TMDiskCacheObjectBlock)block;
+
+#pragma mark -
+/// @name Background Tasks
+
++ (void)setBackgroundTaskManager:(id <TMCacheBackgroundTaskManager>)backgroundTaskManager;
 
 @end
