@@ -66,6 +66,7 @@
 		662900141A66B60D009C10BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6629FFED1A66B512009C10BD /* TMCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TMCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6629FFF01A66B512009C10BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93E151CE1AEA960B00CCD447 /* TMCacheBackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCacheBackgroundTaskManager.h; sourceTree = "<group>"; };
 		D07F1EB2171AFB7A001DBA02 /* TMCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D07F1EB5171AFB7A001DBA02 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D07F1EB7171AFB7A001DBA02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -239,6 +240,7 @@
 				D0E5D83D171DF0AF0041E777 /* TMDiskCache.m */,
 				D0E5D83E171DF0AF0041E777 /* TMMemoryCache.h */,
 				D0E5D83F171DF0AF0041E777 /* TMMemoryCache.m */,
+				93E151CE1AEA960B00CCD447 /* TMCacheBackgroundTaskManager.h */,
 			);
 			name = TMCache;
 			path = ../TMCache;
@@ -764,6 +766,7 @@
 				662900081A66B513009C10BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6629002A1A66B60D009C10BD /* Build configuration list for PBXNativeTarget "OS X" */ = {
 			isa = XCConfigurationList;
@@ -772,6 +775,7 @@
 				6629002C1A66B60D009C10BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D07F1EAD171AFB7A001DBA02 /* Build configuration list for PBXProject "TMCache" */ = {
 			isa = XCConfigurationList;
