@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Tumblr. All rights reserved.
 //
 
-@import UIKit;
-
-#ifndef UIBackgroundTaskIdentifier
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
+#import <UIKit/UIKit.h>
+#else
 typedef NSUInteger UIBackgroundTaskIdentifier;
 #endif
 
