@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#ifndef __IPHONE_OS_VERSION_MIN_REQUIRED
+#ifndef UIBackgroundTaskIdentifier
 typedef NSUInteger UIBackgroundTaskIdentifier;
 #endif
 
