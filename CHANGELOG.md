@@ -88,7 +88,7 @@ NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleM
 NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleApplicationBackgrounding", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
 ```
 
-### 1.2.3 -- 2014 December 13 ###      +### 2.0.0 -- 
+### 1.2.3 -- 2014 December 13 ###
          
 - [fix] TMDiskCache/TMMemoryCache: import `UIKit` to facilitate Swift usage (thanks [digabriel](https://github.com/tumblr/TMCache/pull/57)!)       +### 1.2.3 -- 2015 April 27 ###
 - [fix] TMDiskCache: add try catch to ensure an exception isn’t thrown if a file on disk is unable to be unarchived (thanks [leonskywalker](https://github.com/tumblr/TMCache/pull/62)!)       +
