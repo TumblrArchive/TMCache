@@ -1,6 +1,4 @@
-### 2.0.0 -- 
-
-### 1.2.3 -- 2015 April 27 ###
+### 2.0.0 -- 2015 April 27 ###
 
 2.0.0 removes all references to `UIApplication sharedApplication`. As of iOS 8, this method is annotated with `NS_EXTENSION_UNAVAILABLE_IOS`, meaning that it won’t compile as part of an iOS 8 extension. In order to facilitate `TMCache` usage inside extensions.
 
@@ -89,6 +87,12 @@ NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleM
 
 NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleApplicationBackgrounding", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
 ```
+
+### 1.2.3 -- 2014 December 13 ###      +### 2.0.0 -- 
+         
+- [fix] TMDiskCache/TMMemoryCache: import `UIKit` to facilitate Swift usage (thanks [digabriel](https://github.com/tumblr/TMCache/pull/57)!)       +### 1.2.3 -- 2015 April 27 ###
+- [fix] TMDiskCache: add try catch to ensure an exception isn’t thrown if a file on disk is unable to be unarchived (thanks [leonskywalker](https://github.com/tumblr/TMCache/pull/62)!)       +
+- [fix] TMDiskCache: create trash directory asynchronously to avoid race condition (thanks [napoapo77](https://github.com/tumblr/TMCache/pull/68)!)
 
 ### 1.2.2 -- 2014 October 6 ###
 
