@@ -1,8 +1,94 @@
-### 1.2.3 -- 2014 December 13 ###
+### 2.0.0 -- 
 
-- [fix] TMDiskCache/TMMemoryCache: import `UIKit` to facilitate Swift usage (thanks [digabriel](https://github.com/tumblr/TMCache/pull/57)!)
-- [fix] TMDiskCache: add try catch to ensure an exception isn’t thrown if a file on disk is unable to be unarchived (thanks [leonskywalker](https://github.com/tumblr/TMCache/pull/62)!)
-- [fix] TMDiskCache: create trash directory asynchronously to avoid race condition (thanks [napoapo77](https://github.com/tumblr/TMCache/pull/68)!)
+### 1.2.3 -- 2015 April 27 ###
+
+2.0.0 removes all references to `UIApplication sharedApplication`. As of iOS 8, this method is annotated with `NS_EXTENSION_UNAVAILABLE_IOS`, meaning that it won’t compile as part of an iOS 8 extension. In order to facilitate `TMCache` usage inside extensions.
+
+`TMCache` previously used `UIApplication` for two different functions:
+
+* Wrapping work in background tasks, to ensure that it completes even if the user backgrounds the application
+* Listening for `UIApplicationDidEnterBackgroundNotification` and `UIApplicationDidReceiveMemoryWarningNotification`, in order to perform some cleanup work
+
+If you still want this behavior, it’s now up to you to implement this behavior in your application code. Thankfully, doing so is extremely straightforward:
+
+## Background tasks
+
+Create a class that conforms to `TMCacheBackgroundTaskManager`. Your implementation will likely look very much like this:
+
+**Objective-C:**
+```objc
+@interface BackgroundTaskManager: NSObject <TMCacheBackgroundTaskManager>
+
+@implementation BackgroundTaskManger
+
+- (UIBackgroundTaskIdentifier)beginBackgroundTask {
+    UIBackgroundTaskIdentifier taskID = UIBackgroundTaskInvalid;
+
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+    }];
+
+    return taskID;
+}
+
+- (void)endBackgroundTask:(UIBackgroundTaskIdentifier)identifier {
+    [[UIApplication sharedApplication] endBackgroundTask:identifier];
+}
+
+@end
+```
+
+**Swift:**
+```swift
+class BackgroundTaskManager: NSObject, TMCacheBackgroundTaskManager {
+    private let application = UIApplication.sharedApplication()
+    
+    func beginBackgroundTask() -> UInt {
+        let taskID = UIBackgroundTaskInvalid
+        
+        application.beginBackgroundTaskWithExpirationHandler {
+            self.application.endBackgroundTask(taskID)
+        }
+
+        return UInt(taskID)
+    }
+    
+    func endBackgroundTask(identifier: UInt) {
+        application.endBackgroundTask(Int(identifier))
+    }
+}
+
+```
+
+Then, pass an instance of your class to the following `TMDiskCache` class method:
+
+```objc
+[TMDiskCache setBackgroundTaskManager:[[BackgroundTaskManager alloc] init]];
+```
+
+## Clean-up on memory warning/backgrounding notifications
+
+`TMMemoryCache` has new public methods that can be called in the event of a memory warning or application backgrounding, in order to easily replicate `TMCache` 1.X.X behavior:
+
+**Objective-C:**
+```objc
+[[NSNotificationCenter defaultCenter] addObserver:memoryCache
+                                         selector:@selector(handleMemoryWarning)        
+                                             name:UIApplicationDidReceiveMemoryWarningNotification     
+                                           object:[UIApplication sharedApplication]];
+
+[[NSNotificationCenter defaultCenter] addObserver:memoryCache
+                                         selector:@selector(handleApplicationBackgrounding)        
+                                             name:UIApplicationDidEnterBackgroundNotification     
+                                           object:[UIApplication sharedApplication]];
+```
+
+**Swift:**
+```swift
+NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleMemoryWarning", name: UIApplicationDidReceiveMemoryWarningNotification, object: UIApplication.sharedApplication())
+
+NSNotificationCenter.defaultCenter().addObserver(memoryCache, selector: "handleApplicationBackgrounding", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
+```
 
 ### 1.2.2 -- 2014 October 6 ###
 
