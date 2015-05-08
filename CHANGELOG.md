@@ -1,3 +1,9 @@
+### 2.1 -- 2015 May 8 ###
+
+Removes the need for the explicit memory warning and application background handling, which was an ill-advised change in 2.0.
+
+The other part of the 2.0 release still applies; you need to explicitly provide an object that knows how to vend background tasks in order for operations to continue after your application has been backgrounded.
+
 ### 2.0.0 -- 2015 April 27 ###
 
 2.0.0 removes all references to `UIApplication sharedApplication`. As of iOS 8, this method is annotated with `NS_EXTENSION_UNAVAILABLE_IOS`, meaning that it won’t compile as part of an iOS 8 extension. In order to facilitate `TMCache` usage inside extensions.
