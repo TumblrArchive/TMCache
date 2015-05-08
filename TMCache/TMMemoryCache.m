@@ -70,6 +70,18 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
         _removeAllObjectsOnMemoryWarning = YES;
         _removeAllObjectsOnEnteringBackground = YES;
+        
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleMemoryWarning)
+                                                     name:UIApplicationDidReceiveMemoryWarningNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleApplicationBackgrounding)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+#endif
     }
     return self;
 }
@@ -88,9 +100,10 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
 
 #pragma mark - Private Methods -
 
-- (void)handleMemoryWarning {
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
-
+- (void)handleMemoryWarning
+{
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
+    
     if (self.removeAllObjectsOnMemoryWarning)
         [self removeAllObjects:nil];
     
@@ -105,11 +118,12 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
             strongSelf->_didReceiveMemoryWarningBlock(strongSelf);
     });
     
-    #endif
+#endif
 }
 
-- (void)handleApplicationBackgrounding {
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
+- (void)handleApplicationBackgrounding
+{
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
     
     if (self.removeAllObjectsOnEnteringBackground)
         [self removeAllObjects:nil];
@@ -125,7 +139,7 @@ NSString * const TMMemoryCachePrefix = @"com.tumblr.TMMemoryCache";
             strongSelf->_didEnterBackgroundBlock(strongSelf);
     });
     
-    #endif
+#endif
 }
 
 - (void)removeObjectAndExecuteBlocksForKey:(NSString *)key
