@@ -297,8 +297,4 @@ typedef void (^TMMemoryCacheObjectBlock)(TMMemoryCache *cache, NSString *key, id
  */
 - (void)enumerateObjectsWithBlock:(TMMemoryCacheObjectBlock)block;
 
-- (void)handleMemoryWarning;
-
-- (void)handleApplicationBackgrounding;
-
 @end
